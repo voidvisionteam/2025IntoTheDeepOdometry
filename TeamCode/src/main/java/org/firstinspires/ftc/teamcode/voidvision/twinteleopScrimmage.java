@@ -34,6 +34,11 @@ public class twinteleopScrimmage extends LinearOpMode {
     private boolean retract = false;  // boolean for retract mode
     private boolean retract2 = false;
 
+    private boolean UpperRungRunning;
+    private boolean LowerRungRunning;
+    private boolean NoRungRunning;
+
+
 
     // New flag for left joystick control during the subroutine
     private boolean isLiftMotorRoutineRunning = false;
@@ -254,6 +259,10 @@ public class twinteleopScrimmage extends LinearOpMode {
         telemetry.addData("Second Servo Sequence", "Completed");
         telemetry.update();
     }
+    private void runUpperRungSequence(){}
+    private void runLowerRungSequence(){}
+    private void runNoRungSequence(){}
+
     /**
      * Checks if the cancel button (gamepad2.b) is pressed and stops the routine if true.
      * @return true if canceled, false otherwise
