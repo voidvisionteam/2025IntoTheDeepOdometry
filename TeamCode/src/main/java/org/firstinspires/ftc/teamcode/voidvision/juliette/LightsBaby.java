@@ -16,7 +16,6 @@ public class LightsBaby extends LinearOpMode {
 
     // Robot hardware map instance
     babyhwmap robot = new babyhwmap();
-    RevBlinkinLedDriver blinkinLedDriver = hardwareMap.get(RevBlinkinLedDriver.class, "blinkin");
 
     // Timer for tracking elapsed time
     private ElapsedTime runtime = new ElapsedTime();
@@ -50,7 +49,7 @@ public class LightsBaby extends LinearOpMode {
         telemetry.addData("Status", "Ready to run");
         telemetry.update();
 
-
+        RevBlinkinLedDriver blinkinLedDriver = hardwareMap.get(RevBlinkinLedDriver.class, "blinkin");
         // Wait for the driver to start the teleop
         waitForStart();
 
@@ -83,7 +82,10 @@ public class LightsBaby extends LinearOpMode {
             slowamount = 0.5;
 
             //different lights when going forward back right and left
-            if(Math.abs(strafePower)>Math.abs(fwdBackPower)){
+            if(Math.abs(strafePower+fwdBackPower)<0.01){
+                blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.COLOR_WAVES_RAINBOW_PALETTE);
+            }
+            else if(Math.abs(strafePower)>Math.abs(fwdBackPower)){
                if(strafePower>0){
                    //Change Light Yellow
                    blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.YELLOW);
@@ -93,11 +95,11 @@ public class LightsBaby extends LinearOpMode {
                    blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.GREEN);
                }
             }
-            else if(Math.abs(fwdBackPower)>0){
+            else if(fwdBackPower>0){
                 //Change Light Blue
                 blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLUE);
             }
-            else if(Math.abs(fwdBackPower)<0){
+            else if(fwdBackPower<0){
                 //Change Light Red
                 blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.RED);
             };
