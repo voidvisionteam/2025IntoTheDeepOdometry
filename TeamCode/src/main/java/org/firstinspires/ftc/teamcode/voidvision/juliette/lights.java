@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 
 import org.firstinspires.ftc.teamcode.voidvision.teenagehwmap;
 
@@ -12,7 +13,12 @@ import org.firstinspires.ftc.teamcode.voidvision.teenagehwmap;
 public class lights extends LinearOpMode {
     teenagehwmap robot = new teenagehwmap();
     private ElapsedTime runtime = new ElapsedTime();
-
+    //Variables for Red vs yellow vs blue blocks
+    final double RED_MIN_RED = 150;
+    final double RED_MAX_GREEN = 40;
+    final double BLUE_MIN_BLUE = 150;
+    final double YELLOW_MIN_RED = 80;
+    final double YELLOW_MIN_GREEN = 80;
 
     static double turnPower;
     static double fwdBackPower;
@@ -66,10 +72,14 @@ public class lights extends LinearOpMode {
         targetPositionLowerRung = 902+initialPosition; // Adjust based on desired lift distance
         targetPositionUpperRung = 2318+initialPosition; // Adjust based on desired lift distance
 
-
+        RevBlinkinLedDriver blinkinLedDriver = hardwareMap.get(RevBlinkinLedDriver.class, "blinkin");
+        //blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLACK);
         while (opModeIsActive()) {
             //---- Color Sensor Update ----
-            //int colorRed= colorSensor.red();
+            //int colorRed = colorSensor.red();
+            //int colorBlue = colorSensor.blue();
+            //int colorGreen = colorSensor.green();
+            //int colorAlpha = colorSensor.alpha();
             // ---- Drive Control ----
             fwdBackPower = direction * -gamepad1.left_stick_y * slowamount;
             strafePower = direction * -gamepad1.left_stick_x * slowamount;
@@ -147,6 +157,28 @@ public class lights extends LinearOpMode {
                 if(gamepad2.right_bumper){intakePartition = true;}
             }
             else if(intakePartition){
+
+                //----PUT COLOR LIGHTS SHOW WHICH BLOCK HERE---
+                /*
+                if((colorRed>RED_MIN_RED)&&(colorBlue>BLUE_MIN_BLUE)&&(colorGreen>YELLOW_MIN_GREEN)){
+                   blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLACK);
+                }
+                else if ((colorRed>RED_MIN_RED)&&(colorGreen<RED_MAX_GREEN)){
+                    blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.RED);
+                }
+                else if ((colorGreen>YELLOW_MIN_GREEN)&&(colorRed>YELLOW_MIN_RED)){
+                    blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.YELLOW);
+                }
+                else if (colorBlue>BLUE_MIN_BLUE){
+                    blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLUE);
+                }
+                else {
+                   blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLACK);
+                }
+                 */
+
+
+
                 // ---- Second Servo Subroutine (Triggered by gamepad2.b) ----
                 moveServosSimultaneously(robot.range1Servo,0+ robot.Finalrange*gamepad2.right_trigger, robot.range2Servo, robot.Finalrange-robot.Finalrange*gamepad2.right_trigger, 1);
                 if (gamepad2.b && !isRoutineRunning) {

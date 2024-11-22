@@ -83,7 +83,7 @@ public class LightsBaby extends LinearOpMode {
 
             //different lights when going forward back right and left
             if(Math.abs(strafePower+fwdBackPower)<0.01){
-                blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.COLOR_WAVES_RAINBOW_PALETTE);
+                blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLACK);
             }
             else if(Math.abs(strafePower)>Math.abs(fwdBackPower)){
                if(strafePower>0){
@@ -102,7 +102,7 @@ public class LightsBaby extends LinearOpMode {
             else if(fwdBackPower<0){
                 //Change Light Red
                 blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.RED);
-            };
+            }
 
             // Flip wheel configuration when right bumper is pressed
             if (gamepad1.right_bumper) {
