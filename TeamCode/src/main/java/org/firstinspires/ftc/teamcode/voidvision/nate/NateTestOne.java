@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.voidvision.babyhwmap;
 
 
-@TeleOp(name="baby teleop", group="Pushbot")
+@TeleOp(name="baby teleop nate", group="Pushbot")
 public class NateTestOne extends LinearOpMode {
 
 
