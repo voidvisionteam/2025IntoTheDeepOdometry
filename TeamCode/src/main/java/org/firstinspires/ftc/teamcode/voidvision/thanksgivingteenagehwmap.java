@@ -4,7 +4,6 @@ package org.firstinspires.ftc.teamcode.voidvision;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -13,7 +12,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  * teenagehwmap class defines the hardware mapping for the robot's motors, servos, and sensors.
  * It initializes and configures the drive motors, arm mechanisms, and sensor hardware.
  */
-public class teenagehwmap extends HardwareMapUtil {
+public class thanksgivingteenagehwmap extends HardwareMapUtil {
 
 
     // Declare hardware components
@@ -64,7 +63,7 @@ public class teenagehwmap extends HardwareMapUtil {
 
 
         // Initialize arm motors and servos (commented out if not needed yet)
-        liftMotor = HardwareInitMotor("liftMotor", false);
+        //liftMotor = HardwareInitMotor("liftMotor", false);
         // armMotorTwo = HardwareInitMotor("arm_2", true);
         // armServo = hwMap.get(CRServo.class, "servo");
         // posServo = hwMap.get(Servo.class, "posServo");
@@ -73,12 +72,12 @@ public class teenagehwmap extends HardwareMapUtil {
         // Initialize range and basket servos
         range1Servo = HardwareInitServo("hippo1", 0); // Left range servo
         range2Servo = HardwareInitServo("hippo2", Finalrange); // Right range servo
-        intakeServo = HardwareInitCRServo("intake", true); // Intake servo
-        basketServo1 = HardwareInitServo("basket2", 0); // Left basket servo
-        basketServo2 = HardwareInitServo("basket1", FinalrangeBasket); // Right basket servo
+        //intakeServo = HardwareInitCRServo("intake", true); // Intake servo
+        basketServo1 = HardwareInitServo("basket2", 0+FinalrangeBasket*.25); // Left basket servo
+        basketServo2 = HardwareInitServo("basket1", FinalrangeBasket-FinalrangeBasket*.25); // Right basket servo
         //these are flipped because Will flipped them
         clawServo = HardwareInitServo("claw",.19);
-        clawRotateServo = HardwareInitServo("terminator",FinalrangeClawRotate);
+        clawRotateServo = HardwareInitServo("terminator",FinalposClawRotate);
 
 
         // Initialize color sensor (commented out if not needed yet)
@@ -86,7 +85,7 @@ public class teenagehwmap extends HardwareMapUtil {
 
 
         /** Set servo directions */
-        //armServo.setDirection(DcMotorSimple.Direction.FORWARD);
+        // armServo.setDirection(DcMotorSimple.Direction.FORWARD);
         //intakeServo.setDirection(DcMotorSimple.Direction.FORWARD);
 
 
@@ -96,8 +95,8 @@ public class teenagehwmap extends HardwareMapUtil {
         rightfrontDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftbackDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightbackDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        //armMotorTwo.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        // armMotorTwo.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 }
 
