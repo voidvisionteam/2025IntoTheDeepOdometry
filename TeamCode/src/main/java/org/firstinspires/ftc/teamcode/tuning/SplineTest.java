@@ -25,7 +25,7 @@ public final class SplineTest extends LinearOpMode {
                         .strafeTo(new Vector2d(15, 15))
                         .strafeTo(new Vector2d(0, 15))
                         .strafeTo(new Vector2d(0, 0))
-                        .splineTo(new Vector2d(15, 15), Math.PI / 2)
+                        .splineTo(new Vector2d(15, 15), Math.PI / 4)
 
 
 
