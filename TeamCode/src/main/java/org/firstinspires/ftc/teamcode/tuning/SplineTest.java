@@ -48,7 +48,10 @@ public final class SplineTest extends LinearOpMode {
                         .waitSeconds(.5)
                         .turn(quarterTurn)
                         .waitSeconds(.5)
-                        //.splineTo(new Vector2d(10, 10), Math.PI / 4)
+                        .setTangent(0)
+                        .splineToSplineHeading( new Pose2d(10, -10, quarterTurn), Math.PI / 2)
+                        .waitSeconds(.5)
+                        .splineToSplineHeading( new Pose2d(0, 0, quarterTurn), Math.PI / 2)
 
 
 

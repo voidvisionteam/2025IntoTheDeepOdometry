@@ -99,5 +99,6 @@ public class teenagehwmap extends HardwareMapUtil {
         liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //armMotorTwo.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
+    public HardwareMap getHwmap(){return hwmap;}
 }
 
