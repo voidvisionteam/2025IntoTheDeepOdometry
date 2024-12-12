@@ -173,7 +173,6 @@ public class lights extends LinearOpMode {
                     blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLUE);
                 }
                 else {
-                   blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLACK);
                 }
                  */
 
