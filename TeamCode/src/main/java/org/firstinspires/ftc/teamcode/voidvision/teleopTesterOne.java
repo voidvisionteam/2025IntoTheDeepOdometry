@@ -9,8 +9,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.CRServo;
 
 
-@TeleOp(name="teenageteleop2", group="Pushbot")
-public class teenageteleop2 extends LinearOpMode {
+@TeleOp(name="teleopTesterOne", group="Pushbot")
+public class teleopTesterOne extends LinearOpMode {
     teenagehwmap robot = new teenagehwmap();
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -70,85 +70,31 @@ public class teenageteleop2 extends LinearOpMode {
 
         while (opModeIsActive()) {
             // ---- Drive Control ----
-            fwdBackPower = direction * -gamepad1.left_stick_y * slowamount;
-            strafePower = direction * -gamepad1.left_stick_x * slowamount;
-            turnPower = gamepad1.right_stick_x * slowamount;
 
+            if(gamepad2.x){clamp = !clamp;sleepWithOpModeCheck(150);
 
-            lfPower = (fwdBackPower - turnPower - strafePower);
-            rfPower = (fwdBackPower + turnPower + strafePower);
-            lbPower = (fwdBackPower - turnPower + strafePower);
-            rbPower = (fwdBackPower + turnPower - strafePower);
-
-
-            robot.leftfrontDrive.setPower(lfPower);
-            robot.leftbackDrive.setPower(lbPower);
-            robot.rightfrontDrive.setPower(rfPower);
-            robot.rightbackDrive.setPower(rbPower);
-
-
-            slowamount = .6;
-
-
-            // ---- Mecanum Drive Adjustments ----
-            if (gamepad1.right_bumper) {
-                flipWheelConfigurationBackward();
-                telemetry.addData("Direction-Backward:", direction);
-            } else {
-                flipWheelConfigurationNormal();
-                telemetry.addData("Direction-Normal:", direction);
             }
+            if(clamp){
+                telemetry.addData("Start Clampeed",true);telemetry.update();
 
-
-            if (gamepad1.left_bumper) {
-                slowamount = .25;
+                robot.clawServo.setPosition(.19);
+                telemetry.addData("Clampeed",true);telemetry.update();
             }
-            //if(gamepad1.b){intakePartition = !intakePartition;sleepWithOpModeCheck(200);}
+            else{
+                telemetry.addData("Start UnClampeed",true);telemetry.update();
 
-                robot.liftMotor.setPower(-1*gamepad2.left_stick_y*.6);
-                if(gamepad2.x){clamp = !clamp;sleepWithOpModeCheck(150);
-
-                }
-                if(clamp){
-                    telemetry.addData("Start Clampeed",true);telemetry.update();
-
-                    robot.clawServo.setPosition(.19);
-                    telemetry.addData("Clampeed",true);telemetry.update();
-                }
-                else{
-                    telemetry.addData("Start UnClampeed",true);telemetry.update();
-
-                    robot.clawServo.setPosition(0);
-                    telemetry.addData("UnClampeed",true);telemetry.update();
-                }
-                //extender
-                //moveServosSimultaneously(robot.range1Servo, robot.Finalrange*gamepad2.right_trigger, robot.range2Servo, robot.Finalrange- robot.Finalrange*gamepad2.right_trigger, 0.6);
-                if(gamepad2.y){liftClamp = !liftClamp;sleepWithOpModeCheck(150);}
-                if(liftClamp){
-                    rotateClaw();
-                }
-                else{
-                    rotateClaw2();
-                }
-
-                if(gamepad2.right_bumper){intakePartition = true;}
-
-
-                // ---- Second Servo Subroutine (Triggered by gamepad2.b) ----
-
-                //moveServosSimultaneously(robot.range1Servo,0+ robot.Finalrange*gamepad2.right_trigger, robot.range2Servo, robot.Finalrange-robot.Finalrange*gamepad2.right_trigger, 1);
-                //robot.liftMotor.setPower(0);
-                //extend the Basket
-                robot.range1Servo.setPosition(0+ robot.Finalrange*gamepad2.right_trigger);
-                robot.range2Servo.setPosition(robot.Finalrange-robot.Finalrange*gamepad2.right_trigger);
-                //Move the Basket Rotationally
-                robot.basketServo1.setPosition(0+robot.FinalrangeBasket*gamepad2.left_trigger);
-                robot.basketServo2.setPosition(robot.FinalrangeBasket-robot.FinalrangeBasket*gamepad2.left_trigger);
-                if(gamepad1.a){intake = -1d;}
-                else if(gamepad1.x){intake = 1d;}
-                else if(gamepad1.y){intake = 0d;}
-                robot.intakeServo.setPower(intake);
-                if(gamepad2.right_bumper){intakePartition = false;}
+                robot.clawServo.setPosition(0);
+                telemetry.addData("UnClampeed",true);telemetry.update();
+            }
+            //extender
+            //moveServosSimultaneously(robot.range1Servo, robot.Finalrange*gamepad2.right_trigger, robot.range2Servo, robot.Finalrange- robot.Finalrange*gamepad2.right_trigger, 0.6);
+            if(gamepad2.y){liftClamp = !liftClamp;sleepWithOpModeCheck(150);}
+            if(liftClamp){
+                rotateClaw();
+            }
+            else{
+                rotateClaw2();
+            }
 
 
             //telemetry.addData("intake power", robot.intakeServo.getPower());
@@ -159,6 +105,7 @@ public class teenageteleop2 extends LinearOpMode {
             //telemetry.addData("LiftClamp",liftClamp);
             telemetry.addData("INTAKE",intakePartition);
             telemetry.addData("CLAMP",clamp);
+            telemetry.addData("SERVO",robot.clawServo.getPosition());
             telemetry.update();
         }
     }
