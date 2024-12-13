@@ -105,7 +105,7 @@ public class teenageteleop2 extends LinearOpMode {
             }
             //if(gamepad1.b){intakePartition = !intakePartition;sleepWithOpModeCheck(200);}
 
-                robot.liftMotor.setPower(-1*gamepad2.left_stick_y*.6);
+                robot.liftMotor.setPower(-1*gamepad2.left_stick_y*robot.liftBrake);
                 if(gamepad2.x){clamp = !clamp;sleepWithOpModeCheck(150);
 
                 }
@@ -256,7 +256,7 @@ public class teenageteleop2 extends LinearOpMode {
         servo.setPosition(targetPosition);
     }
     public void rotateClaw(){
-        moveServoToPosition(robot.clawRotateServo,robot.FinalposClawRotate,1);
+        moveServoToPosition(robot.clawRotateServo,robot.ClawRotateTopBasketPos,1);
     }
     public void rotateClaw2(){
         moveServoToPosition(robot.clawRotateServo,robot.FinalrangeClawRotate,1);
