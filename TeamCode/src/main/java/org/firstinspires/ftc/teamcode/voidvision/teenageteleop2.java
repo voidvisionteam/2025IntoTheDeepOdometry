@@ -106,6 +106,7 @@ public class teenageteleop2 extends LinearOpMode {
             //if(gamepad1.b){intakePartition = !intakePartition;sleepWithOpModeCheck(200);}
 
                 robot.liftMotor.setPower(-1*gamepad2.left_stick_y*robot.liftBrake);
+
                 if(gamepad2.x){clamp = !clamp;sleepWithOpModeCheck(150);
 
                 }

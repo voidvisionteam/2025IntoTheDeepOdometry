@@ -43,6 +43,7 @@ public abstract class HardwareMapUtil {
         servo = hwMap.get(Servo.class, configname);
         servo.setPosition(position);
         return servo;
+
     }
     public CRServo HardwareInitCRServo(String configname, boolean forward){
         CRServo crservo = null;

@@ -45,7 +45,7 @@ public class teenagehwmap extends HardwareMapUtil {
     public double FinalposClawRotate = .3529+ FinalrangeClawRotate;
     public double ClawRotateTopBasketPos = FinalposClawRotate + .1;
 
-    public double liftBrake = .6;
+    public double liftBrake = .60;
 
 
 
