@@ -89,7 +89,7 @@ public  class odoTest2 extends Auto_Util {
         double ClawRotateTopBasketPos = FinalposClawRotate + .1;
 
         public ClawServoRotate(HardwareMap hardwareMap){
-            clawservorotate = hardwareMap.get(Servo.class,"claw");
+            clawservorotate = hardwareMap.get(Servo.class,"terminator");
             clawservorotate.setPosition(FinalrangeClawRotate);
             //clawservo.setPosition(0);
         }
@@ -248,6 +248,9 @@ public  class odoTest2 extends Auto_Util {
                 .strafeTo(new Vector2d(0,-(39+25)))
                 .build();
         //TrajectoryBuilder trajectoryBuilder = new TrajectoryBuilder();
+        Action testAction = drive.actionBuilder(beginPose)
+                .waitSeconds(1)
+                .build();
 
 
 
@@ -258,13 +261,17 @@ public  class odoTest2 extends Auto_Util {
         TelemetryPacket packet = new TelemetryPacket();
         clawServoRotate13.clawservorotate.setPosition(clawServoRotate13.ClawRotateTopBasketPos);
 
-        while (!test2.run(packet) && opModeIsActive()) {
+        while (test2.run(packet) && opModeIsActive()) {
             //drive.update();
             telemetry.addData("Test2", "In Progress");
             telemetry.update();
         }
+        telemetry.addData("testFinished",true);
+        telemetry.update();
 
         clawServoRotate13.clawservorotate.setPosition(clawServoRotate13.FinalrangeClawRotate);
+        telemetry.addData("claw",true);
+        telemetry.update();
 
     }
 }

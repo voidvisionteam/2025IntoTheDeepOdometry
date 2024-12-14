@@ -89,7 +89,7 @@ public  class odoTest1 extends Auto_Util {
         double ClawRotateTopBasketPos = FinalposClawRotate + .1;
 
         public ClawServoRotate(HardwareMap hardwareMap){
-            clawservorotate = hardwareMap.get(Servo.class,"claw");
+            clawservorotate = hardwareMap.get(Servo.class,"terminator");
             clawservorotate.setPosition(FinalrangeClawRotate);
             //clawservo.setPosition(0);
         }
@@ -263,7 +263,13 @@ public  class odoTest1 extends Auto_Util {
             Actions.runBlocking(
                     test2
             );
-            clawServoRotate13.clawservorotate.setPosition(clawServoRotate13.FinalrangeClawRotate);
+            Actions.runBlocking(
+                    clawServoRotate13.rotateClawDown()
+            );
+            Actions.runBlocking(
+                    test3
+            );
+            //clawServoRotate13.clawservorotate.setPosition(clawServoRotate13.FinalrangeClawRotate);
 
     }
 }
