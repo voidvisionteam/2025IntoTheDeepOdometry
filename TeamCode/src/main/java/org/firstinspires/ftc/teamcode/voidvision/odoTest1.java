@@ -126,7 +126,6 @@ public  class odoTest1 extends Auto_Util {
         Action test2 = drive.actionBuilder(beginPose).turn(4*quarterTurn).build();
         Action test3 = drive.actionBuilder(beginPose).turn(4*quarterTurn).build();
         Action DecSat15 = drive.actionBuilder(beginPose)
-                .turn(4*quarterTurn)
                 .strafeTo(new Vector2d(0,-(39+25)))
                 .build();
 
