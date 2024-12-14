@@ -139,10 +139,7 @@ public  class odoTest1 extends Auto_Util {
             Actions.runBlocking(
                     new SequentialAction(
                             clawServo12.openClaw(),
-                            test1,
-                            clawServo12.closeClaw(),
-                            test2,clawServo12.openClaw(),
-                            test3
+                            DecSat15
                     ));
             //clawServo12.closeClaw2();
             //clawServo12.openClaw2();
