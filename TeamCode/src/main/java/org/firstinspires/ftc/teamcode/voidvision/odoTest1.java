@@ -138,7 +138,7 @@ public  class odoTest1 extends Auto_Util {
         public Lift(HardwareMap hardwareMap) {
             lift = hardwareMap.get(DcMotorEx.class, "liftMotor");
             lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            lift.setDirection(DcMotorSimple.Direction.FORWARD);
+            lift.setDirection(DcMotorSimple.Direction.REVERSE);
             initialPosition = lift.getCurrentPosition();
             targetPositionLowerBasket = 1802+initialPosition; // Adjust based on desired lift distance
             targetPositionUpperBasket = 2570+initialPosition; // Adjust based on desired lift distance
@@ -201,9 +201,9 @@ public  class odoTest1 extends Auto_Util {
         Pose2d beginPose = new Pose2d(0, 0, 0);
         MecanumDrive drive = new MecanumDrive(hardwareMap, beginPose);
         //Init Claw
-        ClawServo clawServo12 = new ClawServo(hardwareMap);
-        ClawServoRotate clawServoRotate13 = new ClawServoRotate(hardwareMap);
-        Lift lift14 = new Lift(hardwareMap);
+        //ClawServo clawServo12 = new ClawServo(hardwareMap);
+        //ClawServoRotate clawServoRotate13 = new ClawServoRotate(hardwareMap);
+        //Lift lift14 = new Lift(hardwareMap);
         //Set Robot Initial Position
 
         Action test1 = drive.actionBuilder(beginPose)
@@ -253,9 +253,9 @@ public  class odoTest1 extends Auto_Util {
 
 
             waitForStart();
-            clawServoRotate13.clawservorotate.setPosition(clawServoRotate13.ClawRotateTopBasketPos);
+            //clawServoRotate13.clawservorotate.setPosition(clawServoRotate13.ClawRotateTopBasketPos);
 
-            Actions.runBlocking(
+            /*Actions.runBlocking(
 
                             clawServoRotate13.rotateClawMid()
 
@@ -263,12 +263,17 @@ public  class odoTest1 extends Auto_Util {
             Actions.runBlocking(
                     test2
             );
+            Actions.runBlocking(lift14.liftUp());
             Actions.runBlocking(
                     clawServoRotate13.rotateClawDown()
             );
+            Actions.runBlocking(lift14.liftDown());
             Actions.runBlocking(
                     test3
-            );
+            );*/
+        Actions.runBlocking(new SequentialAction(
+                DecSat15
+        ));
             //clawServoRotate13.clawservorotate.setPosition(clawServoRotate13.FinalrangeClawRotate);
 
     }

@@ -87,7 +87,7 @@ public class teenageteleop2 extends LinearOpMode {
             robot.rightbackDrive.setPower(rbPower);
 
 
-            slowamount = .6;
+            slowamount = .75;
 
 
             // ---- Mecanum Drive Adjustments ----
