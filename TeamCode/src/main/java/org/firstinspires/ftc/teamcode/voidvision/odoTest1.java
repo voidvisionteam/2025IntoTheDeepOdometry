@@ -152,7 +152,7 @@ public  class odoTest1 extends Auto_Util {
             @Override
             public boolean run(@NonNull TelemetryPacket packet) {
                 if (!initialized) {
-                    lift.setPower(0.8);
+                    lift.setPower(0.5);
                     initialized = true;
                 }
 
@@ -176,7 +176,7 @@ public  class odoTest1 extends Auto_Util {
             @Override
             public boolean run(@NonNull TelemetryPacket packet) {
                 if (!initialized) {
-                    lift.setPower(-0.8);
+                    lift.setPower(-0.5);
                     initialized = true;
                 }
 
