@@ -78,7 +78,8 @@ public  class odoTestFullRotation extends Auto_Util {
         }
     }
     teenagehwmap robot = new teenagehwmap();
-    double quarterTurn = 1.0492* Math.PI / 2;
+    double quarterTurn = 1.0453* Math.PI / 2;
+    double fullTurn = 2*Math.PI*1.032;
     @Override
     public void runOpMode() throws InterruptedException {
         Pose2d beginPose = new Pose2d(0, 0, 0);
@@ -123,7 +124,7 @@ public  class odoTestFullRotation extends Auto_Util {
                 //.waitSeconds(.5)
                 //.splineToSplineHeading( new Pose2d(0, 0, quarterTurn), Math.PI / 2)
                 .build();
-        Action test2 = drive.actionBuilder(beginPose).turn(4*quarterTurn).build();
+        Action test2 = drive.actionBuilder(beginPose).turn(fullTurn).build();
         Action test3 = drive.actionBuilder(beginPose).turn(4*quarterTurn).build();
         Action DecSat15 = drive.actionBuilder(beginPose)
                 .strafeTo(new Vector2d(0,-(39+25)))

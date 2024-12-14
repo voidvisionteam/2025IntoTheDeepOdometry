@@ -34,8 +34,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
-@Autonomous(name = "odoTest1",group = "Autonomous")
-public  class odoTest1 extends Auto_Util {
+@Autonomous(name = "odoTest2",group = "Autonomous")
+public  class odoTest2 extends Auto_Util {
 
     public class ClawServo{
 
@@ -225,22 +225,22 @@ public  class odoTest1 extends Auto_Util {
                 //.strafeTo(new Vector2d(0, 0))
                 .strafeTo(new Vector2d(10,0))
                 .strafeTo(new Vector2d(0,0))
-        //.waitSeconds(.5)
-        //.turn(-quarterTurn)
+                //.waitSeconds(.5)
+                //.turn(-quarterTurn)
 
-        //.waitSeconds(.5)
-        //.turn(quarterTurn)
+                //.waitSeconds(.5)
+                //.turn(quarterTurn)
 
-        //.waitSeconds(.5)
-        //.turn(-quarterTurn)
+                //.waitSeconds(.5)
+                //.turn(-quarterTurn)
 
-        //.waitSeconds(.5)
-        //.turn(quarterTurn)
-        //.waitSeconds(.5)
-        //.setTangent(0)
-        //.splineToSplineHeading( new Pose2d(10, -10, quarterTurn), Math.PI / 2)
-        //.waitSeconds(.5)
-        //.splineToSplineHeading( new Pose2d(0, 0, quarterTurn), Math.PI / 2)
+                //.waitSeconds(.5)
+                //.turn(quarterTurn)
+                //.waitSeconds(.5)
+                //.setTangent(0)
+                //.splineToSplineHeading( new Pose2d(10, -10, quarterTurn), Math.PI / 2)
+                //.waitSeconds(.5)
+                //.splineToSplineHeading( new Pose2d(0, 0, quarterTurn), Math.PI / 2)
                 .build();
         Action test2 = drive.actionBuilder(beginPose).turn(4*quarterTurn).build();
         Action test3 = drive.actionBuilder(beginPose).turn(4*quarterTurn).build();
@@ -252,18 +252,19 @@ public  class odoTest1 extends Auto_Util {
 
 
 
-            waitForStart();
-            clawServoRotate13.clawservorotate.setPosition(clawServoRotate13.ClawRotateTopBasketPos);
+        waitForStart();
+        if (isStopRequested()) return;
 
-            Actions.runBlocking(
+        TelemetryPacket packet = new TelemetryPacket();
+        clawServoRotate13.clawservorotate.setPosition(clawServoRotate13.ClawRotateTopBasketPos);
 
-                            clawServoRotate13.rotateClawMid()
+        while (!test2.run(packet) && opModeIsActive()) {
+            //drive.update();
+            telemetry.addData("Test2", "In Progress");
+            telemetry.update();
+        }
 
-            );
-            Actions.runBlocking(
-                    test2
-            );
-            clawServoRotate13.clawservorotate.setPosition(clawServoRotate13.FinalrangeClawRotate);
+        clawServoRotate13.clawservorotate.setPosition(clawServoRotate13.FinalrangeClawRotate);
 
     }
 }
