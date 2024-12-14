@@ -111,26 +111,16 @@ public class teenageteleop2 extends LinearOpMode {
 
                 }
                 if(clamp){
-                    telemetry.addData("Start Clampeed",true);telemetry.update();
-
                     robot.clawServo.setPosition(.19);
-                    telemetry.addData("Clampeed",true);telemetry.update();
                 }
                 else{
-                    telemetry.addData("Start UnClampeed",true);telemetry.update();
-
                     robot.clawServo.setPosition(0);
-                    telemetry.addData("UnClampeed",true);telemetry.update();
                 }
                 //extender
                 //moveServosSimultaneously(robot.range1Servo, robot.Finalrange*gamepad2.right_trigger, robot.range2Servo, robot.Finalrange- robot.Finalrange*gamepad2.right_trigger, 0.6);
-                if(gamepad2.y){liftClamp = !liftClamp;sleepWithOpModeCheck(150);}
-                if(liftClamp){
-                    rotateClaw();
-                }
-                else{
-                    rotateClaw2();
-                }
+                if(gamepad2.y){moveServoToPosition(robot.clawRotateServo,robot.ClawRotateTopBasketPos,1);}
+                if(gamepad2.b){moveServoToPosition(robot.clawRotateServo,robot.FinalposClawRotate,1);}
+                if(gamepad2.a){moveServoToPosition(robot.clawRotateServo,robot.FinalrangeClawRotate,1);}
 
                 if(gamepad2.right_bumper){intakePartition = true;}
 
