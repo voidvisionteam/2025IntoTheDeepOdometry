@@ -41,7 +41,7 @@ public  class odoTest1 extends Auto_Util {
 
         Servo clawservo;
         double closed = .47;
-        double opened = 0;
+        double opened = 0.0;
 
         public ClawServo(HardwareMap hardwareMap){
             clawservo = hardwareMap.get(Servo.class,"claw");
