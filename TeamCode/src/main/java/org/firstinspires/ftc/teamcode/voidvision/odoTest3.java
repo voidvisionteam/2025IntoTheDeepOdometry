@@ -34,8 +34,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
-@Autonomous(name = "odoTest1",group = "Autonomous")
-public  class odoTest1 extends Auto_Util {
+@Autonomous(name = "odoTest3",group = "Autonomous")
+public  class odoTest3 extends Auto_Util {
 
     public class ClawServo{
 
@@ -199,91 +199,66 @@ public  class odoTest1 extends Auto_Util {
     double fullTurn = 2*Math.PI*1.032;
     @Override
     public void runOpMode() throws InterruptedException {
+        //Define initial Position
         Pose2d beginPose = new Pose2d(0, 0, 0);
+        //Instantiate Mec Drive
         MecanumDrive drive = new MecanumDrive(hardwareMap, beginPose);
         //Init Claw
         ClawServo clawServo12 = new ClawServo(hardwareMap);
+        //Init Claw Lift
         ClawServoRotate clawServoRotate13 = new ClawServoRotate(hardwareMap);
+        //Init Lift
         Lift lift14 = new Lift(hardwareMap);
-        //Set Robot Initial Position
 
-        Action test1 = drive.actionBuilder(beginPose)
-                //.splineTo(new Vector2d(30, 30), Math.PI / 2)
-                //.splineTo(new Vector2d(0, 60), Math.PI)
-                //.strafeTo(new Vector2d(39+19, 0))
-                .waitSeconds(.5)
-                .turn(-quarterTurn)
-
-                .waitSeconds(.5)
-                .turn(quarterTurn)
-
-                .waitSeconds(.5)
-                //.turn(-quarterTurn)
-
-                .waitSeconds(.5)
-                //.turn(quarterTurn)
-                //.waitSeconds(.5)
-                //.strafeTo(new Vector2d(0, 0))
-                .strafeTo(new Vector2d(10,0))
+        //Define Actions
+        Action run1 = drive.actionBuilder(beginPose)
+                //.strafeTo(new Vector2d(21,6))
+                .strafeTo(new Vector2d(21,0))
+                .strafeTo(new Vector2d(21,6))
+                .build();
+        Action run2 = drive.actionBuilder(new Pose2d(21,6,0))
+                .strafeTo(new Vector2d(24,6))
+                .build();
+        Action run3 = drive.actionBuilder(new Pose2d(24,6,0))
+                .strafeTo(new Vector2d(0,6))
+                .strafeTo(new Vector2d(0,6+57))
+                .strafeTo(new Vector2d(5,57+6))
+                .build();
+        Action run4 = drive.actionBuilder(new Pose2d(5,57+6,0))
+                //.turn((110/360)*fullTurn)
+                .strafeTo(new Vector2d(-10,0))
                 .strafeTo(new Vector2d(0,0))
-        //.waitSeconds(.5)
-        //.turn(-quarterTurn)
-
-        //.waitSeconds(.5)
-        //.turn(quarterTurn)
-
-        //.waitSeconds(.5)
-        //.turn(-quarterTurn)
-
-        //.waitSeconds(.5)
-        //.turn(quarterTurn)
-        //.waitSeconds(.5)
-        //.setTangent(0)
-        //.splineToSplineHeading( new Pose2d(10, -10, quarterTurn), Math.PI / 2)
-        //.waitSeconds(.5)
-        //.splineToSplineHeading( new Pose2d(0, 0, quarterTurn), Math.PI / 2)
+                .turn((135/360d)*fullTurn)
                 .build();
-        Action test2 = drive.actionBuilder(beginPose).turn(fullTurn).build();
-        Action test3 = drive.actionBuilder(beginPose).turn(fullTurn).build();
-        Action DecSat15 = drive.actionBuilder(beginPose)
-                .strafeTo(new Vector2d(0,-(39+25)))
+        Action run5 = drive.actionBuilder(beginPose)
+                .strafeTo(new Vector2d(7,0))
                 .build();
+        Action run6 = drive.actionBuilder(beginPose)
+                .turn((135/360d)*fullTurn)
+                .build();
+        Action run7 = drive.actionBuilder(beginPose)
+                .strafeTo(new Vector2d(0,-6))
+                .build();
+        Action run8 = drive.actionBuilder(beginPose)
+                .build();
+
         //TrajectoryBuilder trajectoryBuilder = new TrajectoryBuilder();
 
 
 
 
-            waitForStart();
-            //clawServoRotate13.clawservorotate.setPosition(clawServoRotate13.ClawRotateTopBasketPos);
+        waitForStart();
 
-            /*Actions.runBlocking(
-                clawServoRotate13.rotateClawMid()
 
-            );
-            Actions.runBlocking(
-                    test2
-            );
-            Actions.runBlocking(lift14.liftUp());
-            Actions.runBlocking(
-                    clawServoRotate13.rotateClawDown()
-            );
-            Actions.runBlocking(lift14.liftDown());
-            Actions.runBlocking(
-                    test3
-            );*/
-
-            Actions.runBlocking(
-                    new SequentialAction(
-                            clawServoRotate13.rotateClawMid(),
-                            test2,
-                            lift14.liftUp(),
-                            clawServoRotate13.rotateClawDown(),
-                            lift14.liftDown(),
-                            test3
-                    )
-            );
+        Actions.runBlocking(
+                new SequentialAction(
+                        run1,
+                        run2,
+                        run3
+                )
+        );
         //Actions.runBlocking(new SequentialAction(DecSat15));
-            //clawServoRotate13.clawservorotate.setPosition(clawServoRotate13.FinalrangeClawRotate);
+        //clawServoRotate13.clawservorotate.setPosition(clawServoRotate13.FinalrangeClawRotate);
 
     }
 }
