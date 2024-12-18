@@ -46,6 +46,7 @@ public class teenagehwmap extends HardwareMapUtil {
     public double ClawRotateTopBasketPos = FinalposClawRotate + .1;
 
     public double liftBrake = .90;
+    double clawclaw = .19;
 
 
 
@@ -80,7 +81,7 @@ public class teenagehwmap extends HardwareMapUtil {
         basketServo1 = HardwareInitServo("basket2", 0); // Left basket servo
         basketServo2 = HardwareInitServo("basket1", FinalrangeBasket); // Right basket servo
         //these are flipped because Will flipped them
-        clawServo = HardwareInitServo("claw",.19);
+        clawServo = HardwareInitServo("claw",clawclaw+.1);
         clawRotateServo = HardwareInitServo("terminator",FinalrangeClawRotate);
 
 

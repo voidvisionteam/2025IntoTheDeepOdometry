@@ -220,26 +220,32 @@ public  class odoTest3 extends Auto_Util {
                 .strafeTo(new Vector2d(24,6))
                 .build();
         Action run3 = drive.actionBuilder(new Pose2d(24,6,0))
-                .strafeTo(new Vector2d(0,6))
-                .strafeTo(new Vector2d(0,6+57))
-                .strafeTo(new Vector2d(5,57+6))
+                //.strafeTo(new Vector2d(0,6))
+                .strafeTo(new Vector2d(24,6+57))
+                .strafeTo(new Vector2d(29,57+6))
                 .build();
-        Action run4 = drive.actionBuilder(new Pose2d(5,57+6,0))
+        Action run4 = drive.actionBuilder(new Pose2d(29,63,0))
                 //.turn((110/360)*fullTurn)
-                .strafeTo(new Vector2d(-10,0))
-                .strafeTo(new Vector2d(0,0))
+                //.strafeTo(new Vector2d(-10,0))
+                .strafeTo(new Vector2d(15,63))
                 .turn((135/360d)*fullTurn)
                 .build();
-        Action run5 = drive.actionBuilder(beginPose)
-                .strafeTo(new Vector2d(7,0))
+        Action run5 = drive.actionBuilder(new Pose2d(15,63,(135/360d)*(2*Math.PI)))
+                .waitSeconds(.2)
+                .strafeTo(new Vector2d(10,68))
                 .build();
-        Action run6 = drive.actionBuilder(beginPose)
+        Action run6 = drive.actionBuilder(new Pose2d(0,0,0))
                 .turn((135/360d)*fullTurn)
                 .build();
-        Action run7 = drive.actionBuilder(beginPose)
+        Action run7 = drive.actionBuilder(new Pose2d(0,0,0))
                 .strafeTo(new Vector2d(0,-6))
                 .build();
-        Action run8 = drive.actionBuilder(beginPose)
+        Action run8 = drive.actionBuilder(new Pose2d(0,0,0))
+                .strafeTo(new Vector2d(95,0))
+                .build();
+        Action runTest = drive.actionBuilder(new Pose2d(0,0,0))
+                .strafeTo(new Vector2d(10,0))
+                .turn(.25*fullTurn)
                 .build();
 
         //TrajectoryBuilder trajectoryBuilder = new TrajectoryBuilder();
@@ -250,13 +256,8 @@ public  class odoTest3 extends Auto_Util {
         waitForStart();
 
 
-        Actions.runBlocking(
-                new SequentialAction(
-                        run1,
-                        run2,
-                        run3
-                )
-        );
+        Actions.runBlocking(new SequentialAction(run1, run2, run3, run4));
+        Actions.runBlocking(new SequentialAction(run5));
         //Actions.runBlocking(new SequentialAction(DecSat15));
         //clawServoRotate13.clawservorotate.setPosition(clawServoRotate13.FinalrangeClawRotate);
 

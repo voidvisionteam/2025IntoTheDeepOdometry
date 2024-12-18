@@ -111,10 +111,10 @@ public class teenageteleop2 extends LinearOpMode {
 
                 }
                 if(clamp){
-                    robot.clawServo.setPosition(.19);
+                    robot.clawServo.setPosition(.1 + robot.clawclaw);
                 }
                 else{
-                    robot.clawServo.setPosition(0);
+                    robot.clawServo.setPosition(.1);
                 }
                 //extender
                 //moveServosSimultaneously(robot.range1Servo, robot.Finalrange*gamepad2.right_trigger, robot.range2Servo, robot.Finalrange- robot.Finalrange*gamepad2.right_trigger, 0.6);
@@ -150,6 +150,7 @@ public class teenageteleop2 extends LinearOpMode {
             //telemetry.addData("LiftClamp",liftClamp);
             telemetry.addData("INTAKE",intakePartition);
             telemetry.addData("CLAMP",clamp);
+            telemetry.addData("clamp",robot.clawServo.getPosition());
             telemetry.update();
         }
     }
