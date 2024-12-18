@@ -40,7 +40,7 @@ public  class odoTest1 extends Auto_Util {
     public class ClawServo{
 
         Servo clawservo;
-        double closed = .19;
+        double closed = .47;
         double opened = 0;
 
         public ClawServo(HardwareMap hardwareMap){
