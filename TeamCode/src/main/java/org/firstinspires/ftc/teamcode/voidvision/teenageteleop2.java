@@ -101,7 +101,7 @@ public class teenageteleop2 extends LinearOpMode {
 
 
             if (gamepad1.left_bumper) {
-                slowamount = .25;
+                slowamount = .1;
             }
             //if(gamepad1.b){intakePartition = !intakePartition;sleepWithOpModeCheck(200);}
 
