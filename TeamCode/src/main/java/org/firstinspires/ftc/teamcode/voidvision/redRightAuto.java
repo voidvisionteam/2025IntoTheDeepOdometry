@@ -34,8 +34,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
-@Autonomous(name = "odoTest3",group = "Autonomous")
-public  class odoTest3 extends Auto_Util {
+@Autonomous(name = "redRightAuto",group = "Autonomous")
+public  class redRightAuto extends Auto_Util {
 
     public class ClawServo{
 
