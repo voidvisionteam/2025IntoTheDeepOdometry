@@ -40,7 +40,7 @@ public  class odoTest3 extends Auto_Util {
     public class ClawServo{
 
         Servo clawservo;
-        double closed = .47;
+        double closed = .21+.1;
         double opened = 0+0.1;
 
         public ClawServo(HardwareMap hardwareMap){
@@ -142,9 +142,9 @@ public  class odoTest3 extends Auto_Util {
             lift.setDirection(DcMotorSimple.Direction.REVERSE);
             initialPosition = lift.getCurrentPosition();
             targetPositionLowerBasket = 1802+initialPosition; // Adjust based on desired lift distance
-            targetPositionUpperBasket = 2570+initialPosition; // Adjust based on desired lift distance
+            targetPositionUpperBasket = 2570+initialPosition+1550; // Adjust based on desired lift distance
             targetPositionLowerRung = 902+initialPosition; // Adjust based on desired lift distance
-            targetPositionUpperRung = 2318+initialPosition; // Adjust based on desired lift distance
+            targetPositionUpperRung = 2318+initialPosition+400-30; // Adjust based on desired lift distance
             targetpositiontest = targetPositionUpperRung-300;
         }
 
@@ -154,7 +154,7 @@ public  class odoTest3 extends Auto_Util {
             @Override
             public boolean run(@NonNull TelemetryPacket packet) {
                 if (!initialized) {
-                    lift.setPower(0.5);
+                    lift.setPower(0.92);
                     initialized = true;
                 }
 
@@ -163,7 +163,7 @@ public  class odoTest3 extends Auto_Util {
                 if (pos < targetPositionUpperBasket) {
                     return true;
                 } else {
-                    lift.setPower(.1);
+                    lift.setPower(.13);
                     return false;
                 }
             }
@@ -178,7 +178,7 @@ public  class odoTest3 extends Auto_Util {
             @Override
             public boolean run(@NonNull TelemetryPacket packet) {
                 if (!initialized) {
-                    lift.setPower(0.5);
+                    lift.setPower(0.8);
                     initialized = true;
                 }
 
@@ -202,7 +202,7 @@ public  class odoTest3 extends Auto_Util {
             @Override
             public boolean run(@NonNull TelemetryPacket packet) {
                 if (!initialized) {
-                    lift.setPower(-0.5);
+                    lift.setPower(-0.8);
                     initialized = true;
                 }
 
@@ -243,16 +243,16 @@ public  class odoTest3 extends Auto_Util {
                 .strafeTo(new Vector2d(21,6))
                 .build();
         Action run2 = drive.actionBuilder(new Pose2d(21,6,0))
-                .strafeTo(new Vector2d(26-.25,6))
+                .strafeTo(new Vector2d(25+.2,6))
                 .build();
-        Action run3 = drive.actionBuilder(new Pose2d(26.-.25,6,0))
+        Action run3 = drive.actionBuilder(new Pose2d(25+.2,6,0))
                 //.strafeTo(new Vector2d(0,6))
-                .strafeTo(new Vector2d(26.-.75,5+57))
-                .strafeTo(new Vector2d(30,57+5))
+                .strafeTo(new Vector2d(24,5+57))
+                .strafeTo(new Vector2d(33,57+5))
                 .waitSeconds(.25)
                 .build();
-        Action runwait = drive.actionBuilder(new Pose2d(30,62,0)).waitSeconds(.5).build();
-        Action run4 = drive.actionBuilder(new Pose2d(30,62,0))
+        Action runwait = drive.actionBuilder(new Pose2d(32,62,0)).waitSeconds(.5).build();
+        Action run4 = drive.actionBuilder(new Pose2d(32,62,0))
                 //.turn((110/360)*fullTurn)
                 //.strafeTo(new Vector2d(-10,0))
                 .strafeTo(new Vector2d(13,63))
@@ -260,20 +260,33 @@ public  class odoTest3 extends Auto_Util {
                 .build();
         Action run5 = drive.actionBuilder(new Pose2d(13,63,(135/360d)*(2*Math.PI)))
                 .waitSeconds(.2)
-                .strafeTo(new Vector2d(10,68))
+                .strafeTo(new Vector2d(8,70))
                 .build();
-        Action run6 = drive.actionBuilder(new Pose2d(0,0,0))
+        Action run5back = drive.actionBuilder(new Pose2d(8,70,(135/360d)*(2*Math.PI)))
+                .waitSeconds(.2)
+                .strafeTo(new Vector2d(13,63))
+                .build();
+        Action run6 = drive.actionBuilder(new Pose2d(13,63,(135/360d)*(2*Math.PI)))
                 .turn((135/360d)*fullTurn)
                 .build();
-        Action run7 = drive.actionBuilder(new Pose2d(0,0,0))
+        Action run7 = drive.actionBuilder(new Pose2d(10,68,(-.5*Math.PI)))
                 .strafeTo(new Vector2d(0,-6))
                 .build();
-        Action run8 = drive.actionBuilder(new Pose2d(0,0,0))
+        Action run8 = drive.actionBuilder(new Pose2d(0,-6,(-.5*Math.PI)))
                 .strafeTo(new Vector2d(95,0))
                 .build();
         Action runTest = drive.actionBuilder(new Pose2d(0,0,0))
                 .strafeTo(new Vector2d(10,0))
                 .turn(.25*fullTurn)
+                .build();
+        Action runTest2 = drive.actionBuilder(beginPose)
+                .waitSeconds(.5)
+                .build();
+        Action runwait2 = drive.actionBuilder(beginPose)
+                .waitSeconds(2)
+                .build();
+        Action runwait3 = drive.actionBuilder(beginPose)
+                .waitSeconds(.5)
                 .build();
 
         //TrajectoryBuilder trajectoryBuilder = new TrajectoryBuilder();
@@ -297,9 +310,30 @@ public  class odoTest3 extends Auto_Util {
                 runwait,
                 clawServoRotate13.rotateClawUp(),
                 run4,
+                lift14.liftUp(),
                 run5,
-                lift14.liftUp()
+                clawServo12.openClaw(),
+                run5back,
+
+                lift14.liftDown(),
+                clawServoRotate13.rotateClawDown(),
+                run6
+                //,run7
+
         ));
+        /*Actions.runBlocking(
+                new SequentialAction(
+                        clawServoRotate13.rotateClawUp(),
+                        lift14.liftUp(),
+                        clawServo12.openClaw(),
+                        runwait2,
+                        clawServo12.closeClaw(),
+                        clawServoRotate13.rotateClawDown(),
+                        lift14.liftDown(),
+                        runTest2
+                )
+        );*/
+
 
         //Actions.runBlocking(new SequentialAction(DecSat15));
         //clawServoRotate13.clawservorotate.setPosition(clawServoRotate13.FinalrangeClawRotate);
