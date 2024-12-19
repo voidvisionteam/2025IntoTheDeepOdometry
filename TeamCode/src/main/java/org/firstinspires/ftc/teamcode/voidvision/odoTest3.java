@@ -90,7 +90,7 @@ public  class odoTest3 extends Auto_Util {
 
         public ClawServoRotate(HardwareMap hardwareMap){
             clawservorotate = hardwareMap.get(Servo.class,"terminator");
-            clawservorotate.setPosition(ClawRotateTopBasketPos);
+            clawservorotate.setPosition(ClawRotateTopBasketPos+.1);
             //clawservo.setPosition(0);
         }
         public class RotateClawUp implements Action {
@@ -101,6 +101,17 @@ public  class odoTest3 extends Auto_Util {
             }
         }
         public Action rotateClawUp() {
+            return new RotateClawUp();
+        }
+
+        public class RotateClawUpUp implements Action {
+            @Override
+            public boolean run(@NonNull TelemetryPacket packet) {
+                clawservorotate.setPosition(ClawRotateTopBasketPos+.1);
+                return false;
+            }
+        }
+        public Action rotateClawUpUp() {
             return new RotateClawUp();
         }
 
@@ -243,9 +254,9 @@ public  class odoTest3 extends Auto_Util {
                 .strafeTo(new Vector2d(21,6))
                 .build();
         Action run2 = drive.actionBuilder(new Pose2d(21,6,0))
-                .strafeTo(new Vector2d(25+.2,6))
+                .strafeTo(new Vector2d(25+.1,6))
                 .build();
-        Action run3 = drive.actionBuilder(new Pose2d(25+.2,6,0))
+        Action run3 = drive.actionBuilder(new Pose2d(25+.1,6,0))
                 //.strafeTo(new Vector2d(0,6))
                 .strafeTo(new Vector2d(24,5+57))
                 .strafeTo(new Vector2d(33,57+5))
@@ -288,6 +299,11 @@ public  class odoTest3 extends Auto_Util {
         Action runwait3 = drive.actionBuilder(beginPose)
                 .waitSeconds(.5)
                 .build();
+        Action run6alt = drive.actionBuilder(new Pose2d(13,63,(135/360d)*(2*Math.PI)))
+                .turn((-135/360d)*fullTurn)
+                .strafeTo(new Vector2d(33,57+5))
+                .strafeTo(new Vector2d(33,57+5+9+(5/8d)))
+                .build();
 
         //TrajectoryBuilder trajectoryBuilder = new TrajectoryBuilder();
 
@@ -298,6 +314,7 @@ public  class odoTest3 extends Auto_Util {
 
 
         Actions.runBlocking(new SequentialAction(
+                //score on high bar
                 run1,
                 clawServoRotate13.rotateClawMid(),
                 lift14.liftUpB(),
@@ -305,6 +322,7 @@ public  class odoTest3 extends Auto_Util {
                 lift14.liftDown(),
                 clawServoRotate13.rotateClawDown(),
                 clawServo12.openClaw(),
+                //grab the claw
                 run3,
                 clawServo12.closeClaw(),
                 runwait,
@@ -317,7 +335,7 @@ public  class odoTest3 extends Auto_Util {
 
                 lift14.liftDown(),
                 clawServoRotate13.rotateClawDown(),
-                run6
+                run6alt
                 //,run7
 
         ));
