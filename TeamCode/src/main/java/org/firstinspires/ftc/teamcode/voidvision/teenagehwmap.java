@@ -43,7 +43,7 @@ public class teenagehwmap extends HardwareMapUtil {
     public double FinalrangeBasket = 0.48;
     public double FinalrangeClawRotate = 0.20;
     public double FinalposClawRotate = .3529+ FinalrangeClawRotate;
-    public double ClawRotateTopBasketPos = FinalposClawRotate + .1;
+    public double ClawRotateTopBasketPos = FinalposClawRotate + .15;
 
     public double liftBrake = .90;
     double clawclaw = .22;
@@ -82,7 +82,7 @@ public class teenagehwmap extends HardwareMapUtil {
         basketServo2 = HardwareInitServo("basket1", FinalrangeBasket); // Right basket servo
         //these are flipped because Will flipped them
         clawServo = HardwareInitServo("claw",clawclaw+.1);
-        clawRotateServo = HardwareInitServo("terminator",FinalposClawRotate+.1+.25);
+        clawRotateServo = HardwareInitServo("terminator",FinalrangeClawRotate);
 
 
         // Initialize color sensor (commented out if not needed yet)

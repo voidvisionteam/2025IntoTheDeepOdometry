@@ -86,11 +86,11 @@ public  class odoTest3 extends Auto_Util {
 
         double FinalrangeClawRotate = 0.2;
         double FinalposClawRotate = .3529+ FinalrangeClawRotate;
-        double ClawRotateTopBasketPos = FinalposClawRotate + .1;
+        double ClawRotateTopBasketPos = FinalposClawRotate + .15;
 
         public ClawServoRotate(HardwareMap hardwareMap){
             clawservorotate = hardwareMap.get(Servo.class,"terminator");
-            clawservorotate.setPosition(ClawRotateTopBasketPos+.1);
+            clawservorotate.setPosition(ClawRotateTopBasketPos);
             //clawservo.setPosition(0);
         }
         public class RotateClawUp implements Action {
@@ -155,7 +155,7 @@ public  class odoTest3 extends Auto_Util {
             targetPositionLowerBasket = 1802+initialPosition; // Adjust based on desired lift distance
             targetPositionUpperBasket = 2570+initialPosition+1550; // Adjust based on desired lift distance
             targetPositionLowerRung = 902+initialPosition; // Adjust based on desired lift distance
-            targetPositionUpperRung = 2318+initialPosition+400-30; // Adjust based on desired lift distance
+            targetPositionUpperRung = 2318+initialPosition+400-30-30; // Adjust based on desired lift distance
             targetpositiontest = targetPositionUpperRung-300;
         }
 
@@ -165,7 +165,7 @@ public  class odoTest3 extends Auto_Util {
             @Override
             public boolean run(@NonNull TelemetryPacket packet) {
                 if (!initialized) {
-                    lift.setPower(0.92);
+                    lift.setPower(0.99);
                     initialized = true;
                 }
 
@@ -189,7 +189,7 @@ public  class odoTest3 extends Auto_Util {
             @Override
             public boolean run(@NonNull TelemetryPacket packet) {
                 if (!initialized) {
-                    lift.setPower(0.8);
+                    lift.setPower(0.99);
                     initialized = true;
                 }
 
@@ -213,7 +213,7 @@ public  class odoTest3 extends Auto_Util {
             @Override
             public boolean run(@NonNull TelemetryPacket packet) {
                 if (!initialized) {
-                    lift.setPower(-0.8);
+                    lift.setPower(-0.89);
                     initialized = true;
                 }
 
@@ -301,8 +301,24 @@ public  class odoTest3 extends Auto_Util {
                 .build();
         Action run6alt = drive.actionBuilder(new Pose2d(13,63,(135/360d)*(2*Math.PI)))
                 .turn((-135/360d)*fullTurn)
-                .strafeTo(new Vector2d(33,57+5))
-                .strafeTo(new Vector2d(33,57+5+9+(5/8d)))
+                //.strafeTo(new Vector2d(13,57+5))
+                .strafeTo(new Vector2d(13,57+5+9+(5/8d)+1))
+                .strafeTo(new Vector2d(33,57+5+9+(5/8d)+1))
+                .build();
+        Action run7alt = drive.actionBuilder(new Pose2d(33,57+5+9+(5/8d)+1,0)).waitSeconds(.5).build();
+        Action run8alt = drive.actionBuilder(new Pose2d(33,57+5+9+(5/8d)+1,0))
+                //.turn((110/360)*fullTurn)
+                //.strafeTo(new Vector2d(-10,0))
+                .strafeTo(new Vector2d(13,63))
+                .turn((135/360d)*fullTurn)
+                .build();
+        Action run9alt = drive.actionBuilder(new Pose2d(13,63,(135/360d)*(2*Math.PI)))
+                .waitSeconds(.2)
+                .strafeTo(new Vector2d(8,70))
+                .build();
+        Action run9altback = drive.actionBuilder(new Pose2d(8,70,(135/360d)*(2*Math.PI)))
+                .waitSeconds(.2)
+                .strafeTo(new Vector2d(13,63))
                 .build();
 
         //TrajectoryBuilder trajectoryBuilder = new TrajectoryBuilder();
@@ -322,21 +338,32 @@ public  class odoTest3 extends Auto_Util {
                 lift14.liftDown(),
                 clawServoRotate13.rotateClawDown(),
                 clawServo12.openClaw(),
-                //grab the claw
+                //grab the sample
                 run3,
                 clawServo12.closeClaw(),
                 runwait,
                 clawServoRotate13.rotateClawUp(),
                 run4,
+                //drop the sample
                 lift14.liftUp(),
                 run5,
                 clawServo12.openClaw(),
                 run5back,
 
+                //back for more
                 lift14.liftDown(),
                 clawServoRotate13.rotateClawDown(),
-                run6alt
-                //,run7
+                run6alt,
+                clawServo12.closeClaw()
+                ,run7alt,
+
+                clawServoRotate13.rotateClawUp(),
+                run8alt,
+                //drop the sample (again)
+                lift14.liftUp(),
+                run9alt,
+                clawServo12.openClaw(),
+                run9altback
 
         ));
         /*Actions.runBlocking(
