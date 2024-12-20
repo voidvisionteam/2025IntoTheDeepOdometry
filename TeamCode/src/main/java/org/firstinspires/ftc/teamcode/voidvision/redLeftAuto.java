@@ -372,6 +372,7 @@ public  class redLeftAuto extends Auto_Util {
                         backFromBasketOne,
                         runToSampleTwo,
                         retrieveSampleTwo,
+                        runToBasketTwo,
                         ScoreOnBasketTwo,
                         BackFromBasketTwo
                 )
