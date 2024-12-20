@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.voidvision;
 
 import com.acmerobotics.dashboard.config.Config;
+import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Trajectory;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
@@ -343,12 +344,40 @@ public  class redRightAuto extends Auto_Util {
 
         //TrajectoryBuilder trajectoryBuilder = new TrajectoryBuilder();
 
+        ParallelAction runToHighBar = new ParallelAction(run1a2Right,clawServoRotate13.rotateClawMid(),lift14.liftUpB());
+        Action scoreOnHighBar = lift14.liftDown();
+        ParallelAction runToSampleOne = new ParallelAction(run3,clawServoRotate13.rotateClawDown(),clawServo12.openClaw());
+        ParallelAction retrieveSampleOne = new ParallelAction(runwait,clawServo12.closeClaw());
+        ParallelAction runToBasketOne = new ParallelAction(run4a5,clawServoRotate13.rotateClawUp(),lift14.liftUp());
+        Action scoreOnBasketOne = clawServo12.openClaw();
+        Action backFromBasketOne = new ParallelAction(run5back);
+        ParallelAction runToSampleTwo = new ParallelAction(run6alt,lift14.liftDown(),clawServoRotate13.rotateClawDown());
+        ParallelAction retrieveSampleTwo = new ParallelAction(run7alt,clawServo12.closeClaw());
+        ParallelAction runToBasketTwo = new ParallelAction(run8a9, clawServoRotate13.rotateClawUp(),lift14.liftUp());
+        Action ScoreOnBasketTwo = clawServo12.openClaw();
+        Action BackFromBasketTwo = new ParallelAction(run9altback);
 
 
 
         waitForStart();
 
+        Actions.runBlocking(new SequentialAction(
+                runToHighBar,
+                scoreOnHighBar,
+                runToSampleOne,
+                retrieveSampleOne,
+                runToBasketOne,
+                scoreOnBasketOne,
+                backFromBasketOne,
+                runToSampleTwo,
+                retrieveSampleTwo,
+                ScoreOnBasketTwo,
+                BackFromBasketTwo
+                )
+        );
 
+
+        /*
         Actions.runBlocking(new SequentialAction(
                 //score on high bar
                 run1,
