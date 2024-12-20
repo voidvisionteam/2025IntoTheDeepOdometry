@@ -428,14 +428,15 @@ public  class redRightAutoSPECIAL extends Auto_Util {
                 .strafeTo(new Vector2d(4,-16))
                 .build();
         Action sideRoute03 = drive.actionBuilder(new Pose2d(4,-16,(180/360d)*fullTurn))
-                .waitSeconds(.5)
+                .waitSeconds(1)
                 .build();
         Action sideRoute04 = drive.actionBuilder(new Pose2d(4,-16,(180/360d)*fullTurn))
                 .strafeTo(new Vector2d(15,-16))
                 .turn((180/360d)*fullTurn*-1)
                 .build();
         Action sideRoute05 = drive.actionBuilder(new Pose2d(15,-16,0))
-                .strafeTo(new Vector2d(25.1,6))
+                .strafeTo(new Vector2d(15,6))
+                .strafeTo(new Vector2d(25.1-.5,6))
                 .build();
 
 
@@ -446,18 +447,24 @@ public  class redRightAutoSPECIAL extends Auto_Util {
                 .strafeTo(new Vector2d(4,-16))
                 .build();
         Action sideRoute07 = drive.actionBuilder(new Pose2d(4,-16,(180/360d)*fullTurn))
-                .waitSeconds(.5)
+                .waitSeconds(1)
                 .build();
         Action sideRoute08 = drive.actionBuilder(new Pose2d(4,-16,(180/360d)*fullTurn))
                 .strafeTo(new Vector2d(15,-16))
                 .turn((180/360d)*fullTurn*-1)
                 .build();
         Action sideRoute09 = drive.actionBuilder(new Pose2d(15,-16,0))
-                .strafeTo(new Vector2d(25.1,6))
+                .strafeTo(new Vector2d(15,6))
+                .strafeTo(new Vector2d(25.1-.5,6))
                 .build();
 
         Action throwAway = drive.actionBuilder(beginPose)
                 .strafeTo(new Vector2d(1,0))
+                .waitSeconds(5)
+                .build();
+        Action throwAway2 = drive.actionBuilder(beginPose)
+                .strafeTo(new Vector2d(1,0))
+                .waitSeconds(7)
                 .build();
 
 
@@ -479,22 +486,37 @@ public  class redRightAutoSPECIAL extends Auto_Util {
 
         Action SpecialPart1 = new ParallelAction(sideRoute01);
 
-        Action SpecialPart2 = new ParallelAction(sideRoute02,clawServo12.openClaw());
-        Action SpecialPart3 = new ParallelAction(sideRoute03,clawServo12.closeClaw());
-        Action SpecialPart4 = new ParallelAction(sideRoute04);
+        Action SpecialPart2 = new ParallelAction(sideRoute02,clawServo12.openClaw(),lift14.liftUpSpecialHeight());
+        Action SpecialPart3 = new ParallelAction(sideRoute03,new SequentialAction(clawServo12.closeClaw()));
+        Action SpecialPart4 = new SequentialAction(lift14.liftUpSpecialHeightLift(),sideRoute04);
         Action SpecialPart5 = new ParallelAction(sideRoute05,clawServoRotate13.rotateClawMid(),lift14.liftUpB());
+        Action scoreSpecialOnBar1 = new ParallelAction(lift14.liftDown());
 
-        Action SpecialPart6 = new ParallelAction(sideRoute06,clawServo12.openClaw());
-        Action SpecialPart7 = new ParallelAction(sideRoute07,clawServo12.closeClaw());
-        Action SpecialPart8 = new ParallelAction(sideRoute08);
+        Action SpecialPart6 = new ParallelAction(sideRoute06,clawServo12.openClaw(),lift14.liftUpSpecialHeight());
+        Action SpecialPart7 = new ParallelAction(sideRoute07,new SequentialAction(clawServo12.closeClaw()));
+        Action SpecialPart8 = new SequentialAction(lift14.liftUpSpecialHeightLift(),sideRoute08);
         Action SpecialPart9 = new ParallelAction(sideRoute09,clawServoRotate13.rotateClawMid(),lift14.liftUpB());
+        Action scoreSpecialOnBar2 = new ParallelAction(lift14.liftDown());
 
 
 
         waitForStart();
 
         Actions.runBlocking(new SequentialAction(
-                throwAway
+                runToHighBar,
+                scoreOnHighBar,
+                SpecialPart1,
+                SpecialPart2,
+                SpecialPart3,
+                SpecialPart4,
+                SpecialPart5,
+                scoreSpecialOnBar1,
+                SpecialPart6,
+                SpecialPart7,
+                SpecialPart8,
+                SpecialPart9,
+                scoreSpecialOnBar2
+
                 )
         );
 
