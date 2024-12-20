@@ -333,14 +333,15 @@ public  class redRightAutoSPECIAL extends Auto_Util {
                 .waitSeconds(.2)
                 .strafeTo(new Vector2d(8,70))
                 .build();
-        Action run1a2Right = drive.actionBuilder(beginPose)
-                .strafeTo(new Vector2d(21,0))
-                .strafeTo(new Vector2d(25+.1,6))
-                .build();
         Action run1a2Left = drive.actionBuilder(beginPose)
                 .strafeTo(new Vector2d(21,28-5))
                 .strafeTo(new Vector2d(25+.1,28-5))
                 .build();
+        Action run1a2Right = drive.actionBuilder(beginPose)
+                .strafeTo(new Vector2d(21,0))
+                .strafeTo(new Vector2d(25+.1,6))
+                .build();
+
 
         //TrajectoryBuilder trajectoryBuilder = new TrajectoryBuilder();
 
