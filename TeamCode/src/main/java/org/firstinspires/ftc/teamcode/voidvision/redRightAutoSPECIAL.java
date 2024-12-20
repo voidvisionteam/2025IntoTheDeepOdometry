@@ -147,6 +147,7 @@ public  class redRightAutoSPECIAL extends Auto_Util {
         int targetPositionLowerRung = 902+initialPosition; // Adjust based on desired lift distance
         int targetPositionUpperRung = 2318+initialPosition; // Adjust based on desired lift distance
         int targetpositiontest = 0;
+        int targetSpecialGrab = 0;
 
         public Lift(HardwareMap hardwareMap) {
             lift = hardwareMap.get(DcMotorEx.class, "liftMotor");
@@ -158,6 +159,8 @@ public  class redRightAutoSPECIAL extends Auto_Util {
             targetPositionLowerRung = 902+initialPosition; // Adjust based on desired lift distance
             targetPositionUpperRung = 2318+initialPosition+400-30-30; // Adjust based on desired lift distance
             targetpositiontest = targetPositionUpperRung-300;
+            targetSpecialGrab = initialPosition + 300;
+
         }
 
         public class LiftUp implements Action {
@@ -206,6 +209,53 @@ public  class redRightAutoSPECIAL extends Auto_Util {
         }
         public Action liftUpB() {
             return new LiftUpB();
+        }
+
+        public class LiftUpSpecialHeight implements Action {
+            private boolean initialized = false;
+
+            @Override
+            public boolean run(@NonNull TelemetryPacket packet) {
+                if (!initialized) {
+                    lift.setPower(0.99);
+                    initialized = true;
+                }
+
+                double pos = lift.getCurrentPosition();
+                packet.put("liftPos", pos);
+                if (pos < targetSpecialGrab) {
+                    return true;
+                } else {
+                    lift.setPower(.1);
+                    return false;
+                }
+            }
+        }
+        public Action liftUpSpecialHeight() {
+            return new LiftUpSpecialHeight();
+        }
+        public class LiftUpSpecialHeightLift implements Action {
+            private boolean initialized = false;
+
+            @Override
+            public boolean run(@NonNull TelemetryPacket packet) {
+                if (!initialized) {
+                    lift.setPower(0.99);
+                    initialized = true;
+                }
+
+                double pos = lift.getCurrentPosition();
+                packet.put("liftPos", pos);
+                if (pos < targetSpecialGrab+300) {
+                    return true;
+                } else {
+                    lift.setPower(.1);
+                    return false;
+                }
+            }
+        }
+        public Action liftUpSpecialHeightLift() {
+            return new LiftUpSpecialHeightLift();
         }
 
         public class LiftDown implements Action {
@@ -350,13 +400,64 @@ public  class redRightAutoSPECIAL extends Auto_Util {
                 .strafeTo(new Vector2d(49,-41))
                 .strafeTo(new Vector2d(9,-41))
                 .strafeTo(new Vector2d(15,-41))
+
                 .strafeTo(new Vector2d(15,-16))
                 .turn((180/360d)*fullTurn)
                 .strafeTo(new Vector2d(4,-16))
+
                 .waitSeconds(.5)
+
                 .strafeTo(new Vector2d(15,-16))
                 .turn((180/360d)*fullTurn*-1)
+
                 .strafeTo(new Vector2d(25.1,6))
+                .build();
+        Action sideRoute01 = drive.actionBuilder(new Pose2d(25+.1,6,0))
+                .strafeTo(new Vector2d(25+.1,-22))
+                .strafeTo(new Vector2d(49,-22))
+                .strafeTo(new Vector2d(49,-32))
+                .strafeTo(new Vector2d(9,-32))
+                .strafeTo(new Vector2d(49,-32))
+                .strafeTo(new Vector2d(49,-41))
+                .strafeTo(new Vector2d(9,-41))
+                .strafeTo(new Vector2d(15,-41))
+                .build();
+        Action sideRoute02 = drive.actionBuilder(new Pose2d(15,-41,0))
+                .strafeTo(new Vector2d(15,-16))
+                .turn((180/360d)*fullTurn)
+                .strafeTo(new Vector2d(4,-16))
+                .build();
+        Action sideRoute03 = drive.actionBuilder(new Pose2d(4,-16,(180/360d)*fullTurn))
+                .waitSeconds(.5)
+                .build();
+        Action sideRoute04 = drive.actionBuilder(new Pose2d(4,-16,(180/360d)*fullTurn))
+                .strafeTo(new Vector2d(15,-16))
+                .turn((180/360d)*fullTurn*-1)
+                .build();
+        Action sideRoute05 = drive.actionBuilder(new Pose2d(15,-16,0))
+                .strafeTo(new Vector2d(25.1,6))
+                .build();
+
+
+
+        Action sideRoute06 = drive.actionBuilder(new Pose2d(25.1,6,0))
+                .strafeTo(new Vector2d(15,-16))
+                .turn((180/360d)*fullTurn)
+                .strafeTo(new Vector2d(4,-16))
+                .build();
+        Action sideRoute07 = drive.actionBuilder(new Pose2d(4,-16,(180/360d)*fullTurn))
+                .waitSeconds(.5)
+                .build();
+        Action sideRoute08 = drive.actionBuilder(new Pose2d(4,-16,(180/360d)*fullTurn))
+                .strafeTo(new Vector2d(15,-16))
+                .turn((180/360d)*fullTurn*-1)
+                .build();
+        Action sideRoute09 = drive.actionBuilder(new Pose2d(15,-16,0))
+                .strafeTo(new Vector2d(25.1,6))
+                .build();
+
+        Action throwAway = drive.actionBuilder(beginPose)
+                .strafeTo(new Vector2d(1,0))
                 .build();
 
 
@@ -376,13 +477,24 @@ public  class redRightAutoSPECIAL extends Auto_Util {
         Action ScoreOnBasketTwo = clawServo12.openClaw();
         Action BackFromBasketTwo = new ParallelAction(run9altback);
 
+        Action SpecialPart1 = new ParallelAction(sideRoute01);
+
+        Action SpecialPart2 = new ParallelAction(sideRoute02,clawServo12.openClaw());
+        Action SpecialPart3 = new ParallelAction(sideRoute03,clawServo12.closeClaw());
+        Action SpecialPart4 = new ParallelAction(sideRoute04);
+        Action SpecialPart5 = new ParallelAction(sideRoute05,clawServoRotate13.rotateClawMid(),lift14.liftUpB());
+
+        Action SpecialPart6 = new ParallelAction(sideRoute06,clawServo12.openClaw());
+        Action SpecialPart7 = new ParallelAction(sideRoute07,clawServo12.closeClaw());
+        Action SpecialPart8 = new ParallelAction(sideRoute08);
+        Action SpecialPart9 = new ParallelAction(sideRoute09,clawServoRotate13.rotateClawMid(),lift14.liftUpB());
+
 
 
         waitForStart();
 
         Actions.runBlocking(new SequentialAction(
-                        runToHighBar,
-                        scoreOnHighBar
+                throwAway
                 )
         );
 
