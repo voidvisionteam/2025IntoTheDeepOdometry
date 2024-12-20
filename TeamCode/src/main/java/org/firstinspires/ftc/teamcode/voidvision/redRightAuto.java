@@ -320,6 +320,26 @@ public  class redRightAuto extends Auto_Util {
                 .waitSeconds(.2)
                 .strafeTo(new Vector2d(13,63))
                 .build();
+        Action run1a2Right = drive.actionBuilder(beginPose)
+                .strafeTo(new Vector2d(21,0))
+                .strafeTo(new Vector2d(25+.1,6))
+                .build();
+        Action run1a2Left = drive.actionBuilder(beginPose)
+                .strafeTo(new Vector2d(21,28-5))
+                .strafeTo(new Vector2d(25+.1,28-5))
+                .build();
+        Action run4a5= drive.actionBuilder(new Pose2d(32,61,0))
+                .strafeTo(new Vector2d(13,63))
+                .turn((135/360d)*fullTurn)
+                .waitSeconds(.2)
+                .strafeTo(new Vector2d(8,70))
+                .build();
+        Action run8a9 = drive.actionBuilder(new Pose2d(35,57+5+9+(5/8d),0))
+                .strafeTo(new Vector2d(13,63))
+                .turn((135/360d)*fullTurn)
+                .waitSeconds(.2)
+                .strafeTo(new Vector2d(8,70))
+                .build();
 
         //TrajectoryBuilder trajectoryBuilder = new TrajectoryBuilder();
 
