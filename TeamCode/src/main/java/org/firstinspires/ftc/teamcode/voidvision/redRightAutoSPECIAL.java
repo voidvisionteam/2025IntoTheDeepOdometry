@@ -341,6 +341,24 @@ public  class redRightAutoSPECIAL extends Auto_Util {
                 .strafeTo(new Vector2d(21,0))
                 .strafeTo(new Vector2d(25+.1,6))
                 .build();
+        Action runSpecialTestRun = drive.actionBuilder(new Pose2d(25+.1,6,0))
+                .strafeTo(new Vector2d(25+.1,-22))
+                .strafeTo(new Vector2d(49,-22))
+                .strafeTo(new Vector2d(49,-32))
+                .strafeTo(new Vector2d(9,-32))
+                .strafeTo(new Vector2d(49,-32))
+                .strafeTo(new Vector2d(49,-41))
+                .strafeTo(new Vector2d(9,-41))
+                .strafeTo(new Vector2d(15,-41))
+                .strafeTo(new Vector2d(15,-16))
+                .turn((180/360d)*fullTurn)
+                .strafeTo(new Vector2d(4,-16))
+                .waitSeconds(.5)
+                .strafeTo(new Vector2d(15,-16))
+                .turn((180/360d)*fullTurn*-1)
+                .strafeTo(new Vector2d(25.1,6))
+                .build();
+
 
 
         //TrajectoryBuilder trajectoryBuilder = new TrajectoryBuilder();
