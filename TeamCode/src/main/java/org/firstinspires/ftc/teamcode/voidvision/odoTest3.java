@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.voidvision;
 
 import com.acmerobotics.dashboard.config.Config;
+import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Trajectory;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
@@ -321,6 +322,7 @@ public  class odoTest3 extends Auto_Util {
                 .strafeTo(new Vector2d(13,63))
                 .build();
 
+
         //TrajectoryBuilder trajectoryBuilder = new TrajectoryBuilder();
 
 
@@ -330,10 +332,11 @@ public  class odoTest3 extends Auto_Util {
 
 
         Actions.runBlocking(new SequentialAction(
+                new ParallelAction(run1,
+                        clawServoRotate13.rotateClawMid(),
+                        lift14.liftUpB()),
                 //score on high bar
-                run1,
-                clawServoRotate13.rotateClawMid(),
-                lift14.liftUpB(),
+
                 run2,
                 lift14.liftDown(),
                 clawServoRotate13.rotateClawDown(),

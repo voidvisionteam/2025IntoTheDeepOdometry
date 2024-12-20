@@ -237,7 +237,7 @@ public  class redLeftAuto extends Auto_Util {
     @Override
     public void runOpMode() throws InterruptedException {
         //Define initial Position
-        Pose2d beginPose = new Pose2d(0, 0, 0);
+        Pose2d beginPose = new Pose2d(0, 28, 0);
         //Instantiate Mec Drive
         MecanumDrive drive = new MecanumDrive(hardwareMap, beginPose);
         //Init Claw
@@ -250,16 +250,16 @@ public  class redLeftAuto extends Auto_Util {
         //Define Actions
         Action run1 = drive.actionBuilder(beginPose)
                 //.strafeTo(new Vector2d(21,6))
-                .strafeTo(new Vector2d(21,0))
-                .strafeTo(new Vector2d(21,6))
+                //.strafeTo(new Vector2d(21,28))
+                .strafeTo(new Vector2d(21,28-5))
                 .build();
-        Action run2 = drive.actionBuilder(new Pose2d(21,6,0))
-                .strafeTo(new Vector2d(25+.1,6))
+        Action run2 = drive.actionBuilder(new Pose2d(21,28-5,0))
+                .strafeTo(new Vector2d(25+.1,28-5))
                 .build();
-        Action run3 = drive.actionBuilder(new Pose2d(25+.1,6,0))
+        Action run3 = drive.actionBuilder(new Pose2d(25+.1,28-5,0))
                 //.strafeTo(new Vector2d(0,6))
                 .strafeTo(new Vector2d(23,4+57))
-                .strafeTo(new Vector2d(33,57+4))
+                .strafeTo(new Vector2d(32,57+4))
                 .waitSeconds(.25)
                 .build();
         Action runwait = drive.actionBuilder(new Pose2d(32,61,0)).waitSeconds(.5).build();
@@ -303,10 +303,10 @@ public  class redLeftAuto extends Auto_Util {
                 .turn((-135/360d)*fullTurn)
                 //.strafeTo(new Vector2d(13,57+5))
                 .strafeTo(new Vector2d(13,57+5+9+(5/8d)))
-                .strafeTo(new Vector2d(35,57+5+9+(5/8d)))
+                .strafeTo(new Vector2d(32,57+5+9+(5/8d)))
                 .build();
-        Action run7alt = drive.actionBuilder(new Pose2d(35,57+5+9+(5/8d),0)).waitSeconds(.5).build();
-        Action run8alt = drive.actionBuilder(new Pose2d(35,57+5+9+(5/8d),0))
+        Action run7alt = drive.actionBuilder(new Pose2d(32,57+5+9+(5/8d),0)).waitSeconds(.5).build();
+        Action run8alt = drive.actionBuilder(new Pose2d(32,57+5+9+(5/8d),0))
                 //.turn((110/360)*fullTurn)
                 //.strafeTo(new Vector2d(-10,0))
                 .strafeTo(new Vector2d(13,63))
