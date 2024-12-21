@@ -139,6 +139,7 @@ public class teenageteleop2 extends LinearOpMode {
                 else if(gamepad1.x){intake = 1d;}
                 else if(gamepad1.y){intake = 0d;}
                 robot.intakeServo.setPower(intake);
+                robot.transitionServo.setPower(intake);
                 if(gamepad2.right_bumper){intakePartition = false;}
 
 

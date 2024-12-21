@@ -33,6 +33,7 @@ public class teenagehwmap extends HardwareMapUtil {
     public Servo clawServo = null;
     public Servo clawRotateServo = null;
     public CRServo intakeServo = null;
+    public CRServo transitionServo = null;
     public ColorSensor colorSensor = null;
 
 
@@ -83,6 +84,7 @@ public class teenagehwmap extends HardwareMapUtil {
         //these are flipped because Will flipped them
         clawServo = HardwareInitServo("claw",clawclaw+.1);
         clawRotateServo = HardwareInitServo("terminator",FinalrangeClawRotate);
+        transitionServo = HardwareInitCRServo("transServo",true);
 
 
         // Initialize color sensor (commented out if not needed yet)
