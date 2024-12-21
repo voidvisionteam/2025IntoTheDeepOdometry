@@ -231,6 +231,29 @@ public  class odoTest3 extends Auto_Util {
         public Action liftDown(){
             return new LiftDown();
         }
+        public class LiftDownLowBar implements Action {
+            private boolean initialized = false;
+
+            @Override
+            public boolean run(@NonNull TelemetryPacket packet) {
+                if (!initialized) {
+                    lift.setPower(-0.89);
+                    initialized = true;
+                }
+
+                double pos = lift.getCurrentPosition();
+                packet.put("liftPos", pos);
+                if (pos > targetPositionLowerRung) {
+                    return true;
+                } else {
+                    lift.setPower(0);
+                    return false;
+                }
+            }
+        }
+        public Action liftDownLowBar(){
+            return new LiftDownLowBar();
+        }
     }
     teenagehwmap robot = new teenagehwmap();
     double quarterTurn = 1.0492* Math.PI / 2;
@@ -353,41 +376,10 @@ public  class odoTest3 extends Auto_Util {
 
 
         Actions.runBlocking(new SequentialAction(
-                new ParallelAction(run1,
+                new ParallelAction(runwait,
                         clawServoRotate13.rotateClawMid(),
-                        lift14.liftUpB()),
-                //score on high bar
-
-                run2,
-                lift14.liftDown(),
-                clawServoRotate13.rotateClawDown(),
-                clawServo12.openClaw(),
-                //grab the sample
-                run3,
-                clawServo12.closeClaw(),
-                runwait,
-                clawServoRotate13.rotateClawUp(),
-                run4,
-                //drop the sample
-                lift14.liftUp(),
-                run5,
-                clawServo12.openClaw(),
-                run5back,
-
-                //back for more
-                lift14.liftDown(),
-                clawServoRotate13.rotateClawDown(),
-                run6alt,
-                clawServo12.closeClaw()
-                ,run7alt,
-
-                clawServoRotate13.rotateClawUp(),
-                run8alt,
-                //drop the sample (again)
-                lift14.liftUp(),
-                run9alt,
-                clawServo12.openClaw(),
-                run9altback
+                        lift14.liftUp()),
+                new ParallelAction(runwait3,lift14.liftDownLowBar())
 
         ));
         /*Actions.runBlocking(

@@ -157,7 +157,7 @@ public  class redRightAutoSPECIAL extends Auto_Util {
             targetPositionLowerBasket = 1802+initialPosition; // Adjust based on desired lift distance
             targetPositionUpperBasket = 2570+initialPosition+1550; // Adjust based on desired lift distance
             targetPositionLowerRung = 902+initialPosition; // Adjust based on desired lift distance
-            targetPositionUpperRung = 2318+initialPosition+400-30-30; // Adjust based on desired lift distance
+            targetPositionUpperRung = 2318+initialPosition+400-30-30-50; // Adjust based on desired lift distance
             targetpositiontest = targetPositionUpperRung-300;
             targetSpecialGrab = initialPosition + 300;
 
@@ -425,37 +425,37 @@ public  class redRightAutoSPECIAL extends Auto_Util {
         Action sideRoute02 = drive.actionBuilder(new Pose2d(15,-41,0))
                 .strafeTo(new Vector2d(15,-16))
                 .turn((180/360d)*fullTurn)
-                .strafeTo(new Vector2d(4,-16))
+                .strafeTo(new Vector2d(2,-16))
                 .build();
-        Action sideRoute03 = drive.actionBuilder(new Pose2d(4,-16,(180/360d)*fullTurn))
-                .waitSeconds(1)
+        Action sideRoute03 = drive.actionBuilder(new Pose2d(2,-16,(180/360d)*fullTurn))
+                .waitSeconds(.5)
                 .build();
-        Action sideRoute04 = drive.actionBuilder(new Pose2d(4,-16,(180/360d)*fullTurn))
+        Action sideRoute04 = drive.actionBuilder(new Pose2d(2,-16,(180/360d)*fullTurn))
                 .strafeTo(new Vector2d(15,-16))
                 .turn((180/360d)*fullTurn*-1)
                 .build();
         Action sideRoute05 = drive.actionBuilder(new Pose2d(15,-16,0))
-                .strafeTo(new Vector2d(15,6))
-                .strafeTo(new Vector2d(25.1-.5,6))
+                .strafeTo(new Vector2d(15,6+2))
+                .strafeTo(new Vector2d(25.1-1.25,6+2))
                 .build();
 
 
 
-        Action sideRoute06 = drive.actionBuilder(new Pose2d(25.1,6,0))
+        Action sideRoute06 = drive.actionBuilder(new Pose2d(25.1-1.25,6+2,0))
                 .strafeTo(new Vector2d(15,-16))
                 .turn((180/360d)*fullTurn)
-                .strafeTo(new Vector2d(4,-16))
+                .strafeTo(new Vector2d(2,-16))
                 .build();
-        Action sideRoute07 = drive.actionBuilder(new Pose2d(4,-16,(180/360d)*fullTurn))
-                .waitSeconds(1)
+        Action sideRoute07 = drive.actionBuilder(new Pose2d(2,-16,(180/360d)*fullTurn))
+                .waitSeconds(.5)
                 .build();
-        Action sideRoute08 = drive.actionBuilder(new Pose2d(4,-16,(180/360d)*fullTurn))
+        Action sideRoute08 = drive.actionBuilder(new Pose2d(2,-16,(180/360d)*fullTurn))
                 .strafeTo(new Vector2d(15,-16))
                 .turn((180/360d)*fullTurn*-1)
                 .build();
         Action sideRoute09 = drive.actionBuilder(new Pose2d(15,-16,0))
-                .strafeTo(new Vector2d(15,6))
-                .strafeTo(new Vector2d(25.1-.5,6))
+                .strafeTo(new Vector2d(15,6+4))
+                .strafeTo(new Vector2d(25.1-1.35,6+4))
                 .build();
 
         Action throwAway = drive.actionBuilder(beginPose)
@@ -484,9 +484,9 @@ public  class redRightAutoSPECIAL extends Auto_Util {
         Action ScoreOnBasketTwo = clawServo12.openClaw();
         Action BackFromBasketTwo = new ParallelAction(run9altback);
 
-        Action SpecialPart1 = new ParallelAction(sideRoute01);
+        Action SpecialPart1 = new ParallelAction(sideRoute01,clawServoRotate13.rotateClawDown());
 
-        Action SpecialPart2 = new ParallelAction(sideRoute02,clawServo12.openClaw(),lift14.liftUpSpecialHeight());
+        Action SpecialPart2 = new ParallelAction(sideRoute02,clawServo12.openClaw(),lift14.liftUpSpecialHeight(),clawServoRotate13.rotateClawMid());
         Action SpecialPart3 = new ParallelAction(sideRoute03,new SequentialAction(clawServo12.closeClaw()));
         Action SpecialPart4 = new SequentialAction(lift14.liftUpSpecialHeightLift(),sideRoute04);
         Action SpecialPart5 = new ParallelAction(sideRoute05,clawServoRotate13.rotateClawMid(),lift14.liftUpB());
