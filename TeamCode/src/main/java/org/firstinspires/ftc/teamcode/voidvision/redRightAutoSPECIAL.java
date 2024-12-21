@@ -447,37 +447,40 @@ public  class redRightAutoSPECIAL extends Auto_Util {
                 .strafeTo(new Vector2d(15,-41))
                 .build();
         Action sideRoute02 = drive.actionBuilder(new Pose2d(15,-41,0))
-                .strafeTo(new Vector2d(15,-16))
+                .strafeTo(new Vector2d(15,-20))
                 .turn((180/360d)*fullTurn)
-                .strafeTo(new Vector2d(2,-16))
+                .strafeTo(new Vector2d(2,-20))
                 .build();
-        Action sideRoute03 = drive.actionBuilder(new Pose2d(2,-16,(180/360d)*fullTurn))
+        Action sideRoute03 = drive.actionBuilder(new Pose2d(2,-20,(180/360d)*fullTurn))
                 .waitSeconds(.5)
                 .build();
-        Action sideRoute04 = drive.actionBuilder(new Pose2d(2,-16,(180/360d)*fullTurn))
-                .strafeTo(new Vector2d(15,-16))
+        Action sideRoute04 = drive.actionBuilder(new Pose2d(2,-20,(180/360d)*fullTurn))
+                .strafeTo(new Vector2d(15,-20))
                 .turn((180/360d)*fullTurn*-1)
                 .build();
-        Action sideRoute05 = drive.actionBuilder(new Pose2d(15,-16,0))
+        Action sideRoute05 = drive.actionBuilder(new Pose2d(15,-20,0))
                 .strafeTo(new Vector2d(15,6+2))
                 .strafeTo(new Vector2d(25.1-.5,6+2))
+                .build();
+        Action sideRoute040 = drive.actionBuilder(new Pose2d(2,-20,(180/360d)*fullTurn))
+                .splineTo(new Vector2d(25.1-5,8.0),0)
                 .build();
 
 
 
         Action sideRoute06 = drive.actionBuilder(new Pose2d(25.1-.5,6+2,0))
-                .strafeTo(new Vector2d(15,-16))
+                .strafeTo(new Vector2d(15,-20))
                 .turn((180/360d)*fullTurn)
-                .strafeTo(new Vector2d(2,-16))
+                .strafeTo(new Vector2d(2,-20))
                 .build();
-        Action sideRoute07 = drive.actionBuilder(new Pose2d(2,-16,(180/360d)*fullTurn))
+        Action sideRoute07 = drive.actionBuilder(new Pose2d(2,-20,(180/360d)*fullTurn))
                 .waitSeconds(.5)
                 .build();
-        Action sideRoute08 = drive.actionBuilder(new Pose2d(2,-16,(180/360d)*fullTurn))
-                .strafeTo(new Vector2d(15,-16))
+        Action sideRoute08 = drive.actionBuilder(new Pose2d(2,-20,(180/360d)*fullTurn))
+                .strafeTo(new Vector2d(15,-20))
                 .turn((180/360d)*fullTurn*-1)
                 .build();
-        Action sideRoute09 = drive.actionBuilder(new Pose2d(15,-16,0))
+        Action sideRoute09 = drive.actionBuilder(new Pose2d(15,-20,0))
                 .strafeTo(new Vector2d(15,6+4))
                 .strafeTo(new Vector2d(25.1-.5,6+4))
                 .build();
