@@ -156,7 +156,7 @@ public  class redRightAutoSPECIAL extends Auto_Util {
             initialPosition = lift.getCurrentPosition();
             targetPositionLowerBasket = 1802+initialPosition; // Adjust based on desired lift distance
             targetPositionUpperBasket = 2570+initialPosition+1550; // Adjust based on desired lift distance
-            targetPositionLowerRung = 902+initialPosition; // Adjust based on desired lift distance
+            targetPositionLowerRung = 902+initialPosition+300; // Adjust based on desired lift distance
             targetPositionUpperRung = 2318+initialPosition+400-30-30-50; // Adjust based on desired lift distance
             targetpositiontest = targetPositionUpperRung-300;
             targetSpecialGrab = initialPosition + 300;
@@ -209,6 +209,30 @@ public  class redRightAutoSPECIAL extends Auto_Util {
         }
         public Action liftUpB() {
             return new LiftUpB();
+        }
+
+        public class LiftDownLowBar implements Action {
+            private boolean initialized = false;
+
+            @Override
+            public boolean run(@NonNull TelemetryPacket packet) {
+                if (!initialized) {
+                    lift.setPower(-0.89);
+                    initialized = true;
+                }
+
+                double pos = lift.getCurrentPosition();
+                packet.put("liftPos", pos);
+                if (pos > targetPositionLowerRung) {
+                    return true;
+                } else {
+                    lift.setPower(0);
+                    return false;
+                }
+            }
+        }
+        public Action liftDownLowBar(){
+            return new LiftDownLowBar();
         }
 
         public class LiftUpSpecialHeight implements Action {

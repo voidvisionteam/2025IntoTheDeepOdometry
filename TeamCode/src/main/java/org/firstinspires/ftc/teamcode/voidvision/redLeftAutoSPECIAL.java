@@ -156,7 +156,7 @@ public  class redLeftAutoSPECIAL extends Auto_Util {
             initialPosition = lift.getCurrentPosition();
             targetPositionLowerBasket = 1802+initialPosition; // Adjust based on desired lift distance
             targetPositionUpperBasket = 2570+initialPosition+1550; // Adjust based on desired lift distance
-            targetPositionLowerRung = 902+initialPosition; // Adjust based on desired lift distance
+            targetPositionLowerRung = 902+initialPosition+300; // Adjust based on desired lift distance
             targetPositionUpperRung = 2318+initialPosition+400-30-30; // Adjust based on desired lift distance
             targetpositiontest = targetPositionUpperRung-300;
             targetSpecialGrab = initialPosition + 300;
