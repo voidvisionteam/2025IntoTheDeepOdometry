@@ -460,12 +460,12 @@ public  class redRightAutoSPECIAL extends Auto_Util {
                 .build();
         Action sideRoute05 = drive.actionBuilder(new Pose2d(15,-16,0))
                 .strafeTo(new Vector2d(15,6+2))
-                .strafeTo(new Vector2d(25.1-1.25,6+2))
+                .strafeTo(new Vector2d(25.1-.5,6+2))
                 .build();
 
 
 
-        Action sideRoute06 = drive.actionBuilder(new Pose2d(25.1-1.25,6+2,0))
+        Action sideRoute06 = drive.actionBuilder(new Pose2d(25.1-.5,6+2,0))
                 .strafeTo(new Vector2d(15,-16))
                 .turn((180/360d)*fullTurn)
                 .strafeTo(new Vector2d(2,-16))
@@ -479,7 +479,7 @@ public  class redRightAutoSPECIAL extends Auto_Util {
                 .build();
         Action sideRoute09 = drive.actionBuilder(new Pose2d(15,-16,0))
                 .strafeTo(new Vector2d(15,6+4))
-                .strafeTo(new Vector2d(25.1-1.35,6+4))
+                .strafeTo(new Vector2d(25.1-.5,6+4))
                 .build();
 
         Action throwAway = drive.actionBuilder(beginPose)
@@ -514,13 +514,13 @@ public  class redRightAutoSPECIAL extends Auto_Util {
         Action SpecialPart3 = new ParallelAction(sideRoute03,new SequentialAction(clawServo12.closeClaw()));
         Action SpecialPart4 = new SequentialAction(lift14.liftUpSpecialHeightLift(),sideRoute04);
         Action SpecialPart5 = new ParallelAction(sideRoute05,clawServoRotate13.rotateClawMid(),lift14.liftUpB());
-        Action scoreSpecialOnBar1 = new ParallelAction(lift14.liftDown());
+        Action scoreSpecialOnBar1 = new ParallelAction(lift14.liftDownLowBar());
 
-        Action SpecialPart6 = new ParallelAction(sideRoute06,clawServo12.openClaw(),lift14.liftUpSpecialHeight());
+        Action SpecialPart6 = new ParallelAction(sideRoute06,new SequentialAction(lift14.liftDown(),clawServo12.openClaw(),lift14.liftUpSpecialHeight()));
         Action SpecialPart7 = new ParallelAction(sideRoute07,new SequentialAction(clawServo12.closeClaw()));
         Action SpecialPart8 = new SequentialAction(lift14.liftUpSpecialHeightLift(),sideRoute08);
         Action SpecialPart9 = new ParallelAction(sideRoute09,clawServoRotate13.rotateClawMid(),lift14.liftUpB());
-        Action scoreSpecialOnBar2 = new ParallelAction(lift14.liftDown());
+        Action scoreSpecialOnBar2 = new ParallelAction(lift14.liftDownLowBar());
 
 
 
