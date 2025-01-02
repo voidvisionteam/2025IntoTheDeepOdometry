@@ -113,7 +113,7 @@ public  class redLeftAutoSPECIAL extends Auto_Util {
             }
         }
         public Action rotateClawUpUp() {
-            return new RotateClawUp();
+            return new RotateClawUpUp();
         }
 
         public class RotateClawDown implements Action {
