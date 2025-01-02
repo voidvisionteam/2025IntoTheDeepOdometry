@@ -156,8 +156,8 @@ public  class redRightAuto extends Auto_Util {
             targetPositionLowerBasket = 1802+initialPosition; // Adjust based on desired lift distance
             targetPositionUpperBasket = 2570+initialPosition+1550; // Adjust based on desired lift distance
             targetPositionLowerRung = 902+initialPosition; // Adjust based on desired lift distance
-            targetPositionUpperRung = 2318+initialPosition+400-30-30; // Adjust based on desired lift distance
-            targetpositiontest = targetPositionUpperRung-300;
+            targetPositionUpperRung = 2318+initialPosition+400-30-30-50; // Adjust based on desired lift distance
+            targetpositiontest = targetPositionUpperRung-300-300;
         }
 
         public class LiftUp implements Action {

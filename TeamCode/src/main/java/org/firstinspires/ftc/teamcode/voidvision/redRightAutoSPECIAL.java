@@ -158,7 +158,7 @@ public  class redRightAutoSPECIAL extends Auto_Util {
             targetPositionUpperBasket = 2570+initialPosition+1550; // Adjust based on desired lift distance
             targetPositionLowerRung = 902+initialPosition+300; // Adjust based on desired lift distance
             targetPositionUpperRung = 2318+initialPosition+400-30-30-50; // Adjust based on desired lift distance
-            targetpositiontest = targetPositionUpperRung-300;
+            targetpositiontest = targetPositionUpperRung-300-300;
             targetSpecialGrab = initialPosition + 300;
 
         }
@@ -482,7 +482,7 @@ public  class redRightAutoSPECIAL extends Auto_Util {
                 .build();
         Action sideRoute09 = drive.actionBuilder(new Pose2d(15,-20,0))
                 .strafeTo(new Vector2d(15,6+4))
-                .strafeTo(new Vector2d(25.1-.5,6+4))
+                .strafeTo(new Vector2d(25.1,6+4))
                 .build();
 
         Action throwAway = drive.actionBuilder(beginPose)
