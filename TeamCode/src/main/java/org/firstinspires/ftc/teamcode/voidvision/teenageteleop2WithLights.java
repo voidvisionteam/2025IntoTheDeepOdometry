@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.CRServo;
 
 @TeleOp(name="teenageteleop2WithLights", group="Pushbot")
 public class teenageteleop2WithLights extends LinearOpMode {
-    teenagehwmap robot = new teenagehwmap();
+    teenagehwmapWithLights robot = new teenagehwmapWithLights();
     private ElapsedTime runtime = new ElapsedTime();
 
 
