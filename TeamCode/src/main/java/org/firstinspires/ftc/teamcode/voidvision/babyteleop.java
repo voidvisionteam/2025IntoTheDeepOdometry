@@ -12,7 +12,11 @@ public class babyteleop extends LinearOpMode {
 
     // Robot hardware map instance
     babyhwmap robot = new babyhwmap();
-
+    final double RED_MIN_RED = 150;
+    final double RED_MAX_GREEN = 40;
+    final double BLUE_MIN_BLUE = 150;
+    final double YELLOW_MIN_RED = 80;
+    final double YELLOW_MIN_GREEN = 80;
 
     // Timer for tracking elapsed time
     private ElapsedTime runtime = new ElapsedTime();
