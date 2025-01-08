@@ -14,7 +14,7 @@ import org.firstinspires.ftc.robotcontroller.external.samples.SensorColor;
 import org.firstinspires.ftc.teamcode.voidvision.babyhwmap;
 
 
-@TeleOp(name="baby teleop", group="Pushbot")
+@TeleOp(name="LightsBaby", group="Pushbot")
 public class LightsBaby extends LinearOpMode {
 
 

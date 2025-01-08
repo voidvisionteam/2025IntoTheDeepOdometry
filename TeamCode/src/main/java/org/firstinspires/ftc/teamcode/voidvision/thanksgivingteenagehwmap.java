@@ -4,7 +4,6 @@ package org.firstinspires.ftc.teamcode.voidvision;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -13,7 +12,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  * teenagehwmap class defines the hardware mapping for the robot's motors, servos, and sensors.
  * It initializes and configures the drive motors, arm mechanisms, and sensor hardware.
  */
-public class teenagehwmap extends HardwareMapUtil {
+public class thanksgivingteenagehwmap extends HardwareMapUtil {
 
 
     // Declare hardware components
@@ -33,7 +32,6 @@ public class teenagehwmap extends HardwareMapUtil {
     public Servo clawServo = null;
     public Servo clawRotateServo = null;
     public CRServo intakeServo = null;
-    public CRServo transitionServo = null;
     public ColorSensor colorSensor = null;
 
 
@@ -42,12 +40,8 @@ public class teenagehwmap extends HardwareMapUtil {
     //.4 is good
     //.6 is bad
     public double FinalrangeBasket = 0.48;
-    public double FinalrangeClawRotate = 0.20;
+    public double FinalrangeClawRotate = 0.25;
     public double FinalposClawRotate = .3529+ FinalrangeClawRotate;
-    public double ClawRotateTopBasketPos = FinalposClawRotate + .15;
-
-    public double liftBrake = .90;
-    double clawclaw = .22;
 
 
 
@@ -69,7 +63,7 @@ public class teenagehwmap extends HardwareMapUtil {
 
 
         // Initialize arm motors and servos (commented out if not needed yet)
-        liftMotor = HardwareInitMotor("liftMotor", false);
+        //liftMotor = HardwareInitMotor("liftMotor", false);
         // armMotorTwo = HardwareInitMotor("arm_2", true);
         // armServo = hwMap.get(CRServo.class, "servo");
         // posServo = hwMap.get(Servo.class, "posServo");
@@ -78,13 +72,12 @@ public class teenagehwmap extends HardwareMapUtil {
         // Initialize range and basket servos
         range1Servo = HardwareInitServo("hippo1", 0); // Left range servo
         range2Servo = HardwareInitServo("hippo2", Finalrange); // Right range servo
-        intakeServo = HardwareInitCRServo("intake", true); // Intake servo
-        basketServo1 = HardwareInitServo("basket2", 0); // Left basket servo
-        basketServo2 = HardwareInitServo("basket1", FinalrangeBasket); // Right basket servo
+        //intakeServo = HardwareInitCRServo("intake", true); // Intake servo
+        basketServo1 = HardwareInitServo("basket2", 0+FinalrangeBasket*.25); // Left basket servo
+        basketServo2 = HardwareInitServo("basket1", FinalrangeBasket-FinalrangeBasket*.25); // Right basket servo
         //these are flipped because Will flipped them
-        clawServo = HardwareInitServo("claw",clawclaw+.1);
-        clawRotateServo = HardwareInitServo("terminator",FinalrangeClawRotate);
-        transitionServo = HardwareInitCRServo("transServo",true);
+        clawServo = HardwareInitServo("claw",.19);
+        clawRotateServo = HardwareInitServo("terminator",FinalposClawRotate);
 
 
         // Initialize color sensor (commented out if not needed yet)
@@ -92,7 +85,7 @@ public class teenagehwmap extends HardwareMapUtil {
 
 
         /** Set servo directions */
-        //armServo.setDirection(DcMotorSimple.Direction.FORWARD);
+        // armServo.setDirection(DcMotorSimple.Direction.FORWARD);
         //intakeServo.setDirection(DcMotorSimple.Direction.FORWARD);
 
 
@@ -102,9 +95,8 @@ public class teenagehwmap extends HardwareMapUtil {
         rightfrontDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftbackDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightbackDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        //armMotorTwo.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        // armMotorTwo.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
-    public HardwareMap getHwmap(){return hwmap;}
 }
 

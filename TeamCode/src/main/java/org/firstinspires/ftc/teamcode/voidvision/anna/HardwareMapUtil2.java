@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.voidvision;
+package org.firstinspires.ftc.teamcode.voidvision.anna;
 
 
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -9,8 +9,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
-public abstract class HardwareMapUtil {
-    HardwareMap hwMap           =  null;
+public abstract class HardwareMapUtil2 {
+    public HardwareMap hwMap           =  null;
     private ElapsedTime period  = new ElapsedTime();
 
 
@@ -43,7 +43,6 @@ public abstract class HardwareMapUtil {
         servo = hwMap.get(Servo.class, configname);
         servo.setPosition(position);
         return servo;
-
     }
     public CRServo HardwareInitCRServo(String configname, boolean forward){
         CRServo crservo = null;
