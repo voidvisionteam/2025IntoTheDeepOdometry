@@ -38,6 +38,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 @Autonomous(name = "redLeftAuto",group = "Autonomous")
 public  class redLeftAuto extends Auto_Util {
 
+
     public class ClawServo{
 
         Servo clawservo;

@@ -38,7 +38,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
-@Autonomous(name = "redLeftAuto",group = "Autonomous")
+@Autonomous(name = "blueLeftAuto",group = "Autonomous")
 public  class blueLeftAuto extends Auto_Util {
 
     public class lightStrip{
@@ -257,6 +257,7 @@ public  class blueLeftAuto extends Auto_Util {
         ClawServoRotate clawServoRotate13 = new ClawServoRotate(hardwareMap);
         //Init Lift
         Lift lift14 = new Lift(hardwareMap);
+        lightStrip lightStrip = new lightStrip(hardwareMap);
 
         //Define Actions
         Action run1 = drive.actionBuilder(beginPose)
