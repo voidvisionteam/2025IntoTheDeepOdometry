@@ -353,7 +353,6 @@ public  class redRightAutoLights extends Auto_Util {
                 .strafeTo(new Vector2d(8,70))
                 .build();
 
-        //TrajectoryBuilder trajectoryBuilder = new TrajectoryBuilder();
 
         ParallelAction runToHighBar = new ParallelAction(run1a2Right,clawServoRotate13.rotateClawMid(),lift14.liftUpB());
         Action scoreOnHighBar = lift14.liftDown();
@@ -367,8 +366,6 @@ public  class redRightAutoLights extends Auto_Util {
         ParallelAction runToBasketTwo = new ParallelAction(run8a9, clawServoRotate13.rotateClawUp(),lift14.liftUp());
         Action ScoreOnBasketTwo = clawServo12.openClaw();
         Action BackFromBasketTwo = new ParallelAction(run9altback);
-
-
 
         waitForStart();
 
@@ -387,62 +384,5 @@ public  class redRightAutoLights extends Auto_Util {
                         BackFromBasketTwo
                 )
         );
-
-
-        /*
-        Actions.runBlocking(new SequentialAction(
-                //score on high bar
-                run1,
-                clawServoRotate13.rotateClawMid(),
-                lift14.liftUpB(),
-                run2,
-                lift14.liftDown(),
-                clawServoRotate13.rotateClawDown(),
-                clawServo12.openClaw(),
-                //grab the sample
-                run3,
-                clawServo12.closeClaw(),
-                runwait,
-                clawServoRotate13.rotateClawUp(),
-                run4,
-                //drop the sample
-                lift14.liftUp(),
-                run5,
-                clawServo12.openClaw(),
-                run5back,
-
-                //back for more
-                lift14.liftDown(),
-                clawServoRotate13.rotateClawDown(),
-                run6alt,
-                clawServo12.closeClaw()
-                ,run7alt,
-
-                clawServoRotate13.rotateClawUp(),
-                run8alt,
-                //drop the sample (again)
-                lift14.liftUp(),
-                run9alt,
-                clawServo12.openClaw(),
-                run9altback
-
-        ));
-        /*Actions.runBlocking(
-                new SequentialAction(
-                        clawServoRotate13.rotateClawUp(),
-                        lift14.liftUp(),
-                        clawServo12.openClaw(),
-                        runwait2,
-                        clawServo12.closeClaw(),
-                        clawServoRotate13.rotateClawDown(),
-                        lift14.liftDown(),
-                        runTest2
-                )
-        );*/
-
-
-        //Actions.runBlocking(new SequentialAction(DecSat15));
-        //clawServoRotate13.clawservorotate.setPosition(clawServoRotate13.FinalrangeClawRotate);
-
     }
 }
