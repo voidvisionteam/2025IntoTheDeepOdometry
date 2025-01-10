@@ -110,6 +110,7 @@ public class teenagehwmapWithLights extends HardwareMapUtil {
         //armMotorTwo.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         blinkinLedDriver = hwMap.get(RevBlinkinLedDriver.class, "blinkin");
+        blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.GREEN);
     }
     public HardwareMap getHwmap(){return hwmap;}
 }
