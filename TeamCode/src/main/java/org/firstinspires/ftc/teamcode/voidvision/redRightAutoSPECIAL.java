@@ -91,7 +91,7 @@ public  class redRightAutoSPECIAL extends Auto_Util {
 
         public ClawServoRotate(HardwareMap hardwareMap){
             clawservorotate = hardwareMap.get(Servo.class,"terminator");
-            clawservorotate.setPosition(ClawRotateTopBasketPos);
+            clawservorotate.setPosition(ClawRotateTopBasketPos+.05+.05+.01);
             //clawservo.setPosition(0);
         }
         public class RotateClawUp implements Action {

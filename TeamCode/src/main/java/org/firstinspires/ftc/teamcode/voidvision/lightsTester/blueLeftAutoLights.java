@@ -102,7 +102,7 @@ public  class blueLeftAutoLights extends Auto_Util {
 
         public ClawServoRotate(HardwareMap hardwareMap){
             clawservorotate = hardwareMap.get(Servo.class,"terminator");
-            clawservorotate.setPosition(ClawRotateTopBasketPos);
+            clawservorotate.setPosition(ClawRotateTopBasketPos+.11);
             //clawservo.setPosition(0);
         }
         public class RotateClawUp implements Action {
