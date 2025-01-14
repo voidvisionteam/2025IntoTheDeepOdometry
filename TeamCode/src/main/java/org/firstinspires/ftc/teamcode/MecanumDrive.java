@@ -490,6 +490,7 @@ public final class MecanumDrive {
     }
 
     public Pose2d getPose() {
+        updatePoseEstimate();
         return pose;
     }
 }
