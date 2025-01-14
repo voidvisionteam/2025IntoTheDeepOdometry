@@ -488,8 +488,4 @@ public final class MecanumDrive {
                 defaultVelConstraint, defaultAccelConstraint
         );
     }
-
-    public Pose2d getPose() {
-        return pose;
-    }
 }
