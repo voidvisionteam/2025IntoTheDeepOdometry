@@ -19,9 +19,11 @@ public class DemoLights extends LinearOpMode {
 
 
     //SENSING VALUES FOR BLOCKS (Change me! Change me!)
-    double YellowTargetGreenPercent = 0.31;
-    double RedTargetGreenPercent = 0.31;
-    double BlueTargetBluePercent = 0.31;
+    double YellowTargetGreenPercent = 0.27;
+    double YellowTargetRedPercent = 0.4;
+    double RedTargetGreenPercent = 0.30;
+    double RedTargetRedPercent = 0.38;
+    double BlueTargetBluePercent = 0.30;
 
     final double BLUE_MINIMUM = 10;
     final double RED_MINIMUM = 10;
@@ -93,20 +95,21 @@ public class DemoLights extends LinearOpMode {
                 robot.blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLACK);
             }*/
 
-            if (colorBlue < BLUE_MINIMUM && colorRed < RED_MINIMUM && colorGreen < GREEN_MINIMUM) {
+            if (colorBlue < BLUE_MINIMUM || colorRed < RED_MINIMUM || colorGreen < GREEN_MINIMUM) {
                 BlinkinColor = "none";
+                robot.blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLACK);
             } else if (colorBluePercent > BlueTargetBluePercent) {
                 robot.blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLUE);
                 BlinkinColor = "Blue";
-            } else if (colorGreenPercent > YellowTargetGreenPercent) {
+            } else if (colorGreenPercent > YellowTargetGreenPercent&&colorRedPercent>YellowTargetRedPercent) {
                 robot.blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.YELLOW);
                 BlinkinColor = "Yellow";
-            } else if (colorGreenPercent > RedTargetGreenPercent) {
+            } else if (colorRedPercent > RedTargetRedPercent) {
                 robot.blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.RED);
                 BlinkinColor = "Red";
             } else {
-                robot.blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLACK);
                 BlinkinColor = "none";
+                robot.blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLACK);
             }
         }
     }
