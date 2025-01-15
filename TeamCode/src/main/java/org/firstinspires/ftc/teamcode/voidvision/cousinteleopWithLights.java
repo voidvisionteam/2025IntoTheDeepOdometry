@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.CRServo;
 
 
-@TeleOp(name="1Competition 1/11/25 teenageteleop2 WithLights", group="Pushbot")
+@TeleOp(name="cousinteleopWithLights", group="Pushbot")
 public class cousinteleopWithLights extends LinearOpMode {
     cousinhwmapWithLights robot = new cousinhwmapWithLights();
     private ElapsedTime runtime = new ElapsedTime();

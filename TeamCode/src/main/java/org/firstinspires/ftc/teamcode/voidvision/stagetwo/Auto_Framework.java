@@ -40,7 +40,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
-
+@Autonomous(name = "Auto_Framework",group = "Autonomous")
 public  class Auto_Framework extends Auto_Util {
 
     /*Robot Component Classes*/
@@ -566,7 +566,7 @@ public  class Auto_Framework extends Auto_Util {
 
         waitForStart();
 
-        Actions.runBlocking(new SequentialAction(
+        /*Actions.runBlocking(new SequentialAction(
                         runToHighBar,
                         scoreOnHighBar,
                         runToSampleOne,
@@ -580,6 +580,17 @@ public  class Auto_Framework extends Auto_Util {
                         ScoreOnBasketTwo,
                         BackFromBasketTwo
                 )
+        );*/
+        Actions.runBlocking(
+                new SequentialAction(
+                        drive.actionBuilder(beginPose)
+                                //.splineTo(new Vector2d(10,-10),-0.55*fullTurn)
+                                //.splineTo(new Vector2d(10+20,-10-24),-0.5*fullTurn)
+                                //.setTangent(0)
+                                .splineTo(new Vector2d(10+24,-10-24),-.5*fullTurn)
+                                .build()
+                )
         );
+
     }
 }
