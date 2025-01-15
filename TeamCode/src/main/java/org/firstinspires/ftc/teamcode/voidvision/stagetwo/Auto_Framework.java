@@ -584,10 +584,14 @@ public  class Auto_Framework extends Auto_Util {
         Actions.runBlocking(
                 new SequentialAction(
                         drive.actionBuilder(beginPose)
-                                //.splineTo(new Vector2d(10,-10),-0.55*fullTurn)
+                                .splineTo(new Vector2d(10,-10),-0.55*fullTurn)
+                                .waitSeconds(3)
                                 //.splineTo(new Vector2d(10+20,-10-24),-0.5*fullTurn)
                                 //.setTangent(0)
-                                .splineTo(new Vector2d(10+24,-10-24),-.5*fullTurn)
+                                //.splineTo(new Vector2d(5+24,-10-24),-.5*fullTurn)
+                                .splineTo(new Vector2d(10,-10-10),-0.55*fullTurn)
+                                .waitSeconds(3)
+                                .splineToSplineHeading(new Pose2d(5+24,-10-24,.5*fullTurn),.25*fullTurn)
                                 .build()
                 )
         );

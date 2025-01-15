@@ -52,6 +52,8 @@ public class cousinteleopWithLights extends LinearOpMode {
     int targetPositionUpperRung = 2318; // Adjust based on desired lift distance
     double intake = 0;
 
+    double endgameLiftBoost = 1;
+
 
     @Override
     public void runOpMode() {
@@ -105,7 +107,10 @@ public class cousinteleopWithLights extends LinearOpMode {
             }
             //if(gamepad1.b){intakePartition = !intakePartition;sleepWithOpModeCheck(200);}
 
-            robot.liftMotor.setPower(-1*gamepad2.left_stick_y*robot.liftBrake);
+            if(gamepad2.right_bumper){endgameLiftBoost = .9;}
+            else{endgameLiftBoost = 1;}
+
+            robot.liftMotor.setPower(-1*gamepad2.left_stick_y*(robot.liftBrake / endgameLiftBoost));
 
             if(gamepad2.x){clamp = !clamp;sleepWithOpModeCheck(150);
 
@@ -122,7 +127,7 @@ public class cousinteleopWithLights extends LinearOpMode {
             if(gamepad2.b){moveServoToPosition(robot.clawRotateServo,robot.FinalposClawRotate,1);}
             if(gamepad2.a){moveServoToPosition(robot.clawRotateServo,robot.FinalrangeClawRotate,1);}
 
-            if(gamepad2.right_bumper){intakePartition = true;}
+
 
 
             // ---- Second Servo Subroutine (Triggered by gamepad2.b) ----
@@ -140,7 +145,6 @@ public class cousinteleopWithLights extends LinearOpMode {
             else if(gamepad1.y){intake = 0d;}
             robot.intakeServo.setPower(intake);
             robot.transitionServo.setPower(intake);
-            if(gamepad2.right_bumper){intakePartition = false;}
 
 
             //telemetry.addData("intake power", robot.intakeServo.getPower());
