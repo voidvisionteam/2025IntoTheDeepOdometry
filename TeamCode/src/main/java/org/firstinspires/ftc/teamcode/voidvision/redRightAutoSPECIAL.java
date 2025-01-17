@@ -519,6 +519,7 @@ public  class redRightAutoSPECIAL extends Auto_Util {
         Action SpecialPart5 = new ParallelAction(sideRoute05,clawServoRotate13.rotateClawMid(),lift14.liftUpB());
         Action scoreSpecialOnBar1 = new ParallelAction(lift14.liftDownLowBar());
 
+
         Action SpecialPart6 = new ParallelAction(sideRoute06,new SequentialAction(lift14.liftDown(),clawServo12.openClaw(),lift14.liftUpSpecialHeight()));
         Action SpecialPart7 = new ParallelAction(sideRoute07,new SequentialAction(clawServo12.closeClaw()));
         Action SpecialPart8 = new SequentialAction(lift14.liftUpSpecialHeightLift(),sideRoute08);
