@@ -583,23 +583,31 @@ public  class Auto_Framework extends Auto_Util {
         );*/
         Actions.runBlocking(
                 new SequentialAction(
-                        drive.actionBuilder(beginPose)
+                        drive.actionBuilde2(beginPose)
                                 .setTangent(0)
-                                //.splineTo(new Vector2d(15,-10),-0.25*fullTurn)
+                                .splineTo(new Vector2d(15,-10),-0.25*fullTurn)
                                 //.waitSeconds(1)
                                 //.splineTo(new Vector2d(10+20,-10-24),-0.5*fullTurn)
                                 //.setTangent(0)
                                 //.splineTo(new Vector2d(5+24,-10-24),-.5*fullTurn)
                                 //.splineTo(new Vector2d(10,-10-10),-0.55*fullTurn)
                                 //.waitSeconds(1)
-                                .splineToSplineHeading(new Pose2d(15,-33.5,-.5*.960*fullTurn),-0.25*(fullTurn))
-                                .waitSeconds(1)
+                                //.splineToSplineHeading(new Pose2d(15,-33.5,-.5*.963*fullTurn),-0.25*(fullTurn))
+                                .splineToSplineHeading(new Pose2d(15,-33.5,-1.00000000009*Math.PI),-0.25*(fullTurn))
+
+                                //.waitSeconds(1)
+                                //.setTangent(-0.25*(fullTurn))
+
+                                //.splineToSplineHeading(new Pose2d(15,-33.5-1,-.5*.965*fullTurn),-0.25*(fullTurn))
+                                //.waitSeconds(1)
                                 .strafeTo(new Vector2d(5,-33.5))
-                                .waitSeconds(1)
+                                //.waitSeconds(1)
                                 //.splineToSplineHeading(new Pose2d(15,-33.5-9.5,-1*Math.PI),-0.5*(2*Math.PI))
                                 .strafeTo(new Vector2d(15,-33.5-9.5))
-                                .waitSeconds(1)
+                                //.waitSeconds(1)
                                 .strafeTo(new Vector2d(5,-33.5-9.5))
+                                .turnTo(-.5*Math.PI)
+                                .turnTo(0-.00000000001)
                                 .build()
                 )
         );
