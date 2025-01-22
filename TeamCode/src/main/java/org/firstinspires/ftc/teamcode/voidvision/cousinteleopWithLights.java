@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.voidvision;
 
+///Dear Nate, the function you are looking to copy is lightSystem
+///---Jette
 
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -253,6 +255,8 @@ public class cousinteleopWithLights extends LinearOpMode {
             telemetry.addData("CLAMP",clamp);
             telemetry.addData("clamp",robot.clawServo.getPosition());
             telemetry.update();
+
+            lightSystem();
         }
     }
     private void lightSystem(){
