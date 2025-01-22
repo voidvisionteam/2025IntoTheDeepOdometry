@@ -1,12 +1,8 @@
 package org.firstinspires.ftc.teamcode.voidvision;
 
-///Dear Nate, the function you are looking to copy is lightSystem
-///---Jette
 
-import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -18,25 +14,6 @@ public class cousinteleopWithLights extends LinearOpMode {
     cousinhwmapWithLights robot = new cousinhwmapWithLights();
     private ElapsedTime runtime = new ElapsedTime();
 
-
-
-    double YellowTargetGreenPercent = 0.31;
-    double RedTargetGreenPercent = 0.31;
-    double BlueTargetBluePercent = 0.31;
-
-    final double BLUE_MINIMUM = 10;
-    final double RED_MINIMUM = 10;
-    final double GREEN_MINIMUM = 10;
-    String BlinkinColor = "none";
-
-    double colorRed; //= robot.colorSensor.red();
-    double colorBlue; // = robot.colorSensor.blue();
-    double colorGreen;// = robot.colorSensor.green();
-    double colorAlpha;// = robot.colorSensor.alpha();
-    double totalLight;// = colorRed + colorBlue + colorGreen;
-    double colorRedPercent;
-    double colorGreenPercent;
-    double colorBluePercent;
 
     static double turnPower;
     static double fwdBackPower;
@@ -149,10 +126,11 @@ public class cousinteleopWithLights extends LinearOpMode {
                 robot.clawServo.setPosition(.1);
             }
             //extender
-            //moveServosSimultaneously(robot.range1Servo, robot.Finalrange*gamepad2.right_trigger, robot.range2Servo, robot.Finalrange- robot.Finalrange*gamepad2.right_trigger, 0.6);
-            if(gamepad2.y){moveServoToPosition(robot.clawRotateServo,robot.ClawRotateTopBasketPos,1);}
-            if(gamepad2.b){moveServoToPosition(robot.clawRotateServo,robot.FinalposClawRotate,1);}
-            if(gamepad2.a){moveServoToPosition(robot.clawRotateServo,robot.FinalrangeClawRotate,1);}
+            //GAMEPAD 2 CONTROLLS
+
+            //if(gamepad2.y){moveServoToPosition(robot.clawRotateServo,robot.ClawRotateTopBasketPos,1);}
+            //if(gamepad2.b){moveServoToPosition(robot.clawRotateServo,robot.FinalposClawRotate,1);}
+            //if(gamepad2.a){moveServoToPosition(robot.clawRotateServo,robot.FinalrangeClawRotate,1);}
 
 
             robot.range1Servo.setPosition(0+ robot.Finalrange*gamepad2.right_trigger);
@@ -255,36 +233,9 @@ public class cousinteleopWithLights extends LinearOpMode {
             telemetry.addData("CLAMP",clamp);
             telemetry.addData("clamp",robot.clawServo.getPosition());
             telemetry.update();
-
-            lightSystem();
         }
     }
-    private void lightSystem(){
-        colorRed = robot.colorSensor.red();
-        colorBlue = robot.colorSensor.blue();
-        colorGreen = robot.colorSensor.green();
-        colorAlpha = robot.colorSensor.alpha();
-        totalLight = colorRed + colorBlue + colorGreen;
-        colorRedPercent = colorRed / totalLight;
-        colorBluePercent = colorBlue / totalLight;
-        colorGreenPercent = colorGreen / totalLight;
 
-        if (colorBlue < BLUE_MINIMUM && colorRed < RED_MINIMUM && colorGreen < GREEN_MINIMUM) {
-            BlinkinColor = "none";
-        } else if (colorBluePercent > BlueTargetBluePercent) {
-            robot.blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLUE);
-            BlinkinColor = "Blue";
-        } else if (colorGreenPercent > YellowTargetGreenPercent) {
-            robot.blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.YELLOW);
-            BlinkinColor = "Yellow";
-        } else if (colorGreenPercent > RedTargetGreenPercent) {
-            robot.blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.RED);
-            BlinkinColor = "Red";
-        } else {
-            robot.blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLACK);
-            BlinkinColor = "none";
-        }
-    }
 
     /**
      * Checks if the cancel button (gamepad2.b) is pressed and stops the routine if true.
@@ -401,4 +352,3 @@ public class cousinteleopWithLights extends LinearOpMode {
         }
     }
 }
-

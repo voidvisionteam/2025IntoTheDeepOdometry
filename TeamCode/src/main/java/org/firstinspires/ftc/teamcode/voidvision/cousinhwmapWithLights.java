@@ -57,6 +57,7 @@ public class cousinhwmapWithLights extends HardwareMapUtil {
 
     public Servo subClawServo= null;
     public Servo subOrbServo = null;
+    public Servo Arm1,Arm2=null;
 
     public double swingArmHome = 0;
     public double subClawClose = 0;
@@ -99,11 +100,15 @@ public class cousinhwmapWithLights extends HardwareMapUtil {
         range1Servo = HardwareInitServo("hippo1", 0); // Left range servo
         range2Servo = HardwareInitServo("hippo2", Finalrange); // Right range servo
         //intakeServo = HardwareInitCRServo("intake", true); // Intake servo
-        basketServo1 = HardwareInitServo("basket2", 0); // Left basket servo
-        basketServo2 = HardwareInitServo("basket1", FinalrangeBasket); // Right basket servo
+        basketServo1 = HardwareInitServo("basket1", 0); // Left basket servo
+        basketServo2 = HardwareInitServo("basket2", FinalrangeBasket); // Right basket servo
+
+        Arm1 =basketServo1;
+        Arm2 = basketServo2;
+
         //these are flipped because Will flipped them
         clawServo = HardwareInitServo("claw",clawclaw+.1);
-        clawRotateServo = HardwareInitServo("terminator",FinalrangeClawRotate);
+        //clawRotateServo = HardwareInitServo("terminator",FinalrangeClawRotate);
         //transitionServo = HardwareInitCRServo("transServo",true);
 
 
