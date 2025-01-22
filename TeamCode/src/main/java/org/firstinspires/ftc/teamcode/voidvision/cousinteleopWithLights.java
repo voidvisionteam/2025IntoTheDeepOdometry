@@ -55,6 +55,10 @@ public class cousinteleopWithLights extends LinearOpMode {
     double endgameLiftBoost = 1;
 
 
+    int rout0 = 0;
+    int rout1 = 0;
+
+
     @Override
     public void runOpMode() {
         robot.init(hardwareMap);
@@ -128,13 +132,6 @@ public class cousinteleopWithLights extends LinearOpMode {
             if(gamepad2.a){moveServoToPosition(robot.clawRotateServo,robot.FinalrangeClawRotate,1);}
 
 
-
-
-            // ---- Second Servo Subroutine (Triggered by gamepad2.b) ----
-
-            //moveServosSimultaneously(robot.range1Servo,0+ robot.Finalrange*gamepad2.right_trigger, robot.range2Servo, robot.Finalrange-robot.Finalrange*gamepad2.right_trigger, 1);
-            //robot.liftMotor.setPower(0);
-            //extend the Basket
             robot.range1Servo.setPosition(0+ robot.Finalrange*gamepad2.right_trigger);
             robot.range2Servo.setPosition(robot.Finalrange-robot.Finalrange*gamepad2.right_trigger);
             //Move the Basket Rotationally
@@ -143,8 +140,86 @@ public class cousinteleopWithLights extends LinearOpMode {
             if(gamepad1.a){intake = -1d;}
             else if(gamepad1.x){intake = 1d;}
             else if(gamepad1.y){intake = 0d;}
-            robot.intakeServo.setPower(intake);
-            robot.transitionServo.setPower(intake);
+            //robot.intakeServo.setPower(intake);
+            //robot.transitionServo.setPower(intake);
+
+            //--------sub claw -------
+            //dpad down sets home position
+            //dpad left togles between prep and grab-up (orb = 0)
+            //dpad right togles between prep and grab up (orb=90)
+            if(gamepad2.dpad_down){//home
+                moveServoToPosition(robot.basketServo1, robot.swingArmHome,1);
+                moveServoToPosition(robot.basketServo2, robot.swingArmHome, 1 );
+                moveServoToPosition(robot.subClawServo, robot.subClawClose,1);
+                moveServoToPosition(robot.subOrbServo, robot.subOrbHome,1);
+
+            }
+            if(gamepad2.dpad_left){//pick up normal
+                if(rout0==0){
+                    moveServoToPosition(robot.subOrbServo, robot.subOrbHome, 1);
+                    moveServoToPosition(robot.subClawServo, robot.subClawOpen, 1);
+                    moveServoToPosition(robot.basketServo2, robot.swingArmPrep, 1);
+                    moveServoToPosition(robot.basketServo1, robot.swingArmPrep, 1);
+                    rout0=1;
+                }
+                else if (rout0==1){
+                    moveServoToPosition(robot.basketServo2, robot.swingArmGrab, 1);
+                    moveServoToPosition(robot.basketServo1, robot.swingArmGrab, 1);
+                    sleep(1000);
+                    moveServoToPosition(robot.subOrbServo, robot.subOrbHome, 1);
+                    moveServoToPosition(robot.subClawServo, robot.subClawClose, 1);
+                    sleep(1000);
+                    moveServoToPosition(robot.basketServo2, robot.swingArmPrep, 1);
+                    moveServoToPosition(robot.basketServo1, robot.swingArmPrep, 1);
+
+                    rout0=0;
+                }
+
+            }
+            if(gamepad2.dpad_right){//pick up 90
+                if(rout1==0){
+                    moveServoToPosition(robot.subOrbServo, robot.subOrbPerp, 1);
+                    moveServoToPosition(robot.subClawServo, robot.subClawOpen, 1);
+                    moveServoToPosition(robot.basketServo2, robot.swingArmPrep, 1);
+                    moveServoToPosition(robot.basketServo1, robot.swingArmPrep, 1);
+                    rout1=1;
+                }
+                else if (rout1==1){
+                    moveServoToPosition(robot.basketServo2, robot.swingArmGrab, 1);
+                    moveServoToPosition(robot.basketServo1, robot.swingArmGrab, 1);
+                    sleep(1000);
+                    moveServoToPosition(robot.subOrbServo, robot.subOrbPerp, 1);
+                    moveServoToPosition(robot.subClawServo, robot.subClawClose, 1);
+                    sleep(1000);
+                    moveServoToPosition(robot.basketServo2, robot.swingArmPrep, 1);
+                    moveServoToPosition(robot.basketServo1, robot.swingArmPrep, 1);
+                    moveServoToPosition(robot.subOrbServo,robot.subOrbHome, 1);
+
+                    rout1=0;
+                }
+
+            }
+            if(gamepad2.dpad_up){//transfer claw to claw
+                moveServoToPosition(robot.subClawServo, robot.subClawOpen, 1);
+                moveServoToPosition(robot.subOrbServo, robot.subOrbHome, 1);
+                moveServoToPosition(robot.basketServo2, robot.swingArmHome, 1);
+                moveServoToPosition(robot.basketServo1, robot.swingArmHome, 1);
+                sleep(200);
+                moveServoToPosition(robot.subClawServo, robot.subClawOpen, 1);
+                robot.clawServo.setPosition(.1);
+
+                //moveServoToPosition(robot.clawRotateServo,robot.transClawRotate,1);
+                sleep(200);
+                //robot.clawServo.setPosition(.1 + robot.clawClose);
+                moveServoToPosition(robot.clawRotateServo,robot.FinalrangeClawRotate,1);
+
+
+
+            }
+
+
+
+
 
 
             //telemetry.addData("intake power", robot.intakeServo.getPower());
