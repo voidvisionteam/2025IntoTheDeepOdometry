@@ -260,10 +260,13 @@ public  class Auto_Framework extends Auto_Util {
         }
 
     }
-    public class IntakeComponent{
+    public class BackIntakeComponent{
         Servo basketServo1,basketServo2;
         double FinalrangeBasket = 0.48;
-        public IntakeComponent(HardwareMap hardwareMap){
+        double homePitch = 0;
+        double preppedPitch =0.3;
+        double grabPitch = 0.4;
+        public BackIntakeComponent(HardwareMap hardwareMap){
             basketServo1 = hardwareMap.get(Servo.class,"basket2");
             basketServo2 = hardwareMap.get(Servo.class,"basket1");
             basketServo1.setPosition(0);
@@ -276,6 +279,15 @@ public  class Auto_Framework extends Auto_Util {
             intakeServo = hardwareMap.get(CRServo.class,"intake");
             transitionServo = hardwareMap.get(CRServo.class,"transServo");;
         }
+    }
+    public class Intake2{
+        Servo clawServo2,subOrbitalServo;
+        double clawClose = 0;
+        double clawOpen = .3;
+
+        double orbitalServoStartPitch = 0;
+        double orbitalServoPrepPitch;
+
     }
     /*
     * things to use to auto paths:

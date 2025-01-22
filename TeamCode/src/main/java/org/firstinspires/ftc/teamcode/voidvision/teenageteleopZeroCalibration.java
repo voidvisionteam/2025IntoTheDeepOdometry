@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.CRServo;
 
 @TeleOp(name="teenageteleopZeroCalibration", group="Pushbot")
 public class teenageteleopZeroCalibration extends LinearOpMode {
-    teenagehwmap robot = new teenagehwmap();
+    diagnostichwmap robot = new diagnostichwmap();
     private ElapsedTime runtime = new ElapsedTime();
 
 
