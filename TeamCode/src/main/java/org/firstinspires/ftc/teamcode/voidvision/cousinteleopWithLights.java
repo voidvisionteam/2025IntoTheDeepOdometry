@@ -116,14 +116,14 @@ public class cousinteleopWithLights extends LinearOpMode {
 
             robot.liftMotor.setPower(-1*gamepad2.left_stick_y*(robot.liftBrake / endgameLiftBoost));
 
-            if(gamepad2.x){clamp = !clamp;sleepWithOpModeCheck(150);
-
+            if(gamepad2.x){
+                //clamp = !clamp;sleepWithOpModeCheck(150);
             }
             if(clamp){
-                robot.clawServo.setPosition(.1 + robot.clawclaw);
+                //robot.clawServo.setPosition(.1 + robot.clawclaw);
             }
             else{
-                robot.clawServo.setPosition(.1);
+                //robot.clawServo.setPosition(.1);
             }
             //extender
             //GAMEPAD 2 CONTROLLS
@@ -135,9 +135,6 @@ public class cousinteleopWithLights extends LinearOpMode {
 
             robot.range1Servo.setPosition(0+ robot.Finalrange*gamepad2.right_trigger);
             robot.range2Servo.setPosition(robot.Finalrange-robot.Finalrange*gamepad2.right_trigger);
-            //Move the Basket Rotationally
-            robot.basketServo1.setPosition(0+robot.FinalrangeBasket*gamepad2.left_trigger);
-            robot.basketServo2.setPosition(robot.FinalrangeBasket-robot.FinalrangeBasket*gamepad2.left_trigger);
             if(gamepad1.a){intake = -1d;}
             else if(gamepad1.x){intake = 1d;}
             else if(gamepad1.y){intake = 0d;}
@@ -149,29 +146,34 @@ public class cousinteleopWithLights extends LinearOpMode {
             //dpad left togles between prep and grab-up (orb = 0)
             //dpad right togles between prep and grab up (orb=90)
             if(gamepad2.dpad_down){//home
-                moveServoToPosition(robot.basketServo1, robot.swingArmHome,1);
-                moveServoToPosition(robot.basketServo2, robot.swingArmHome, 1 );
+
                 moveServoToPosition(robot.subClawServo, robot.subClawClose,1);
                 moveServoToPosition(robot.subOrbServo, robot.subOrbHome,1);
+
+
+                robot.basketServo1.setPosition(0+robot.FinalrangeBasket*robot.swingArmHome);
+                robot.basketServo2.setPosition(robot.FinalrangeBasket-robot.FinalrangeBasket*robot.swingArmHome);
 
             }
             if(gamepad2.dpad_left){//pick up normal
                 if(rout0==0){
                     moveServoToPosition(robot.subOrbServo, robot.subOrbHome, 1);
                     moveServoToPosition(robot.subClawServo, robot.subClawOpen, 1);
-                    moveServoToPosition(robot.basketServo2, robot.swingArmPrep, 1);
-                    moveServoToPosition(robot.basketServo1, robot.swingArmPrep, 1);
+                    robot.basketServo1.setPosition(0+robot.FinalrangeBasket*robot.swingArmPrep);
+                    robot.basketServo2.setPosition(robot.FinalrangeBasket-robot.FinalrangeBasket*robot.swingArmPrep);
                     rout0=1;
                 }
                 else if (rout0==1){
-                    moveServoToPosition(robot.basketServo2, robot.swingArmGrab, 1);
-                    moveServoToPosition(robot.basketServo1, robot.swingArmGrab, 1);
+                    //moveServoToPosition(robot.basketServo2, robot.swingArmGrab, 1);
+                    //moveServoToPosition(robot.basketServo1, robot.swingArmGrab, 1);
+                    robot.basketServo1.setPosition(0+robot.FinalrangeBasket*robot.swingArmGrab);
+                    robot.basketServo2.setPosition(robot.FinalrangeBasket-robot.FinalrangeBasket*robot.swingArmGrab);
                     sleep(1000);
                     moveServoToPosition(robot.subOrbServo, robot.subOrbHome, 1);
                     moveServoToPosition(robot.subClawServo, robot.subClawClose, 1);
                     sleep(1000);
-                    moveServoToPosition(robot.basketServo2, robot.swingArmPrep, 1);
-                    moveServoToPosition(robot.basketServo1, robot.swingArmPrep, 1);
+                    robot.basketServo1.setPosition(0+robot.FinalrangeBasket*robot.swingArmPrep);
+                    robot.basketServo2.setPosition(robot.FinalrangeBasket-robot.FinalrangeBasket*robot.swingArmPrep);
 
                     rout0=0;
                 }
@@ -181,19 +183,19 @@ public class cousinteleopWithLights extends LinearOpMode {
                 if(rout1==0){
                     moveServoToPosition(robot.subOrbServo, robot.subOrbPerp, 1);
                     moveServoToPosition(robot.subClawServo, robot.subClawOpen, 1);
-                    moveServoToPosition(robot.basketServo2, robot.swingArmPrep, 1);
-                    moveServoToPosition(robot.basketServo1, robot.swingArmPrep, 1);
+                    robot.basketServo1.setPosition(0+robot.FinalrangeBasket*robot.swingArmPrep);
+                    robot.basketServo2.setPosition(robot.FinalrangeBasket-robot.FinalrangeBasket*robot.swingArmPrep);
                     rout1=1;
                 }
                 else if (rout1==1){
-                    moveServoToPosition(robot.basketServo2, robot.swingArmGrab, 1);
-                    moveServoToPosition(robot.basketServo1, robot.swingArmGrab, 1);
+                    robot.basketServo1.setPosition(0+robot.FinalrangeBasket*robot.swingArmGrab);
+                    robot.basketServo2.setPosition(robot.FinalrangeBasket-robot.FinalrangeBasket*robot.swingArmGrab);
                     sleep(1000);
                     moveServoToPosition(robot.subOrbServo, robot.subOrbPerp, 1);
                     moveServoToPosition(robot.subClawServo, robot.subClawClose, 1);
                     sleep(1000);
-                    moveServoToPosition(robot.basketServo2, robot.swingArmPrep, 1);
-                    moveServoToPosition(robot.basketServo1, robot.swingArmPrep, 1);
+                    robot.basketServo1.setPosition(0+robot.FinalrangeBasket*robot.swingArmPrep);
+                    robot.basketServo2.setPosition(robot.FinalrangeBasket-robot.FinalrangeBasket*robot.swingArmPrep);
                     moveServoToPosition(robot.subOrbServo,robot.subOrbHome, 1);
 
                     rout1=0;
@@ -203,8 +205,8 @@ public class cousinteleopWithLights extends LinearOpMode {
             if(gamepad2.dpad_up){//transfer claw to claw
                 moveServoToPosition(robot.subClawServo, robot.subClawOpen, 1);
                 moveServoToPosition(robot.subOrbServo, robot.subOrbHome, 1);
-                moveServoToPosition(robot.basketServo2, robot.swingArmHome, 1);
-                moveServoToPosition(robot.basketServo1, robot.swingArmHome, 1);
+                robot.basketServo1.setPosition(0+robot.FinalrangeBasket*robot.swingArmHome);
+                robot.basketServo2.setPosition(robot.FinalrangeBasket-robot.FinalrangeBasket*robot.swingArmHome);
                 sleep(200);
                 moveServoToPosition(robot.subClawServo, robot.subClawOpen, 1);
                 robot.clawServo.setPosition(.1);
@@ -226,12 +228,13 @@ public class cousinteleopWithLights extends LinearOpMode {
             //telemetry.addData("intake power", robot.intakeServo.getPower());
             //telemetry.addData("claw",robot.clawServo.getPosition());
             //telemetry.addData("RotateClaw",robot.clawRotateServo.getPosition()-robot.FinalrangeClawRotate);
-            telemetry.addData("LIFT",robot.liftMotor.getCurrentPosition());
-            telemetry.addData("LIFTpower",robot.liftMotor.getPower());
+            //telemetry.addData("LIFT",robot.liftMotor.getCurrentPosition());
+            //telemetry.addData("LIFTpower",robot.liftMotor.getPower());
             //telemetry.addData("LiftClamp",liftClamp);
-            telemetry.addData("INTAKE",intakePartition);
-            telemetry.addData("CLAMP",clamp);
-            telemetry.addData("clamp",robot.clawServo.getPosition());
+            //telemetry.addData("INTAKE",intakePartition);
+            //telemetry.addData("CLAMP",clamp);
+            //telemetry.addData("clamp",robot.clawServo.getPosition());
+            telemetry.addData("LeftTrigger",gamepad2.left_trigger);
             telemetry.update();
         }
     }

@@ -59,12 +59,12 @@ public class cousinhwmapWithLights extends HardwareMapUtil {
     public Servo subOrbServo = null;
     public Servo Arm1,Arm2=null;
 
-    public double swingArmHome = 0;
+    public double swingArmHome = .055;
     public double subClawClose = 0;
-    public double swingArmPrep = 0.3;
+    public double swingArmPrep = 0.87;
     public double subClawOpen = 0.30;
     public double subOrbHome = 0;
-    public double swingArmGrab = 0.4;
+    public double swingArmGrab = 0.92;
     public double subOrbPerp = 0.5;
     double clawClose = .22;
 
@@ -107,13 +107,13 @@ public class cousinhwmapWithLights extends HardwareMapUtil {
         Arm2 = basketServo2;
 
         //these are flipped because Will flipped them
-        clawServo = HardwareInitServo("claw",clawclaw+.1);
+        //clawServo = HardwareInitServo("claw",clawclaw+.1);
         //clawRotateServo = HardwareInitServo("terminator",FinalrangeClawRotate);
         //transitionServo = HardwareInitCRServo("transServo",true);
 
 
-        subClawServo = HardwareInitServo("subclaw", subClawClose);// Intake servo
-        subOrbServo = HardwareInitServo("subOrb",subOrbHome);
+        //subClawServo = HardwareInitServo("subclaw", subClawClose);// Intake servo
+        //subOrbServo = HardwareInitServo("subOrb",subOrbHome);
 
 
 
@@ -135,8 +135,8 @@ public class cousinhwmapWithLights extends HardwareMapUtil {
         liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //armMotorTwo.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        blinkinLedDriver = hwMap.get(RevBlinkinLedDriver.class, "blinkin");
-        blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.GREEN);
+        //blinkinLedDriver = hwMap.get(RevBlinkinLedDriver.class, "blinkin");
+        //blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.GREEN);
     }
     public HardwareMap getHwmap(){return hwmap;}
 }
