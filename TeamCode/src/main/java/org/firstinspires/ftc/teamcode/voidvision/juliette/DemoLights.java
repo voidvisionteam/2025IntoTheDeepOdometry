@@ -19,22 +19,20 @@ public class DemoLights extends LinearOpMode {
 
 
     //SENSING VALUES FOR BLOCKS (Change me! Change me!)
-    double YellowTargetGreenPercent = 0.4;
-    double YellowTargetRedPercent = 0.5;
-    double RedTargetGreenPercent = 0.2;
-    double RedTargetRedPercent = 0.3;
-    double BlueTargetBluePercent = 0.4;
+    double YellowTargetGreenPercent = 0.31;
+    double RedTargetGreenPercent = 0.31;
+    double BlueTargetBluePercent = 0.31;
 
     final double BLUE_MINIMUM = 10;
     final double RED_MINIMUM = 10;
     final double GREEN_MINIMUM = 10;
     String BlinkinColor = "none";
 
-    double colorRed = robot.colorSensor.red();
-    double colorBlue = robot.colorSensor.blue();
-    double colorGreen = robot.colorSensor.green();
-    double colorAlpha = robot.colorSensor.alpha();
-    double totalLight = colorRed + colorBlue + colorGreen;
+    double colorRed; //= robot.colorSensor.red();
+    double colorBlue; // = robot.colorSensor.blue();
+    double colorGreen;// = robot.colorSensor.green();
+    double colorAlpha;// = robot.colorSensor.alpha();
+    double totalLight;// = colorRed + colorBlue + colorGreen;
     double colorRedPercent;
     double colorGreenPercent;
     double colorBluePercent;
@@ -56,7 +54,7 @@ public class DemoLights extends LinearOpMode {
         robot.init(hardwareMap);
 
         waitForStart();
-        /*colorRed = robot.colorSensor.red();
+        colorRed = robot.colorSensor.red();
         colorBlue = robot.colorSensor.blue();
         colorGreen = robot.colorSensor.green();
         colorAlpha = robot.colorSensor.alpha();
@@ -69,12 +67,12 @@ public class DemoLights extends LinearOpMode {
         telemetry.addData("Blue:", colorBluePercent);
         telemetry.addData("Green:", colorGreenPercent);
         telemetry.addData("Color:", BlinkinColor);
-        telemetry.update();*/
+        telemetry.update();
         while (opModeIsActive()) {
-            colorRed = 0;
-            colorBlue = 100;
-            colorGreen = 0;
-            colorAlpha = 0;
+            colorRed = robot.colorSensor.red();
+            colorBlue = robot.colorSensor.blue();
+            colorGreen = robot.colorSensor.green();
+            colorAlpha = robot.colorSensor.alpha();
             totalLight = colorRed + colorBlue + colorGreen;
             colorRedPercent = colorRed / totalLight;
             colorBluePercent = colorBlue / totalLight;
@@ -100,13 +98,14 @@ public class DemoLights extends LinearOpMode {
             } else if (colorBluePercent > BlueTargetBluePercent) {
                 robot.blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLUE);
                 BlinkinColor = "Blue";
-            } else if (colorGreenPercent > YellowTargetGreenPercent && colorRed < YellowTargetRedPercent) {
-                robot.blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.GREEN);
+            } else if (colorGreenPercent > YellowTargetGreenPercent) {
+                robot.blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.YELLOW);
                 BlinkinColor = "Yellow";
-            } else if (colorRedPercent > RedTargetRedPercent) {
+            } else if (colorGreenPercent > RedTargetGreenPercent) {
                 robot.blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.RED);
                 BlinkinColor = "Red";
             } else {
+                robot.blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLACK);
                 BlinkinColor = "none";
             }
         }
