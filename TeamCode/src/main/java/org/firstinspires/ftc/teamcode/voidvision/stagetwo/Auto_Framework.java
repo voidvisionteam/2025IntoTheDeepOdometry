@@ -281,13 +281,29 @@ public  class Auto_Framework extends Auto_Util {
         }
     }
     public class Intake2{
-        Servo clawServo2,subOrbitalServo;
-        double clawClose = 0;
-        double clawOpen = .3;
 
-        double orbitalServoStartPitch = 0;
-        double orbitalServoPrepPitch;
+        Servo subClawServo,subOrbServo,subClawPitch;
 
+        double subClawOpen = 0.051;
+        double subClawInsidePrep = 0.32;
+        double subClawInsideGrab = 0.15;
+        double subClawClose = .259;
+
+        double subOrbHome = .9255;
+        double subOrbPerp = 0.603;
+
+        double subPitchGrab = .847;
+        double subPitchHome = .349;
+
+        public Intake2(HardwareMap hardwareMap){
+            subClawServo = hardwareMap.get(Servo.class,"subclaw");
+            subOrbServo = hardwareMap.get(Servo.class,"subOrb");
+            subClawPitch = hardwareMap.get(Servo.class,"subClawPitch");
+            subClawServo.setPosition(subClawOpen);
+            subOrbServo.setPosition(subPitchHome);
+            subClawPitch.setPosition(subPitchGrab);
+
+        }
     }
     /*
     * things to use to auto paths:
