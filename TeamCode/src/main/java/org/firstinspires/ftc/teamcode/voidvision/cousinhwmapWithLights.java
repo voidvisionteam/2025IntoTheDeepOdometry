@@ -58,16 +58,24 @@ public class cousinhwmapWithLights extends HardwareMapUtil {
     public Servo subClawServo= null;
     public Servo subOrbServo = null;
     public Servo Arm1,Arm2=null;
+    public Servo subClawPitch = null;
 
     public double swingArmHome = .055;
-    public double subClawClose = 0;
+    public double subClawClose = .259;
     public double swingArmPrep = 0.87;
-    public double subClawOpen = 0.30;
-    public double subOrbHome = 0;
+    public double subClawOpen = 0.051;
+    public double subOrbHome = .9255;
     public double swingArmGrab = 0.92;
-    public double subOrbPerp = 0.5;
-    double clawClose = .22;
+    public double subOrbPerp = 0.603;
 
+    public double subPitchGrab = .847;
+    double subPitchHome = .349;
+
+    double clawRotateHome=.0318;
+    double clawRotateSpec=.0918;
+    double clawRotateHighBasket=.1224;
+    double clawRotatePrep=.0153;
+    double clawRotateInit=.14;
 
 
 
@@ -102,18 +110,22 @@ public class cousinhwmapWithLights extends HardwareMapUtil {
         //intakeServo = HardwareInitCRServo("intake", true); // Intake servo
         basketServo1 = HardwareInitServo("basket1", 0); // Left basket servo
         basketServo2 = HardwareInitServo("basket2", FinalrangeBasket); // Right basket servo
+        basketServo1.setPosition(0+FinalrangeBasket*swingArmHome);
+        basketServo2.setPosition(FinalrangeBasket-FinalrangeBasket*swingArmHome);
 
         Arm1 =basketServo1;
         Arm2 = basketServo2;
+        subClawPitch = HardwareInitServo("subClawPitch",0);
+        subClawPitch.setPosition(subPitchGrab);
 
         //these are flipped because Will flipped them
         //clawServo = HardwareInitServo("claw",clawclaw+.1);
-        //clawRotateServo = HardwareInitServo("terminator",FinalrangeClawRotate);
+        clawRotateServo = HardwareInitServo("terminator",0);
         //transitionServo = HardwareInitCRServo("transServo",true);
 
 
-        //subClawServo = HardwareInitServo("subclaw", subClawClose);// Intake servo
-        //subOrbServo = HardwareInitServo("subOrb",subOrbHome);
+        subClawServo = HardwareInitServo("subclaw", subClawOpen);// Intake servo
+        subOrbServo = HardwareInitServo("subOrb",subOrbHome);
 
 
 
@@ -132,7 +144,7 @@ public class cousinhwmapWithLights extends HardwareMapUtil {
         rightfrontDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftbackDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightbackDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         //armMotorTwo.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         //blinkinLedDriver = hwMap.get(RevBlinkinLedDriver.class, "blinkin");
