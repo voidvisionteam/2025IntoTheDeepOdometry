@@ -62,10 +62,13 @@ public class cousinhwmapWithLights extends HardwareMapUtil {
 
     public double swingArmHome = .055;
     public double subClawClose = .259;
+    public double subClawInsidePrep = 0.32;
+    public double subClawInsideGrab = 0.15;
     public double swingArmPrep = 0.87;
     public double subClawOpen = 0.051;
     public double subOrbHome = .9255;
     public double swingArmGrab = 0.92;
+    public double swingArmInsideGrab = 0.89;
     public double subOrbPerp = 0.603;
 
     public double subPitchGrab = .847;
