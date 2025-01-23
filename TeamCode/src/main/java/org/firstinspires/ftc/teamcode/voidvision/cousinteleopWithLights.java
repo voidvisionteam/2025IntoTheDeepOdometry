@@ -260,18 +260,36 @@ public class cousinteleopWithLights extends LinearOpMode {
 
              */
             if(gamepad2.dpad_up){//transfer claw to claw
-                moveServoToPosition(robot.subClawPitch,robot.subPitchHome,1);
-                moveServoToPosition(robot.subOrbServo, robot.subOrbHome, 1);
-                orb = 0;
-                robot.basketServo1.setPosition(0+robot.FinalrangeBasket*robot.swingArmHome);
-                robot.basketServo2.setPosition(robot.FinalrangeBasket-robot.FinalrangeBasket*robot.swingArmHome);
-                sleep(200);
-                moveServoToPosition(robot.subClawServo, robot.subClawOpen, 1);
-                robot.clawServo.setPosition(.1);
-                moveServoToPosition(robot.clawRotateServo,robot.clawRotatePrep,1);
-                sleep(200);
-                robot.clawServo.setPosition(.1 + robot.clawclaw);
-                moveServoToPosition(robot.clawRotateServo,robot.clawRotateHome,1);
+                if (inside == 0) {
+                    moveServoToPosition(robot.subClawPitch, robot.subPitchHome, 1);
+                    moveServoToPosition(robot.subOrbServo, robot.subOrbHome, 1);
+                    orb = 0;
+                    robot.basketServo1.setPosition(0 + robot.FinalrangeBasket * robot.swingArmHome);
+                    robot.basketServo2.setPosition(robot.FinalrangeBasket - robot.FinalrangeBasket * robot.swingArmHome);
+
+                    moveServoToPosition(robot.subClawServo, robot.subClawDrop, 1);
+                    robot.clawServo.setPosition(.1);
+                    moveServoToPosition(robot.subClawServo, robot.subClawClose, 1);
+
+                    moveServoToPosition(robot.clawRotateServo, robot.clawRotatePrep, 1);
+
+                    robot.clawServo.setPosition(.1 + robot.clawclaw);
+                    moveServoToPosition(robot.subClawServo, robot.subClawOpen, 1);
+                    moveServoToPosition(robot.clawRotateServo, robot.clawRotateHome, 1);
+                }
+                else if (inside == 1) {
+                    moveServoToPosition(robot.subClawPitch, robot.subPitchHome, 1);
+                    moveServoToPosition(robot.subOrbServo, robot.subOrbPerp, 1);
+                    orb = 0;
+                    robot.basketServo1.setPosition(0 + robot.FinalrangeBasket * robot.swingArmHome);
+                    robot.basketServo2.setPosition(robot.FinalrangeBasket - robot.FinalrangeBasket * robot.swingArmHome);
+
+                    robot.clawServo.setPosition(.1);
+                    moveServoToPosition(robot.clawRotateServo, robot.clawRotatePrep, 1);
+                    robot.clawServo.setPosition(.1 + robot.clawclaw);
+                    moveServoToPosition(robot.subClawServo, robot.subClawInsidePrep, 1);
+                    moveServoToPosition(robot.clawRotateServo, robot.clawRotateHome, 1);
+                }
 
 
 
