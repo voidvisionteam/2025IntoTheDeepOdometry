@@ -62,7 +62,7 @@ public class cousinhwmapWithLights extends HardwareMapUtil {
 
     public double swingArmHome = .055;
     public double subClawClose = .259;
-    public double subClawDrop = 0.2;
+    public double subClawDrop = 0.18;
     public double subClawInsidePrep = 0.32;
     public double subClawInsideGrab = 0.15;
     public double swingArmPrep = 0.87;
@@ -73,12 +73,12 @@ public class cousinhwmapWithLights extends HardwareMapUtil {
     public double subOrbPerp = 0.603;
 
     public double subPitchGrab = .847;
-    double subPitchHome = .349;
+    double subPitchHome = .3;
 
-    double clawRotateHome=.0318;
-    double clawRotateSpec=.0918;
-    double clawRotateHighBasket=.1224;
-    double clawRotatePrep=.0153;
+    double clawRotateHome=.13;
+    double clawRotateSpec=.188;
+    double clawRotateHighBasket=.21;
+    double clawRotatePrep=.08;
     double clawRotateInit=.14;
 
 
@@ -119,12 +119,11 @@ public class cousinhwmapWithLights extends HardwareMapUtil {
 
         Arm1 =basketServo1;
         Arm2 = basketServo2;
-        subClawPitch = HardwareInitServo("subClawPitch",0);
-        subClawPitch.setPosition(subPitchGrab);
+        subClawPitch = HardwareInitServo("subClawPitch",subPitchHome);
 
         //these are flipped because Will flipped them
         clawServo = HardwareInitServo("claw",clawclaw+.1);
-        clawRotateServo = HardwareInitServo("terminator",0);
+        clawRotateServo = HardwareInitServo("terminator",clawRotateHome);
         //transitionServo = HardwareInitCRServo("transServo",true);
 
 
