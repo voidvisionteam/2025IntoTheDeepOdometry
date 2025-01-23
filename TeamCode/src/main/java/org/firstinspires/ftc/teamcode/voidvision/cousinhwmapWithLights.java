@@ -123,7 +123,7 @@ public class cousinhwmapWithLights extends HardwareMapUtil {
         subClawPitch.setPosition(subPitchGrab);
 
         //these are flipped because Will flipped them
-        //clawServo = HardwareInitServo("claw",clawclaw+.1);
+        clawServo = HardwareInitServo("claw",clawclaw+.1);
         clawRotateServo = HardwareInitServo("terminator",0);
         //transitionServo = HardwareInitCRServo("transServo",true);
 

@@ -120,13 +120,13 @@ public class cousinteleopWithLights extends LinearOpMode {
             //robot.liftMotor.setPower(-1*gamepad2.left_stick_y*(robot.liftBrake / endgameLiftBoost));
 
             if(gamepad2.x){
-                //clamp = !clamp;sleepWithOpModeCheck(150);
+                clamp = !clamp;sleepWithOpModeCheck(150);
             }
             if(clamp){
-                //robot.clawServo.setPosition(.1 + robot.clawclaw);
+                robot.clawServo.setPosition(.1 + robot.clawclaw);
             }
             else{
-                //robot.clawServo.setPosition(.1);
+                robot.clawServo.setPosition(.1);
             }
             //extender
             //GAMEPAD 2 CONTROLLS
@@ -186,12 +186,10 @@ public class cousinteleopWithLights extends LinearOpMode {
                 else if (rout0==1){
                     robot.basketServo1.setPosition(0+robot.FinalrangeBasket*robot.swingArmGrab);
                     robot.basketServo2.setPosition(robot.FinalrangeBasket-robot.FinalrangeBasket*robot.swingArmGrab);
-                    sleep(1000);
-                    moveServoToPosition(robot.subOrbServo, robot.subOrbHome, 1);
                     moveServoToPosition(robot.subClawServo, robot.subClawClose, 1);
-                    sleep(1000);
                     robot.basketServo1.setPosition(0+robot.FinalrangeBasket*robot.swingArmPrep);
                     robot.basketServo2.setPosition(robot.FinalrangeBasket-robot.FinalrangeBasket*robot.swingArmPrep);
+                    moveServoToPosition(robot.subOrbServo, robot.subOrbHome, 1);
                     orb = 0;
 
                     rout0=0;
@@ -268,6 +266,7 @@ public class cousinteleopWithLights extends LinearOpMode {
                     robot.basketServo2.setPosition(robot.FinalrangeBasket - robot.FinalrangeBasket * robot.swingArmHome);
 
                     moveServoToPosition(robot.subClawServo, robot.subClawDrop, 1);
+                    sleep(200);
                     robot.clawServo.setPosition(.1);
                     moveServoToPosition(robot.subClawServo, robot.subClawClose, 1);
 
