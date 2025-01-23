@@ -1,4 +1,5 @@
 package org.firstinspires.ftc.teamcode.voidvision.juliette;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 
 
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
@@ -57,9 +58,10 @@ public class lightsHwmap extends HardwareMapUtil {
     public void init(HardwareMap ahwMap) {
         HardwareMap hwMap = null;
         hwMap = ahwMap;
-        colorSensor = hwMap.get(ColorSensor.class, "color");
+        //colorSensor = hwMap.get(ColorSensor.class, "color");
         blinkinLedDriver = hwMap.get(RevBlinkinLedDriver.class, "blinkin");
 
+        DistanceSensor distanceSensor = hwMap.get(DistanceSensor.class, "distance");
 
 
     }
