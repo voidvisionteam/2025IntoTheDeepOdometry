@@ -33,6 +33,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.voidvision.Auto_Util;
+import org.firstinspires.ftc.teamcode.voidvision.redRightAutoSPECIAL;
 import org.firstinspires.ftc.teamcode.voidvision.teenagehwmap;
 
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -164,6 +165,7 @@ public  class Auto_Framework extends Auto_Util {
         int targetPositionLowerRung = 902+initialPosition; // Adjust based on desired lift distance
         int targetPositionUpperRung = 2318+initialPosition; // Adjust based on desired lift distance
         int targetpositiontest = 0;
+        int targetSpecialGrab = initialPosition + 600;
 
         public Lift(HardwareMap hardwareMap) {
             lift = hardwareMap.get(DcMotorEx.class, "liftMotor");
@@ -225,6 +227,54 @@ public  class Auto_Framework extends Auto_Util {
             return new LiftUpB();
         }
 
+        public class LiftUpSpecialHeight implements Action {
+            private boolean initialized = false;
+
+            @Override
+            public boolean run(@NonNull TelemetryPacket packet) {
+                if (!initialized) {
+                    lift.setPower(0.99);
+                    initialized = true;
+                }
+
+                double pos = lift.getCurrentPosition();
+                packet.put("liftPos", pos);
+                if (pos < targetSpecialGrab) {
+                    return true;
+                } else {
+                    lift.setPower(.1);
+                    return false;
+                }
+            }
+        }
+        public Action liftUpSpecialHeight() {
+            return new LiftUpSpecialHeight();
+        }
+
+        public class LiftDownLowBar implements Action {
+            private boolean initialized = false;
+
+            @Override
+            public boolean run(@NonNull TelemetryPacket packet) {
+                if (!initialized) {
+                    lift.setPower(-0.89);
+                    initialized = true;
+                }
+
+                double pos = lift.getCurrentPosition();
+                packet.put("liftPos", pos);
+                if (pos > targetPositionLowerRung) {
+                    return true;
+                } else {
+                    lift.setPower(0);
+                    return false;
+                }
+            }
+        }
+        public Action liftDownLowBar(){
+            return new LiftDownLowBar();
+        }
+
         public class LiftDown implements Action {
             private boolean initialized = false;
 
@@ -263,14 +313,63 @@ public  class Auto_Framework extends Auto_Util {
     public class BackIntakeComponent{
         Servo basketServo1,basketServo2;
         double FinalrangeBasket = 0.48;
-        double homePitch = 0;
-        double preppedPitch =0.3;
-        double grabPitch = 0.4;
+        double swingArmHome = .055;
+        double swingArmPrep = 0.87;
+        double swingArmGrab = 0.92;
+        double swingArmInsideGrab = 0.89;
         public BackIntakeComponent(HardwareMap hardwareMap){
-            basketServo1 = hardwareMap.get(Servo.class,"basket2");
-            basketServo2 = hardwareMap.get(Servo.class,"basket1");
-            basketServo1.setPosition(0);
-            basketServo2.setPosition(FinalrangeBasket);
+            basketServo1 = hardwareMap.get(Servo.class,"basket1");
+            basketServo2 = hardwareMap.get(Servo.class,"basket2");
+            basketServo1.setPosition(0+FinalrangeBasket*swingArmHome);
+            basketServo2.setPosition(FinalrangeBasket-FinalrangeBasket*swingArmHome);
+        }
+
+        public class swingHome implements Action {
+            @Override
+            public boolean run(@NonNull TelemetryPacket packet) {
+                basketServo1.setPosition(0+FinalrangeBasket*swingArmHome);
+                basketServo2.setPosition(FinalrangeBasket-FinalrangeBasket*swingArmHome);
+                return false;
+            }
+        }
+        public Action SwingHome() {
+            return new swingHome();
+        }
+
+        public class swingPrep implements Action {
+            @Override
+            public boolean run(@NonNull TelemetryPacket packet) {
+                basketServo1.setPosition(0+FinalrangeBasket*swingArmPrep);
+                basketServo2.setPosition(FinalrangeBasket-FinalrangeBasket*swingArmPrep);
+                return false;
+            }
+        }
+        public Action SwingPrep() {
+            return new swingPrep();
+        }
+
+        public class swingGrab implements Action {
+            @Override
+            public boolean run(@NonNull TelemetryPacket packet) {
+                basketServo1.setPosition(0+FinalrangeBasket*swingArmGrab);
+                basketServo2.setPosition(FinalrangeBasket-FinalrangeBasket*swingArmGrab);
+                return false;
+            }
+        }
+        public Action SwingGrab() {
+            return new swingGrab();
+        }
+
+        public class swingInsideGrab implements Action {
+            @Override
+            public boolean run(@NonNull TelemetryPacket packet) {
+                basketServo1.setPosition(0+FinalrangeBasket*swingArmInsideGrab);
+                basketServo2.setPosition(FinalrangeBasket-FinalrangeBasket*swingArmInsideGrab);
+                return false;
+            }
+        }
+        public Action SwingInsideGrab() {
+            return new swingInsideGrab();
         }
     }
     public class Flywheels{
@@ -303,6 +402,75 @@ public  class Auto_Framework extends Auto_Util {
             subOrbServo.setPosition(subPitchHome);
             subClawPitch.setPosition(subPitchGrab);
 
+        }
+        public class swingHome implements Action {
+            @Override
+            public boolean run(@NonNull TelemetryPacket packet) {
+                subClawServo.setPosition(subClawOpen);
+                subOrbServo.setPosition(subOrbHome);
+                subClawPitch.setPosition(subPitchHome);
+                return false;
+            }
+        }
+        public Action SwingHome() {
+            return new swingHome();
+        }
+
+        public class swingGrab implements Action {
+            @Override
+            public boolean run(@NonNull TelemetryPacket packet) {
+                subClawServo.setPosition(subClawOpen);
+                subOrbServo.setPosition(subOrbHome);
+                subClawPitch.setPosition(subPitchGrab);
+                return false;
+            }
+        }
+        public Action SwingGrab() {
+            return new swingGrab();
+        }
+
+        public class closeSubClaw implements Action {
+            @Override
+            public boolean run(@NonNull TelemetryPacket packet) {
+                subClawServo.setPosition(subClawClose);
+                return false;
+            }
+        }
+        public Action CloseSubClaw() {
+            return new closeSubClaw();
+        }
+
+        public class openSubClaw implements Action {
+            @Override
+            public boolean run(@NonNull TelemetryPacket packet) {
+                subClawServo.setPosition(subClawOpen);
+                return false;
+            }
+        }
+        public Action OpenSubClaw() {
+            return new openSubClaw();
+        }
+
+        public class moveSubOrbHome implements Action {
+            @Override
+            public boolean run(@NonNull TelemetryPacket packet) {
+                subOrbServo.setPosition(subOrbHome);
+                return false;
+            }
+        }
+        public Action MoveSubOrbHome() {
+            return new moveSubOrbHome();
+        }
+
+        public class moveSubOrbPerp implements Action {
+            @Override
+            public boolean run(@NonNull TelemetryPacket packet) {
+                subOrbServo.setPosition(subOrbPerp);
+                return false;
+            }
+        }
+        public Action MoveSubOrbPerp() {
+            return new moveSubOrbPerp();
         }
     }
     /*
@@ -593,6 +761,103 @@ public  class Auto_Framework extends Auto_Util {
         Action ScoreOnBasketTwo = clawServo12.openClaw();
         Action BackFromBasketTwo = new ParallelAction(run9altback);
 
+
+        Action sideRoute01 = drive.actionBuilder(beginPose)
+                .strafeTo(new Vector2d(26.1,6))
+                .strafeTo(new Vector2d(25+.1,-22))
+                .strafeTo(new Vector2d(49,-22))
+                .strafeTo(new Vector2d(49,-32))
+                .strafeTo(new Vector2d(9,-32))
+                .strafeTo(new Vector2d(49,-32))
+                .strafeTo(new Vector2d(49,-41))
+                .strafeTo(new Vector2d(9,-41))
+                .strafeTo(new Vector2d(15,-41))
+                .build();
+        Action sideRoute02 = drive.actionBuilder(new Pose2d(15,-41,0))
+                //.strafeTo(new Vector2d(15,-20))
+                //.turn((180/360d)*fullTurn)
+                .strafeTo(new Vector2d(21,-20))
+                .build();
+        Action sideRoute03 = drive.actionBuilder(new Pose2d(21,-20,0))
+                .waitSeconds(.5)
+                .build();
+        Action sideRoute04 = drive.actionBuilder(new Pose2d(2,-20,0))
+                .strafeTo(new Vector2d(15,-20))
+                //.turn((180/360d)*fullTurn*-1)
+                .build();
+        Action sideRoute05 = drive.actionBuilder(new Pose2d(15,-20,0))
+                .strafeTo(new Vector2d(15,6+2))
+                .strafeTo(new Vector2d(26.1-.5,6+2))
+                .build();
+        Action sideRoute040 = drive.actionBuilder(new Pose2d(2,-20,0))
+                .splineTo(new Vector2d(25.1-5,8.0),0)
+                .build();
+
+
+
+        Action sideRoute06 = drive.actionBuilde3(new Pose2d(25.1-.5,6+2,0))
+                .strafeTo(new Vector2d(21,-20))
+                //.turn((180/360d)*fullTurn)
+                //.strafeTo(new Vector2d(21,-20))
+                .build();
+        Action sideRoute07 = drive.actionBuilder(new Pose2d(21,-20,0))
+                .waitSeconds(.5)
+                .build();
+        Action sideRoute08 = drive.actionBuilder(new Pose2d(2,-20,0))
+                .strafeTo(new Vector2d(15,-20))
+                //.turn((180/360d)*fullTurn*-1)
+                .build();
+        Action sideRoute09 = drive.actionBuilder(new Pose2d(15,-20,0))
+                .strafeTo(new Vector2d(15,6+4))
+                .strafeTo(new Vector2d(26.1,6+4))
+                .build();
+
+        Action throwAway = drive.actionBuilder(beginPose)
+                .strafeTo(new Vector2d(1,0))
+                .waitSeconds(5)
+                .build();
+        Action throwAway2 = drive.actionBuilder(beginPose)
+                .strafeTo(new Vector2d(1,0))
+                .waitSeconds(7)
+                .build();
+
+        Action SpecialPart1 = new ParallelAction(sideRoute01,clawServoRotate13.rotateClawDown());
+
+        Action SpecialPart2 = new ParallelAction(sideRoute02,clawServo12.openClaw(),lift14.liftUpSpecialHeight(),clawServoRotate13.rotateClawMid());
+        Action SpecialPart3 = new ParallelAction(sideRoute03,new SequentialAction(clawServo12.closeClaw()));
+        Action SpecialPart4 = new SequentialAction(lift14.liftUpSpecialHeight(),sideRoute04);
+        Action SpecialPart5 = new ParallelAction(sideRoute05,clawServoRotate13.rotateClawMid(),lift14.liftUpB());
+        Action scoreSpecialOnBar1 = new ParallelAction(lift14.liftDownLowBar());
+
+
+        Action SpecialPart6 = new ParallelAction(sideRoute06,new SequentialAction(lift14.liftDown(),clawServo12.openClaw(),lift14.liftUpSpecialHeight()));
+        Action SpecialPart7 = new ParallelAction(sideRoute07,new SequentialAction(clawServo12.closeClaw()));
+        Action SpecialPart8 = new SequentialAction(lift14.liftUpSpecialHeight(),sideRoute08);
+        Action SpecialPart9 = new ParallelAction(sideRoute09,clawServoRotate13.rotateClawMid(),lift14.liftUpB());
+        Action scoreSpecialOnBar2 = new ParallelAction(lift14.liftDownLowBar());
+
+        Action runSpecialTestRun = drive.actionBuilder(new Pose2d(26+.1,6,0))
+                .strafeTo(new Vector2d(25+.1,-22))
+                .strafeTo(new Vector2d(49,-22))
+                .strafeTo(new Vector2d(49,-32))
+                .strafeTo(new Vector2d(9,-32))
+                .strafeTo(new Vector2d(49,-32))
+                .strafeTo(new Vector2d(49,-41))
+                .strafeTo(new Vector2d(9,-41))
+                .strafeTo(new Vector2d(15,-41))
+
+                .strafeTo(new Vector2d(21,-20))
+                //.turn((180/360d)*fullTurn)
+                //.strafeTo(new Vector2d(4,-16))
+
+                .waitSeconds(.5)
+
+                .strafeTo(new Vector2d(15,-16))
+                .turn((180/360d)*fullTurn*-1)
+
+                .strafeTo(new Vector2d(26.1-.5,8))
+                .build();
+
         waitForStart();
 
         /*Actions.runBlocking(new SequentialAction(
@@ -611,34 +876,21 @@ public  class Auto_Framework extends Auto_Util {
                 )
         );*/
         Actions.runBlocking(
-                new SequentialAction(
-                        drive.actionBuilde2(beginPose)
-                                .setTangent(0)
-                                .splineTo(new Vector2d(15,-10),-0.25*fullTurn)
-                                //.waitSeconds(1)
-                                //.splineTo(new Vector2d(10+20,-10-24),-0.5*fullTurn)
-                                //.setTangent(0)
-                                //.splineTo(new Vector2d(5+24,-10-24),-.5*fullTurn)
-                                //.splineTo(new Vector2d(10,-10-10),-0.55*fullTurn)
-                                //.waitSeconds(1)
-                                //.splineToSplineHeading(new Pose2d(15,-33.5,-.5*.963*fullTurn),-0.25*(fullTurn))
-                                .splineToSplineHeading(new Pose2d(15,-33.5,-1.00000000009*Math.PI),-0.25*(fullTurn))
-
-                                //.waitSeconds(1)
-                                //.setTangent(-0.25*(fullTurn))
-
-                                //.splineToSplineHeading(new Pose2d(15,-33.5-1,-.5*.965*fullTurn),-0.25*(fullTurn))
-                                //.waitSeconds(1)
-                                .strafeTo(new Vector2d(5,-33.5))
-                                //.waitSeconds(1)
-                                //.splineToSplineHeading(new Pose2d(15,-33.5-9.5,-1*Math.PI),-0.5*(2*Math.PI))
-                                .strafeTo(new Vector2d(15,-33.5-9.5))
-                                //.waitSeconds(1)
-                                .strafeTo(new Vector2d(5,-33.5-9.5))
-                                .turnTo(-.5*Math.PI)
-                                .turnTo(0-.00000000001)
-                                .build()
-                )
+                /*new SequentialAction(
+                        runToHighBar,
+                        scoreOnHighBar,
+                        SpecialPart1,
+                        SpecialPart2,
+                        SpecialPart3,
+                        SpecialPart4,
+                        SpecialPart5,
+                        scoreSpecialOnBar1,
+                        SpecialPart6,
+                        SpecialPart7,
+                        SpecialPart8,
+                        SpecialPart9,
+                        scoreSpecialOnBar2)*/
+                runSpecialTestRun
         );
 
     }

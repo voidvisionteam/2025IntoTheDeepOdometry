@@ -37,6 +37,7 @@ public class lightsHwmap extends HardwareMapUtil {
     public CRServo intakeServo = null;
     public ColorSensor colorSensor = null;
     public RevBlinkinLedDriver blinkinLedDriver = null;
+    public DistanceSensor distanceSensor= null;
 
 
     // Default positions for range and basket servos
@@ -61,7 +62,7 @@ public class lightsHwmap extends HardwareMapUtil {
         //colorSensor = hwMap.get(ColorSensor.class, "color");
         blinkinLedDriver = hwMap.get(RevBlinkinLedDriver.class, "blinkin");
 
-        DistanceSensor distanceSensor = hwMap.get(DistanceSensor.class, "distance");
+        distanceSensor= hwMap.get(DistanceSensor.class, "distance");
 
 
     }
