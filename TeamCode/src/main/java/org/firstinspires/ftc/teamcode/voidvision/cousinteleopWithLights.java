@@ -269,7 +269,7 @@ public class cousinteleopWithLights extends LinearOpMode {
                     moveServoToPosition(robot.subClawServo, robot.subClawDrop, 1);
                     sleep(1000);
                     robot.clawServo.setPosition(.1);
-                    //moveServoToPosition(robot.subClawServo, robot.subClawClose, 1);
+                    moveServoToPosition(robot.subClawServo, robot.subClawClose, 1);
 
                     moveServoToPosition(robot.clawRotateServo, robot.clawRotatePrep, 1);
                     sleep(800);
