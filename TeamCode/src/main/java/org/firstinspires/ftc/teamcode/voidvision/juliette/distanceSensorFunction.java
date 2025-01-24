@@ -19,11 +19,24 @@ public class distanceSensorFunction extends LinearOpMode {
     //Main Code
     @Override
     public void runOpMode() {
-        robot.init(hardwareMap);
-        double distance= robot.distanceSensor.getDistance(DistanceUnit.CM);
-        telemetry.addData("Distance: ", distance);
+        while (opModeIsActive()){
+            distanceNumber();
+        }
 
 
     }
 
+    private double distanceNumber(){
+        robot.init(hardwareMap);
+        double distance= robot.distanceSensor.getDistance(DistanceUnit.CM);
+        telemetry.addData("Distance: ", distance);
+        return distance;
 }
+}
+/*
+           #Apparently it won't allow me to do referencable function because the SDK is too low
+           #So I put the one that will probably work down here
+           #This is untested
+
+*
+* */
