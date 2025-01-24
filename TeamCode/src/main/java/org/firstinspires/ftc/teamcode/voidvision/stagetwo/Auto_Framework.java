@@ -507,11 +507,11 @@ public  class Auto_Framework extends Auto_Util {
         //Instantiate Mec Drive
         drive = new MecanumDrive(hardwareMap, beginPose);
         //Init Claw
-        clawServo12 = new ClawServo(hardwareMap);
+        //clawServo12 = new ClawServo(hardwareMap);
         //Init Claw Lift
-        clawServoRotate13 = new ClawServoRotate(hardwareMap);
+        //clawServoRotate13 = new ClawServoRotate(hardwareMap);
         //Init Lift
-        lift14 = new Lift(hardwareMap);
+        //lift14 = new Lift(hardwareMap);
         lightStrip = new LightStrip(hardwareMap);
     }
 

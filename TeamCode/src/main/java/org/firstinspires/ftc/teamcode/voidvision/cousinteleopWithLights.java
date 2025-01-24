@@ -204,6 +204,7 @@ public class cousinteleopWithLights extends LinearOpMode {
                 if (rout3 == 0){
                     moveServoToPosition(robot.subOrbServo, robot.subOrbHome, 1);
                     moveServoToPosition(robot.subClawServo, robot.subClawInsidePrep, 1);
+                    moveServoToPosition(robot.subClawPitch, robot.subPitchGrab,1);
                     robot.basketServo1.setPosition(0+robot.FinalrangeBasket*robot.swingArmPrep);
                     robot.basketServo2.setPosition(robot.FinalrangeBasket-robot.FinalrangeBasket*robot.swingArmPrep);
                     moveServoToPosition(robot.subClawPitch,robot.subPitchGrab,1);
