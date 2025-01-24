@@ -60,16 +60,18 @@ public class cousinhwmapWithLights extends HardwareMapUtil {
     public Servo Arm1,Arm2=null;
     public Servo subClawPitch = null;
 
-    public double swingArmHome = .055;
+    public double swingArmHome = .025;
+    public double swingArmInsideTrans = 0.33;
     public double subClawClose = .259;
     public double subClawDrop = 0.18;
     public double subClawInsidePrep = 0.32;
-    public double subClawInsideGrab = 0.15;
+    public double subClawInsideGrab = 0.06;
     public double swingArmPrep = 0.87;
     public double subClawOpen = 0.051;
     public double subOrbHome = .9255;
+    public double subOrbInside= 0.75;
     public double swingArmGrab = 0.96;
-    public double swingArmInsideGrab = 0.89;
+    public double swingArmInsideGrab = 0.97;
     public double subOrbPerp = 0.603;
 
     public double subPitchGrab = .847;
@@ -78,7 +80,7 @@ public class cousinhwmapWithLights extends HardwareMapUtil {
     double clawRotateHome=.13;
     double clawRotateSpec=.188;
     double clawRotateHighBasket=.21;
-    double clawRotatePrep=.08;
+    double clawRotatePrep=.082;
     double clawRotateInit=.14;
 
 
