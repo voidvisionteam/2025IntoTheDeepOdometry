@@ -268,6 +268,7 @@ public class UNCLE_JEFF extends LinearOpMode {
                 }
                 normal=0;
             }
+
             while (insidepick==1) {//inside pickup
                 if (rout3 == 0) {
                     robot.subOrbServo.setPosition(robot.subOrbHome);

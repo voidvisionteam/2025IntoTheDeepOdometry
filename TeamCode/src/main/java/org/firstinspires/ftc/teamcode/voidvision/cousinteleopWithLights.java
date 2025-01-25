@@ -200,7 +200,6 @@ public class cousinteleopWithLights extends LinearOpMode {
                 }
             }
 
-
             //--------sub claw -------
             //dpad down sets home position
             //dpad right togles between prep and grab-up (orb = 0)
