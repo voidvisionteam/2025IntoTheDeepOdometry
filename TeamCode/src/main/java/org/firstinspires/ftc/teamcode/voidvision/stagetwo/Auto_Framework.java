@@ -64,7 +64,7 @@ public  class Auto_Framework extends Auto_Util {
 
         public ClawServo(HardwareMap hardwareMap){
             clawservo = hardwareMap.get(Servo.class,"claw");
-            clawservo.setPosition(closed);
+            clawservo.setPosition(opened);
             //clawservo.setPosition(0);
         }
         public class CloseClaw implements Action {
@@ -434,7 +434,7 @@ public  class Auto_Framework extends Auto_Util {
         double subOrbPerp = 0.603;
 
         double subPitchGrab = .847;
-        double subPitchHome = .3;
+        double subPitchHome = .32;
         double subClawDrop=0.18;
 
         public Intake2(HardwareMap hardwareMap){
@@ -442,8 +442,8 @@ public  class Auto_Framework extends Auto_Util {
             subOrbServo = hardwareMap.get(Servo.class,"subOrb");
             subClawPitch = hardwareMap.get(Servo.class,"subClawPitch");
             subClawServo.setPosition(subClawOpen);
-            subOrbServo.setPosition(subPitchHome);
-            subClawPitch.setPosition(subPitchGrab);
+            subOrbServo.setPosition(subOrbHome);
+            subClawPitch.setPosition(subPitchHome);
 
         }
         public class swingHome implements Action {
@@ -970,8 +970,11 @@ public  class Auto_Framework extends Auto_Util {
                         drive.actionBuilder(beginPose).waitSeconds(1).build(),
                         //HandOffSetUpBack
                         new ParallelAction(backIntakeComponent.SwingHome(),intake2.SwingHome()),
-                        intake2.DropSubClaw(),
                         drive.actionBuilder(beginPose).waitSeconds(1).build(),
+                        //DROP
+                        intake2.DropSubClaw(),
+                        drive.actionBuilder(beginPose).waitSeconds(.2).build(),
+                        intake2.CloseSubClaw(),
                         //HandOffSetupFront
                         new ParallelAction(clawServo12.openClaw(),clawServoRotate13.rotateClawPrep()),
                         drive.actionBuilder(beginPose).waitSeconds(1).build(),

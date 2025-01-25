@@ -4,9 +4,10 @@ import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.MecanumDrive;
-
+@Autonomous(name = "Spec",group = "Autonomous")
 public class Specimen_Base extends Auto_Framework{
     @Override
     public void runOpMode() throws InterruptedException{
