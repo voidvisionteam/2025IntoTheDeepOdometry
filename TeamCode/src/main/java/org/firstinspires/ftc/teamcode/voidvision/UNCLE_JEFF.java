@@ -323,6 +323,7 @@ public class UNCLE_JEFF extends LinearOpMode {
 
                     clamp = true;
                     sleep(300);
+
                     moveServoToPosition(robot.subClawServo, robot.subClawOpen, 1);
                     //moveServoToPosition(robot.clawRotateServo, robot.clawRotateHome, 1);
                     moveServoToPosition(robot.subClawPitch, robot.subPitchGrab, 1);

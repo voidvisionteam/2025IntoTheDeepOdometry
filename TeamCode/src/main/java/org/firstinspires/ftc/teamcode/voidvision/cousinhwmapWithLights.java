@@ -60,6 +60,7 @@ public class cousinhwmapWithLights extends HardwareMapUtil {
     public Servo Arm1,Arm2=null;
     public Servo subClawPitch = null;
 
+
     public double swingArmHome = .025;
     public double swingArmInsideTrans = 0.33;
     public double subClawClose = .259;
