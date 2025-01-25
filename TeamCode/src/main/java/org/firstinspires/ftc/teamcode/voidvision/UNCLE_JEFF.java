@@ -233,7 +233,6 @@ public class UNCLE_JEFF extends LinearOpMode {
                 }
                 if (rout0 == 0) {
                     //moveServoToPosition(robot.subClawPitch, robot.subPitchTrans,1);
-                    moveServoToPosition(robot.subOrbServo, robot.subOrbHome, 1);
                     moveServoToPosition(robot.subClawServo, robot.subClawOpen, 1);
                     robot.basketServo1.setPosition(0 + robot.FinalrangeBasket * robot.swingArmPrep);
                     robot.basketServo2.setPosition(robot.FinalrangeBasket - robot.FinalrangeBasket * robot.swingArmPrep);
@@ -247,8 +246,6 @@ public class UNCLE_JEFF extends LinearOpMode {
                     moveServoToPosition(robot.subClawServo, robot.subClawClose, 1);
                     robot.basketServo1.setPosition(0 + robot.FinalrangeBasket * robot.swingArmPrep);
                     robot.basketServo2.setPosition(robot.FinalrangeBasket - robot.FinalrangeBasket * robot.swingArmPrep);
-                    moveServoToPosition(robot.subOrbServo, robot.subOrbHome, 1);
-                    orb = 0;
 
                     rout0 = 0;
                     rout1 = 0;
@@ -306,6 +303,8 @@ public class UNCLE_JEFF extends LinearOpMode {
 
                 }
                 if (inside == 0) {
+                    robot.range1Servo.setPosition(0+ robot.Finalrange*0);
+                    robot.range2Servo.setPosition(robot.Finalrange-robot.Finalrange*0);
                     moveServoToPosition(robot.subClawPitch, robot.subPitchHome, 1);
                     moveServoToPosition(robot.subOrbServo, robot.subOrbHome, 1);
                     orb = 0;
@@ -314,6 +313,7 @@ public class UNCLE_JEFF extends LinearOpMode {
 
                     moveServoToPosition(robot.subClawServo, robot.subClawDrop, 1);
                     robot.clawServo.setPosition(.1);
+                    sleep(100);
                     moveServoToPosition(robot.subClawServo, robot.subClawClose, 1);
 
                     moveServoToPosition(robot.clawRotateServo, robot.clawRotatePrep, 1);
