@@ -64,6 +64,15 @@ public class UNCLE_JEFF extends LinearOpMode {
     int normal = 0;
     int insidepick = 0;
     int transfer = 0;
+    int clampFailSafe=0;
+    int homecount = 0;
+    int homeinsidecount = 0;
+    int normalcount = 0;
+    int normalroutcount = 0;
+    int insidecount = 0;
+    int insideroutcount = 0;
+    int transfercount=0;
+    int transferTime=0;
 
     @Override
     public void runOpMode() {
@@ -123,7 +132,10 @@ public class UNCLE_JEFF extends LinearOpMode {
             robot.liftMotor.setPower(-1*gamepad2.left_stick_y*(robot.liftBrake / endgameLiftBoost));
 
             if(gamepad2.x){
-                clamp = !clamp;sleepWithOpModeCheck(150);
+                if (clampFailSafe==0) {
+                    clamp = !clamp;
+                    sleepWithOpModeCheck(150);
+                }
             }
             if(clamp){
                 robot.clawServo.setPosition(.1 + robot.clawclaw);
@@ -134,9 +146,18 @@ public class UNCLE_JEFF extends LinearOpMode {
             //extender
             //GAMEPAD 2 CONTROLLS
 
-            if(gamepad2.y){moveServoToPosition(robot.clawRotateServo,robot.clawRotateHighBasket,1);}
-            if(gamepad2.b){moveServoToPosition(robot.clawRotateServo,robot.clawRotateSpec,1);}
-            if(gamepad2.a){moveServoToPosition(robot.clawRotateServo,robot.clawRotateHome,1);}
+            if(gamepad2.y){
+                moveServoToPosition(robot.clawRotateServo,robot.clawRotateHighBasket,1);
+                clampFailSafe=0;
+            }
+            if(gamepad2.b){
+                moveServoToPosition(robot.clawRotateServo,robot.clawRotateSpec,1);
+                clampFailSafe=0;
+            }
+            if(gamepad2.a){
+                moveServoToPosition(robot.clawRotateServo,robot.clawRotateHome,1);
+                clampFailSafe=0;
+            }
 
             //robot.subClawPitch.setPosition(gamepad2.left_trigger);
 
@@ -193,57 +214,50 @@ public class UNCLE_JEFF extends LinearOpMode {
             //dpad right togles between prep and grab-up (orb = 0)
             //dpad left togles between prep and grab up (orb=90)
 
-            while (home==1) {//home
-                if((gamepad1.left_stick_x != 0)||(gamepad1.left_stick_y != 0)){
-                    home=0;
-                    break;
-                }
-                else{
-
-                }
-
+            if (home==1) {//home
                 if (inside == 0) {
-                    //moveServoToPosition(robot.subClawPitch, robot.subPitchTrans,1);
-                    moveServoToPosition(robot.subClawServo, robot.subClawClose, 1);
-                    moveServoToPosition(robot.subOrbServo, robot.subOrbHome, 1);
-                    orb = 0;
-                    robot.basketServo1.setPosition(0 + robot.FinalrangeBasket * robot.swingArmHome);
-                    robot.basketServo2.setPosition(robot.FinalrangeBasket - robot.FinalrangeBasket * robot.swingArmHome);
-                    moveServoToPosition(robot.subClawPitch, robot.subPitchHome, 1);
+                    if (homecount ==0) {
+                        robot.subClawServo.setPosition(robot.subClawClose);
+                        robot.subOrbServo.setPosition(robot.subOrbHome);
+                        orb = 0;
+                        homecount = 1;
+                    }
+                    else if (homecount == 1) {
+                        robot.basketServo1.setPosition(0 + robot.FinalrangeBasket * robot.swingArmHome);
+                        robot.basketServo2.setPosition(robot.FinalrangeBasket - robot.FinalrangeBasket * robot.swingArmHome);
+                        robot.subClawPitch.setPosition(robot.subPitchHome);
+                        homecount =0;
+                    }
                 } else if (inside == 1) {
-
-                    moveServoToPosition(robot.subClawServo, robot.subClawInsideGrab, 1);
-                    moveServoToPosition(robot.subOrbServo, robot.subOrbPerp, 1);
-                    orb = 90;
-                    robot.basketServo1.setPosition(0 + robot.FinalrangeBasket * robot.swingArmHome);
-                    robot.basketServo2.setPosition(robot.FinalrangeBasket - robot.FinalrangeBasket * robot.swingArmHome);
-                    moveServoToPosition(robot.subClawPitch, robot.subPitchHome, 1);
+                    if (homeinsidecount==0) {
+                        robot.subClawServo.setPosition(robot.subClawInsideGrab);
+                        robot.subOrbServo.setPosition(robot.subOrbPerp);
+                        orb = 90;
+                        homeinsidecount=1;
+                    }
+                    else if (homeinsidecount==1) {
+                        robot.basketServo1.setPosition(0 + robot.FinalrangeBasket * robot.swingArmHome);
+                        robot.basketServo2.setPosition(robot.FinalrangeBasket - robot.FinalrangeBasket * robot.swingArmHome);
+                        robot.subClawPitch.setPosition(robot.subPitchHome);
+                        homeinsidecount=0;
+                    }
                 }
                 home=0;
 
             }
-            while(normal==1) {//normal
-                if((gamepad1.left_stick_x != 0)||(gamepad1.left_stick_y != 0)){
-                    normal=0;
-                    break;
-                }
-                else{
-
-
-                }
-                if (rout0 == 0) {
-                    //moveServoToPosition(robot.subClawPitch, robot.subPitchTrans,1);
-                    moveServoToPosition(robot.subClawServo, robot.subClawOpen, 1);
+            if(normal==1) {//normal
+                if (normalcount ==0){
+                    robot.subClawServo.setPosition(robot.subClawOpen);
                     robot.basketServo1.setPosition(0 + robot.FinalrangeBasket * robot.swingArmPrep);
                     robot.basketServo2.setPosition(robot.FinalrangeBasket - robot.FinalrangeBasket * robot.swingArmPrep);
-                    moveServoToPosition(robot.subClawPitch, robot.subPitchGrab, 1);
+                    robot.subClawPitch.setPosition(robot.subPitchGrab);
                     rout0 = 1;
                     orb = 0;
                     inside = 0;
                 } else if (rout0 == 1) {
                     robot.basketServo1.setPosition(0 + robot.FinalrangeBasket * robot.swingArmGrab);
                     robot.basketServo2.setPosition(robot.FinalrangeBasket - robot.FinalrangeBasket * robot.swingArmGrab);
-                    moveServoToPosition(robot.subClawServo, robot.subClawClose, 1);
+                    robot.subClawServo.setPosition(robot.subClawClose);
                     robot.basketServo1.setPosition(0 + robot.FinalrangeBasket * robot.swingArmPrep);
                     robot.basketServo2.setPosition(robot.FinalrangeBasket - robot.FinalrangeBasket * robot.swingArmPrep);
 
@@ -255,20 +269,12 @@ public class UNCLE_JEFF extends LinearOpMode {
                 normal=0;
             }
             while (insidepick==1) {//inside pickup
-                if((gamepad1.left_stick_x != 0)||(gamepad1.left_stick_y != 0)){
-                    insidepick=0;
-                    break;
-                }
-                else{
-
-                }
                 if (rout3 == 0) {
-                    moveServoToPosition(robot.subOrbServo, robot.subOrbHome, 1);
-                    moveServoToPosition(robot.subClawServo, robot.subClawInsidePrep, 1);
-                    moveServoToPosition(robot.subClawPitch, robot.subPitchGrab, 1);
+                    robot.subOrbServo.setPosition(robot.subOrbHome);
+                    robot.subClawServo.setPosition(robot.subClawInsidePrep);
+                    robot.subClawPitch.setPosition(robot.subPitchGrab);
                     robot.basketServo1.setPosition(0 + robot.FinalrangeBasket * robot.swingArmPrep);
                     robot.basketServo2.setPosition(robot.FinalrangeBasket - robot.FinalrangeBasket * robot.swingArmPrep);
-                    moveServoToPosition(robot.subClawPitch, robot.subPitchGrab, 1);
                     rout0 = 1;
                     orb = 0;
                     rout3 = 1;
@@ -277,8 +283,8 @@ public class UNCLE_JEFF extends LinearOpMode {
                     robot.basketServo1.setPosition(0 + robot.FinalrangeBasket * robot.swingArmInsideGrab);
                     robot.basketServo2.setPosition(robot.FinalrangeBasket - robot.FinalrangeBasket * robot.swingArmInsideGrab);
                     sleep(100);
-                    moveServoToPosition(robot.subOrbServo, robot.subOrbHome, 1);
-                    moveServoToPosition(robot.subClawServo, robot.subClawInsideGrab, 1);
+                    robot.subOrbServo.setPosition(robot.subOrbHome);
+                    robot.subClawServo.setPosition(robot.subClawInsideGrab);
                     sleep(100);
                     robot.basketServo1.setPosition(0 + robot.FinalrangeBasket * robot.swingArmPrep);
                     robot.basketServo2.setPosition(robot.FinalrangeBasket - robot.FinalrangeBasket * robot.swingArmPrep);
@@ -294,58 +300,61 @@ public class UNCLE_JEFF extends LinearOpMode {
 
 
 
-            while (transfer==1) {//transfer claw to claw
-                if((gamepad1.left_stick_x != 0)||(gamepad1.left_stick_y != 0)){
-                    transfer=0;
-                    break;
-                }
-                else{
-
-                }
+            if  (transfer==1) {//transfer claw to claw
                 if (inside == 0) {
-                    robot.range1Servo.setPosition(0+ robot.Finalrange*0);
-                    robot.range2Servo.setPosition(robot.Finalrange-robot.Finalrange*0);
-                    moveServoToPosition(robot.subClawPitch, robot.subPitchHome, 1);
-                    moveServoToPosition(robot.subOrbServo, robot.subOrbHome, 1);
-                    orb = 0;
-                    robot.basketServo1.setPosition(0 + robot.FinalrangeBasket * robot.swingArmHome);
-                    robot.basketServo2.setPosition(robot.FinalrangeBasket - robot.FinalrangeBasket * robot.swingArmHome);
+                    if (transfercount == 0) {
+                        robot.range1Servo.setPosition(0 + robot.Finalrange * 0);
+                        robot.range2Servo.setPosition(robot.Finalrange - robot.Finalrange * 0);
+                        robot.subClawPitch.setPosition(robot.subPitchHome);
+                        robot.subOrbServo.setPosition(robot.subOrbHome);
+                        orb = 0;
+                        transfercount=1;
+                    }
+                    else if (transfercount == 1) {
+                        robot.basketServo1.setPosition(0 + robot.FinalrangeBasket * robot.swingArmHome);
+                        robot.basketServo2.setPosition(robot.FinalrangeBasket - robot.FinalrangeBasket * robot.swingArmHome);
+                        robot.clawRotateServo.setPosition(robot.clawRotatePrep);
+                        robot.subClawServo.setPosition(robot.subClawDrop);
+                        robot.clawServo.setPosition(.1);
+                        transfercount=2;
+                    }
+                    else if (transfercount==2) {
+                        sleep(100);
+                        robot.subClawServo.setPosition(robot.subClawClose);
 
-                    moveServoToPosition(robot.subClawServo, robot.subClawDrop, 1);
-                    robot.clawServo.setPosition(.1);
-                    sleep(100);
-                    moveServoToPosition(robot.subClawServo, robot.subClawClose, 1);
+                        robot.clawServo.setPosition(.1 + robot.clawclaw);
 
-                    moveServoToPosition(robot.clawRotateServo, robot.clawRotatePrep, 1);
-                    sleep(800);
+                        clamp = true;
+                        transfercount=3;
+                    }
+                    else if (transfercount == 3) {
+                        sleep(150);
 
-                    robot.clawServo.setPosition(.1 + robot.clawclaw);
-
-                    clamp = true;
-                    sleep(300);
-
-                    moveServoToPosition(robot.subClawServo, robot.subClawOpen, 1);
-                    //moveServoToPosition(robot.clawRotateServo, robot.clawRotateHome, 1);
-                    moveServoToPosition(robot.subClawPitch, robot.subPitchGrab, 1);
+                        robot.subClawServo.setPosition(robot.subClawOpen);
+                        clampFailSafe = 1;
+                        transfercount=0;
+                        transfer=0;
+                    }
                 } else if (inside == 1) {
-                    moveServoToPosition(robot.subClawPitch, robot.subPitchGrab,1);
+                    robot.subClawPitch.setPosition(robot.subPitchGrab);
                     orb = 0;
                     robot.basketServo1.setPosition(0 + robot.FinalrangeBasket * robot.swingArmHome);
                     robot.basketServo2.setPosition(robot.FinalrangeBasket - robot.FinalrangeBasket * robot.swingArmHome);
 
-                    moveServoToPosition(robot.subOrbServo, robot.subOrbHome, 1);
-                    moveServoToPosition(robot.subClawServo, robot.subClawInsideGrab, 1);
+                    robot.subOrbServo.setPosition(robot.subOrbHome);
+                    robot.subClawServo.setPosition(robot.subClawInsideGrab);
+                    transfer=0;
                 }
-                transfer=0;
+
 
 
             }
             if (gamepad2.left_bumper) {
                 if (orb == 90) {
-                    moveServoToPosition(robot.subOrbServo, robot.subOrbHome, 1);
+                    robot.subOrbServo.setPosition(robot.subOrbHome);
                     orb = 0;
                 } else if (orb == 0) {
-                    moveServoToPosition(robot.subOrbServo, robot.subOrbPerp, 1);
+                    robot.subOrbServo.setPosition(robot.subOrbPerp);
                     orb = 90;
 
                 }
@@ -370,6 +379,7 @@ public class UNCLE_JEFF extends LinearOpMode {
             telemetry.update();
         }
     }
+
 
 
     /**
