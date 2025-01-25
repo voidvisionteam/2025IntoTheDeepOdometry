@@ -115,7 +115,7 @@ public  class Auto_Framework extends Auto_Util {
 
         public ClawServoRotate(HardwareMap hardwareMap){
             clawservorotate = hardwareMap.get(Servo.class,"terminator");
-            clawservorotate.setPosition(ClawRotateTopBasketPos+.11);
+            clawservorotate.setPosition(clawRotatePrep);
             //clawservo.setPosition(0);
         }
 
@@ -356,7 +356,7 @@ public  class Auto_Framework extends Auto_Util {
         Servo basketServo1,basketServo2;
         double FinalrangeBasket = 0.48;
         double swingArmHome = .025;
-        double swingArmPrep = 0.87;
+        double swingArmPrep = 0.83;
         double swingArmGrab = 0.96;
         double swingArmInsideGrab = 0.97;
         public BackIntakeComponent(HardwareMap hardwareMap){
@@ -425,7 +425,7 @@ public  class Auto_Framework extends Auto_Util {
 
         Servo subClawServo,subOrbServo,subClawPitch;
 
-        double subClawOpen = 0.051;
+        double subClawOpen = 0.050;
         double subClawInsidePrep = 0.32;
         double subClawInsideGrab = 0.15;
         double subClawClose = .259;
@@ -435,6 +435,7 @@ public  class Auto_Framework extends Auto_Util {
 
         double subPitchGrab = .847;
         double subPitchHome = .3;
+        double subClawDrop=0.18;
 
         public Intake2(HardwareMap hardwareMap){
             subClawServo = hardwareMap.get(Servo.class,"subclaw");
@@ -491,6 +492,17 @@ public  class Auto_Framework extends Auto_Util {
         }
         public Action OpenSubClaw() {
             return new openSubClaw();
+        }
+
+        public class dropSubClaw implements Action {
+            @Override
+            public boolean run(@NonNull TelemetryPacket packet) {
+                subClawServo.setPosition(subClawDrop);
+                return false;
+            }
+        }
+        public Action DropSubClaw() {
+            return new dropSubClaw();
         }
 
         public class moveSubOrbHome implements Action {
@@ -958,9 +970,10 @@ public  class Auto_Framework extends Auto_Util {
                         drive.actionBuilder(beginPose).waitSeconds(1).build(),
                         //HandOffSetUpBack
                         new ParallelAction(backIntakeComponent.SwingHome(),intake2.SwingHome()),
+                        intake2.DropSubClaw(),
                         drive.actionBuilder(beginPose).waitSeconds(1).build(),
                         //HandOffSetupFront
-                        new ParallelAction(clawServoRotate13.rotateClawPrep(),clawServo12.openClaw()),
+                        new ParallelAction(clawServo12.openClaw(),clawServoRotate13.rotateClawPrep()),
                         drive.actionBuilder(beginPose).waitSeconds(1).build(),
                         //HandOff
                         clawServo12.closeClaw(),
