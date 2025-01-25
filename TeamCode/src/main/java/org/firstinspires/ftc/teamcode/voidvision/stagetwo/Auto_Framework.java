@@ -107,11 +107,18 @@ public  class Auto_Framework extends Auto_Util {
         double FinalposClawRotate = .3529+ FinalrangeClawRotate;
         double ClawRotateTopBasketPos = FinalposClawRotate + .15;
 
+        double clawRotateHome=.13;
+        double clawRotateSpec=.188;
+        double clawRotateHighBasket=.21;
+        double clawRotatePrep=.082;
+        double clawRotateInit=.14;
+
         public ClawServoRotate(HardwareMap hardwareMap){
             clawservorotate = hardwareMap.get(Servo.class,"terminator");
-            clawservorotate.setPosition(ClawRotateTopBasketPos+.11);
+            clawservorotate.setPosition(clawRotatePrep);
             //clawservo.setPosition(0);
         }
+
         public class RotateClawUp implements Action {
             @Override
             public boolean run(@NonNull TelemetryPacket packet) {
@@ -119,9 +126,7 @@ public  class Auto_Framework extends Auto_Util {
                 return false;
             }
         }
-        public Action rotateClawUp() {
-            return new RotateClawUp();
-        }
+        public Action rotateClawUp() {return new RotateClawUp();}
 
         public class RotateClawUpUp implements Action {
             @Override
@@ -155,6 +160,43 @@ public  class Auto_Framework extends Auto_Util {
         public Action rotateClawMid() {
             return new RotateClawMid();
         }
+
+        public class RotateClawHome implements Action {
+            @Override
+            public boolean run(@NonNull TelemetryPacket packet) {
+                clawservorotate.setPosition(clawRotateHome);
+                return false;
+            }
+        }
+        public Action rotateClawHome() {return new RotateClawHome();}
+
+        public class RotateClawSpec implements Action {
+            @Override
+            public boolean run(@NonNull TelemetryPacket packet) {
+                clawservorotate.setPosition(clawRotateSpec);
+                return false;
+            }
+        }
+        public Action rotateClawSpec() {return new RotateClawSpec();}
+
+        public class RotateClawHighBasket implements Action {
+            @Override
+            public boolean run(@NonNull TelemetryPacket packet) {
+                clawservorotate.setPosition(clawRotateHighBasket);
+                return false;
+            }
+        }
+        public Action rotateClawHighBasket() {return new RotateClawHighBasket();}
+
+        public class RotateClawPrep implements Action {
+            @Override
+            public boolean run(@NonNull TelemetryPacket packet) {
+                clawservorotate.setPosition(clawRotatePrep);
+                return false;
+            }
+        }
+        public Action rotateClawPrep() {return new RotateClawPrep();}
+
 
     }
     public class Lift {
@@ -313,10 +355,10 @@ public  class Auto_Framework extends Auto_Util {
     public class BackIntakeComponent{
         Servo basketServo1,basketServo2;
         double FinalrangeBasket = 0.48;
-        double swingArmHome = .055;
-        double swingArmPrep = 0.87;
-        double swingArmGrab = 0.92;
-        double swingArmInsideGrab = 0.89;
+        double swingArmHome = .025;
+        double swingArmPrep = 0.83;
+        double swingArmGrab = 0.96;
+        double swingArmInsideGrab = 0.97;
         public BackIntakeComponent(HardwareMap hardwareMap){
             basketServo1 = hardwareMap.get(Servo.class,"basket1");
             basketServo2 = hardwareMap.get(Servo.class,"basket2");
@@ -383,7 +425,7 @@ public  class Auto_Framework extends Auto_Util {
 
         Servo subClawServo,subOrbServo,subClawPitch;
 
-        double subClawOpen = 0.051;
+        double subClawOpen = 0.050;
         double subClawInsidePrep = 0.32;
         double subClawInsideGrab = 0.15;
         double subClawClose = .259;
@@ -392,7 +434,8 @@ public  class Auto_Framework extends Auto_Util {
         double subOrbPerp = 0.603;
 
         double subPitchGrab = .847;
-        double subPitchHome = .349;
+        double subPitchHome = .3;
+        double subClawDrop=0.18;
 
         public Intake2(HardwareMap hardwareMap){
             subClawServo = hardwareMap.get(Servo.class,"subclaw");
@@ -406,7 +449,7 @@ public  class Auto_Framework extends Auto_Util {
         public class swingHome implements Action {
             @Override
             public boolean run(@NonNull TelemetryPacket packet) {
-                subClawServo.setPosition(subClawOpen);
+                //subClawServo.setPosition(subClawOpen);
                 subOrbServo.setPosition(subOrbHome);
                 subClawPitch.setPosition(subPitchHome);
                 return false;
@@ -451,6 +494,17 @@ public  class Auto_Framework extends Auto_Util {
             return new openSubClaw();
         }
 
+        public class dropSubClaw implements Action {
+            @Override
+            public boolean run(@NonNull TelemetryPacket packet) {
+                subClawServo.setPosition(subClawDrop);
+                return false;
+            }
+        }
+        public Action DropSubClaw() {
+            return new dropSubClaw();
+        }
+
         public class moveSubOrbHome implements Action {
             @Override
             public boolean run(@NonNull TelemetryPacket packet) {
@@ -489,6 +543,8 @@ public  class Auto_Framework extends Auto_Util {
     ClawServoRotate clawServoRotate13 = null;
     Lift lift14 = null;
     LightStrip lightStrip = null;
+    BackIntakeComponent backIntakeComponent = null;
+    Intake2 intake2 = null;
 
     Action run1 = null;
     Action run2 = null;
@@ -507,11 +563,16 @@ public  class Auto_Framework extends Auto_Util {
         //Instantiate Mec Drive
         drive = new MecanumDrive(hardwareMap, beginPose);
         //Init Claw
-        //clawServo12 = new ClawServo(hardwareMap);
+        clawServo12 = new ClawServo(hardwareMap);
         //Init Claw Lift
-        //clawServoRotate13 = new ClawServoRotate(hardwareMap);
+        clawServoRotate13 = new ClawServoRotate(hardwareMap);
         //Init Lift
-        //lift14 = new Lift(hardwareMap);
+        lift14 = new Lift(hardwareMap);
+        //Init intake2
+        intake2 = new Intake2(hardwareMap);
+        //Init arms
+        backIntakeComponent = new BackIntakeComponent(hardwareMap);
+        //Init Lightstrip
         lightStrip = new LightStrip(hardwareMap);
     }
 
@@ -747,8 +808,9 @@ public  class Auto_Framework extends Auto_Util {
     @Override
     public void runOpMode() throws InterruptedException {
         setupAutoFramework();
-        setupAutoActionsRight();
-        ParallelAction runToHighBar = new ParallelAction(run1a2Right,clawServoRotate13.rotateClawMid(),lift14.liftUpB());
+        //setupAutoActionsRight();
+
+        /*ParallelAction runToHighBar = new ParallelAction(run1a2Right,clawServoRotate13.rotateClawMid(),lift14.liftUpB());
         Action scoreOnHighBar = lift14.liftDown();
         ParallelAction runToSampleOne = new ParallelAction(run3,clawServoRotate13.rotateClawDown(),clawServo12.openClaw());
         ParallelAction retrieveSampleOne = new ParallelAction(runwait,clawServo12.closeClaw());
@@ -856,7 +918,7 @@ public  class Auto_Framework extends Auto_Util {
                 .turn((180/360d)*fullTurn*-1)
 
                 .strafeTo(new Vector2d(26.1-.5,8))
-                .build();
+                .build();*/
 
         waitForStart();
 
@@ -890,7 +952,39 @@ public  class Auto_Framework extends Auto_Util {
                         SpecialPart8,
                         SpecialPart9,
                         scoreSpecialOnBar2)*/
-                runSpecialTestRun
+                new SequentialAction(
+                        drive.actionBuilder(beginPose).waitSeconds(1).build(),
+                        backIntakeComponent.SwingGrab(),
+                        drive.actionBuilder(beginPose).waitSeconds(1).build(),
+                        backIntakeComponent.SwingPrep(),
+                        drive.actionBuilder(beginPose).waitSeconds(1).build(),
+                        backIntakeComponent.SwingHome(),
+                        drive.actionBuilder(beginPose).waitSeconds(1).build(),
+                        backIntakeComponent.SwingPrep(),
+                        //GRAB SetUp
+                        drive.actionBuilder(beginPose).waitSeconds(1).build(),
+                        new ParallelAction(backIntakeComponent.SwingGrab(),intake2.SwingGrab()),
+                        drive.actionBuilder(beginPose).waitSeconds(1).build(),
+                        //GRAB
+                        intake2.CloseSubClaw(),
+                        drive.actionBuilder(beginPose).waitSeconds(1).build(),
+                        //HandOffSetUpBack
+                        new ParallelAction(backIntakeComponent.SwingHome(),intake2.SwingHome()),
+                        intake2.DropSubClaw(),
+                        drive.actionBuilder(beginPose).waitSeconds(1).build(),
+                        //HandOffSetupFront
+                        new ParallelAction(clawServo12.openClaw(),clawServoRotate13.rotateClawPrep()),
+                        drive.actionBuilder(beginPose).waitSeconds(1).build(),
+                        //HandOff
+                        clawServo12.closeClaw(),
+                        drive.actionBuilder(beginPose).waitSeconds(1).build(),
+                        intake2.OpenSubClaw(),
+                        //LIFT!
+                        drive.actionBuilder(beginPose).waitSeconds(1).build(),
+                        new ParallelAction(lift14.liftUpSpecialHeight(),clawServoRotate13.rotateClawHighBasket()),
+                        drive.actionBuilder(beginPose).waitSeconds(1).build()
+
+                )
         );
 
     }
