@@ -76,6 +76,7 @@ public class cousinhwmapWithLights extends HardwareMapUtil {
 
     public double subPitchGrab = .847;
     double subPitchHome = .3;
+    double subPitchTrans=0;
 
     double clawRotateHome=.13;
     double clawRotateSpec=.188;
