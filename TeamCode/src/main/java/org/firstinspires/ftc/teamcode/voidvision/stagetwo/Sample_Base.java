@@ -11,11 +11,11 @@ import org.firstinspires.ftc.teamcode.MecanumDrive;
 public class Sample_Base extends Auto_Framework{
     @Override
     public void runOpMode() throws InterruptedException{
+        //init Framework
+        setupAutoFramework();
         //Define initial Position
         beginPose = new Pose2d(0, 28, 0);
-        //Instantiate Mec Drive
-        drive = new MecanumDrive(hardwareMap, beginPose);
-        waitForStart();
+
         Action runSpecialTestRun = drive.actionBuilder(beginPose)
                 //.strafeTo(new Vector2d(21,28-5))
                 //.strafeTo(new Vector2d(25+.1,28-5))
@@ -53,6 +53,7 @@ public class Sample_Base extends Auto_Framework{
                 //.strafeTo(new Vector2d(13,63))
 
                 .build();
+        waitForStart();
         Actions.runBlocking(
                 runSpecialTestRun
         );

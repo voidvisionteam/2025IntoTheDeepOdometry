@@ -64,7 +64,7 @@ public  class Auto_Framework extends Auto_Util {
 
         public ClawServo(HardwareMap hardwareMap){
             clawservo = hardwareMap.get(Servo.class,"claw");
-            clawservo.setPosition(opened);
+            clawservo.setPosition(closed);
             //clawservo.setPosition(0);
         }
         public class CloseClaw implements Action {
@@ -586,6 +586,7 @@ public  class Auto_Framework extends Auto_Util {
     LightStrip lightStrip = null;
     BackIntakeComponent backIntakeComponent = null;
     Intake2 intake2 = null;
+    ExtendShelf extendShelf = null;
 
     Action run1 = null;
     Action run2 = null;
@@ -615,6 +616,8 @@ public  class Auto_Framework extends Auto_Util {
         backIntakeComponent = new BackIntakeComponent(hardwareMap);
         //Init Lightstrip
         lightStrip = new LightStrip(hardwareMap);
+        //Init Shelf
+        extendShelf = new ExtendShelf(hardwareMap);
     }
 
     public void setupAutoActionsRight(){
