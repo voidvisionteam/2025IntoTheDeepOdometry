@@ -818,7 +818,8 @@ public  class Auto_Framework extends Auto_Util {
                 new ParallelAction(backIntakeComponent.SwingHome(),intake2.SwingHome()),
                 intake2.DropSubClaw(),
                 drive.actionBuilder(pose2d).waitSeconds(.3).build(),
-                intake2.CloseSubClaw()
+                intake2.CloseSubClaw(),
+                drive.actionBuilder(pose2d).waitSeconds(.1).build()
 
         );
     }
