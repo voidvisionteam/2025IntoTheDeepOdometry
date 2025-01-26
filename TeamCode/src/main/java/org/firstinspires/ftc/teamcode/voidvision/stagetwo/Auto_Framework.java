@@ -344,12 +344,53 @@ public  class Auto_Framework extends Auto_Util {
     public class ExtendShelf{
         Servo range1Servo,range2Servo;
         double Finalrange = 0.45;
+        double sample1=0;
+        double sample2=0;
+        double sample3=0;
+
         public ExtendShelf(HardwareMap hardwareMap){
             range1Servo = hardwareMap.get(Servo.class,"hippo1");
             range2Servo = hardwareMap.get(Servo.class,"hippo2");
             range1Servo.setPosition(0);
             range2Servo.setPosition(Finalrange);
         }
+
+        public class extend1 implements Action {
+            @Override
+            public boolean run(@NonNull TelemetryPacket packet) {
+                range1Servo.setPosition(0+Finalrange*sample1);
+                range2Servo.setPosition(Finalrange-Finalrange*sample1);
+                return false;
+            }
+        }
+        public Action Extend1() {
+            return new extend1();
+        }
+
+        public class extend2 implements Action {
+            @Override
+            public boolean run(@NonNull TelemetryPacket packet) {
+                range1Servo.setPosition(0+Finalrange*sample2);
+                range2Servo.setPosition(Finalrange-Finalrange*sample2);
+                return false;
+            }
+        }
+        public Action Extend2() {
+            return new extend2();
+        }
+
+        public class extend3 implements Action {
+            @Override
+            public boolean run(@NonNull TelemetryPacket packet) {
+                range1Servo.setPosition(0+Finalrange*sample3);
+                range2Servo.setPosition(Finalrange-Finalrange*sample3);
+                return false;
+            }
+        }
+        public Action Extend3() {
+            return new extend3();
+        }
+
 
     }
     public class BackIntakeComponent{
