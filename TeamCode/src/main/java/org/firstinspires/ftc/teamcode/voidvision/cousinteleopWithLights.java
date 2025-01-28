@@ -337,6 +337,10 @@ public class cousinteleopWithLights extends LinearOpMode {
 
                 }
             }
+            if (gamepad2.right_bumper) {
+                robot.subClawServo.setPosition(robot.subClawOpen);
+            }
+
 
 
 

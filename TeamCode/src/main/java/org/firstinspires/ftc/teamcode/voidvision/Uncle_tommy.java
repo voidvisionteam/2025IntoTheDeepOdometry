@@ -221,53 +221,39 @@ public class Uncle_tommy extends LinearOpMode {
 
             if (home==1) {//home
                 if (inside == 0) {
-                    if (homecount ==0) {
-                        robot.subClawServo.setPosition(robot.subClawClose);
-                        robot.subOrbServo.setPosition(robot.subOrbHome);
-                        orb = 0;
-                        homecount = 1;
-                    }
-                    else if (homecount == 1) {
-                        robot.basketServo1.setPosition(0 + robot.FinalrangeBasket * robot.swingArmHome);
-                        robot.basketServo2.setPosition(robot.FinalrangeBasket - robot.FinalrangeBasket * robot.swingArmHome);
-                        robot.subClawPitch.setPosition(robot.subPitchHome);
-                        homecount =0;
-                    }
+                    moveServoToPosition(robot.subClawServo, robot.subClawClose, 1);
+                    moveServoToPosition(robot.subOrbServo, robot.subOrbHome, 1);
+                    orb = 0;
+                    robot.basketServo1.setPosition(0 + robot.FinalrangeBasket * robot.swingArmHome);
+                    robot.basketServo2.setPosition(robot.FinalrangeBasket - robot.FinalrangeBasket * robot.swingArmHome);
+                    moveServoToPosition(robot.subClawPitch, robot.subPitchHome, 1);
                 } else if (inside == 1) {
-                    if (homeinsidecount==0) {
-                        robot.subClawServo.setPosition(robot.subClawInsideGrab);
-                        robot.subOrbServo.setPosition(robot.subOrbPerp);
-                        orb = 90;
-                        homeinsidecount=1;
-                    }
-                    else if (homeinsidecount==1) {
-                        robot.basketServo1.setPosition(0 + robot.FinalrangeBasket * robot.swingArmHome);
-                        robot.basketServo2.setPosition(robot.FinalrangeBasket - robot.FinalrangeBasket * robot.swingArmHome);
-                        robot.subClawPitch.setPosition(robot.subPitchHome);
-                        homeinsidecount=0;
-                    }
+
+                    moveServoToPosition(robot.subClawServo, robot.subClawInsideGrab, 1);
+                    moveServoToPosition(robot.subOrbServo, robot.subOrbPerp, 1);
+                    orb = 90;
+                    robot.basketServo1.setPosition(0 + robot.FinalrangeBasket * robot.swingArmHome);
+                    robot.basketServo2.setPosition(robot.FinalrangeBasket - robot.FinalrangeBasket * robot.swingArmHome);
+                    moveServoToPosition(robot.subClawPitch, robot.subPitchHome, 1);
                 }
                 home=0;
 
             }
-            while (normal==1) {//normal
+            if (normal==1) {//normal
 
-                if (rout0 ==0){
-                    robot.subClawServo.setPosition(robot.subClawOpen);
-                    moveServoToPosition(robot.subClawServo, robot.subClawOpen,1);
+                if (rout0 ==0) {
+                    moveServoToPosition(robot.subClawServo, robot.subClawOpen, 1);
                     robot.basketServo1.setPosition(0 + robot.FinalrangeBasket * robot.swingArmPrep);
                     robot.basketServo2.setPosition(robot.FinalrangeBasket - robot.FinalrangeBasket * robot.swingArmPrep);
-                    robot.subClawPitch.setPosition(robot.subPitchGrab);
+                    moveServoToPosition(robot.subClawPitch, robot.subPitchGrab, 1);
                     orb = 0;
-                    inside = 0;
                     rout0 = 1;
+                    inside=0;
                 }
                 else if (rout0 == 1) {
                     robot.basketServo1.setPosition(0 + robot.FinalrangeBasket * robot.swingArmGrab);
                     robot.basketServo2.setPosition(robot.FinalrangeBasket - robot.FinalrangeBasket * robot.swingArmGrab);
-                    sleep(200);
-                    robot.subClawServo.setPosition(robot.subClawClose);
-                    sleep(100);
+                    moveServoToPosition(robot.subClawServo, robot.subClawClose, 1);
                     robot.basketServo1.setPosition(0 + robot.FinalrangeBasket * robot.swingArmPrep);
                     robot.basketServo2.setPosition(robot.FinalrangeBasket - robot.FinalrangeBasket * robot.swingArmPrep);
 
@@ -275,7 +261,8 @@ public class Uncle_tommy extends LinearOpMode {
                     rout1 = 0;
                     rout3 = 0;
                     inside = 0;
-                    if(distanceNumber() <= 2){
+
+                    if(distanceNumber() >= 2){
                         home = 1;
                     }
                 }
@@ -393,6 +380,8 @@ public class Uncle_tommy extends LinearOpMode {
             //telemetry.addData("INTAKE",intakePartition);
             //telemetry.addData("CLAMP",clamp);
             //telemetry.addData("clamp",robot.clawServo.getPosition());
+            double distance= robot.distanceSensor.getDistance(DistanceUnit.CM);
+            telemetry.addData("Distance: ", distance);
             telemetry.addData("LeftTrigger",gamepad2.left_trigger*.3);
             telemetry.update();
         }
