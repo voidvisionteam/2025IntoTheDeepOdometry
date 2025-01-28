@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -36,6 +37,7 @@ public class cousinhwmapWithLights extends HardwareMapUtil {
     public CRServo intakeServo = null;
     public CRServo transitionServo = null;
     public ColorSensor colorSensor = null;
+    public DistanceSensor distanceSensor = null;
 
 
     // Default positions for range and basket servos
@@ -115,7 +117,6 @@ public class cousinhwmapWithLights extends HardwareMapUtil {
         // Initialize range and basket servos
         range1Servo = HardwareInitServo("hippo1", 0); // Left range servo
         range2Servo = HardwareInitServo("hippo2", Finalrange); // Right range servo
-        //intakeServo = HardwareInitCRServo("intake", true); // Intake servo
         basketServo1 = HardwareInitServo("basket1", 0); // Left basket servo
         basketServo2 = HardwareInitServo("basket2", FinalrangeBasket); // Right basket servo
         basketServo1.setPosition(0+FinalrangeBasket*swingArmHome);
@@ -136,8 +137,10 @@ public class cousinhwmapWithLights extends HardwareMapUtil {
 
 
 
-        // Initialize color sensor (commented out if not needed yet)
-        //colorSensor = hwMap.get(ColorSensor.class, "color");
+        //Initialize color sensor (commented out if not needed yet)
+        colorSensor = hwMap.get(ColorSensor.class, "color");
+
+        distanceSensor = hwMap.get(DistanceSensor.class, "distance");
 
 
         /** Set servo directions */

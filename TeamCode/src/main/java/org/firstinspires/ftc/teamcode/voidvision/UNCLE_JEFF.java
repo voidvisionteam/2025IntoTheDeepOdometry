@@ -245,19 +245,24 @@ public class UNCLE_JEFF extends LinearOpMode {
                 home=0;
 
             }
-            if(normal==1) {//normal
-                if (normalcount ==0){
+            while (normal==1) {//normal
+
+                if (rout0 ==0){
                     robot.subClawServo.setPosition(robot.subClawOpen);
+                    moveServoToPosition(robot.subClawServo, robot.subClawOpen,1);
                     robot.basketServo1.setPosition(0 + robot.FinalrangeBasket * robot.swingArmPrep);
                     robot.basketServo2.setPosition(robot.FinalrangeBasket - robot.FinalrangeBasket * robot.swingArmPrep);
                     robot.subClawPitch.setPosition(robot.subPitchGrab);
-                    rout0 = 1;
                     orb = 0;
                     inside = 0;
-                } else if (rout0 == 1) {
+                    rout0 = 1;
+                }
+                else if (rout0 == 1) {
                     robot.basketServo1.setPosition(0 + robot.FinalrangeBasket * robot.swingArmGrab);
                     robot.basketServo2.setPosition(robot.FinalrangeBasket - robot.FinalrangeBasket * robot.swingArmGrab);
+                    sleep(200);
                     robot.subClawServo.setPosition(robot.subClawClose);
+                    sleep(100);
                     robot.basketServo1.setPosition(0 + robot.FinalrangeBasket * robot.swingArmPrep);
                     robot.basketServo2.setPosition(robot.FinalrangeBasket - robot.FinalrangeBasket * robot.swingArmPrep);
 
@@ -280,7 +285,7 @@ public class UNCLE_JEFF extends LinearOpMode {
                     orb = 0;
                     rout3 = 1;
 
-                } else if (rout0 == 1) {
+                } else if (rout3 == 1) {
                     robot.basketServo1.setPosition(0 + robot.FinalrangeBasket * robot.swingArmInsideGrab);
                     robot.basketServo2.setPosition(robot.FinalrangeBasket - robot.FinalrangeBasket * robot.swingArmInsideGrab);
                     sleep(100);
@@ -320,7 +325,7 @@ public class UNCLE_JEFF extends LinearOpMode {
                         transfercount=2;
                     }
                     else if (transfercount==2) {
-                        sleep(100);
+                        sleep(400);
                         robot.subClawServo.setPosition(robot.subClawClose);
 
                         robot.clawServo.setPosition(.1 + robot.clawclaw);
