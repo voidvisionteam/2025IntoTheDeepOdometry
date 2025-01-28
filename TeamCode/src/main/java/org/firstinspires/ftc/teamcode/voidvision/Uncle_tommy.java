@@ -374,6 +374,9 @@ public class Uncle_tommy extends LinearOpMode {
 
                 }
             }
+            if (gamepad2.right_bumper) {
+                robot.subClawServo.setPosition(robot.subClawOpen);
+            }
 
 
 
