@@ -103,8 +103,10 @@ public class Sample_Base extends Auto_Framework{
                 .waitSeconds(.5)
                 .build();
         Action Sample1 = new SequentialAction(
-                lift14.liftUpSpecialHeight(),
-                clawServoRotate13.rotateClawHome(),
+                new ParallelAction(
+                        lift14.liftUpSpecialHeight(),
+                        clawServoRotate13.rotateClawHome()
+                ),
                 new ParallelAction(
                         new SequentialAction(
                                 new SequentialAction(
