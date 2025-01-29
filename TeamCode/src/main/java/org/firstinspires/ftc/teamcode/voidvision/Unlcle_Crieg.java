@@ -242,7 +242,6 @@ public class Unlcle_Crieg extends LinearOpMode {
                     robot.subClawServo.setPosition(robot.subClawClose);
                     robot.basketServo1.setPosition(0 + robot.FinalrangeBasket * robot.swingArmPrep);
                     robot.basketServo2.setPosition(robot.FinalrangeBasket - robot.FinalrangeBasket * robot.swingArmPrep);
-
                     rout0 = 0;
                     rout1 = 0;
                     rout3 = 0;
