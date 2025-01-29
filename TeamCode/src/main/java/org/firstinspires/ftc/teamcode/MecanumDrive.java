@@ -485,7 +485,7 @@ public final class MecanumDrive {
                                 0.25, 0.1, 1e-2
                         )
                 ),
-                beginPose, 5,
+                beginPose, 1,
                 defaultTurnConstraints,
                 defaultVelConstraint, defaultAccelConstraint
         );

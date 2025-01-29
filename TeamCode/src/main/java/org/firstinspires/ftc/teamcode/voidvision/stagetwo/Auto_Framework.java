@@ -476,7 +476,7 @@ public  class Auto_Framework extends Auto_Util {
 
         double subPitchGrab = .847;
         double subPitchHome = .32;
-        double subClawDrop=0.18;
+        double subClawDrop=0.14;
 
         public Intake2(HardwareMap hardwareMap){
             subClawServo = hardwareMap.get(Servo.class,"subclaw");
@@ -849,7 +849,7 @@ public  class Auto_Framework extends Auto_Util {
     public SequentialAction Grab(Pose2d pose2d) {
         return new SequentialAction(
                 //GRAB SetUp
-                drive.actionBuilder(pose2d).waitSeconds(1).build(),
+                drive.actionBuilder(pose2d).waitSeconds(.1).build(),
                 //HandOffSetupFront
                 new ParallelAction(clawServo12.openClaw(),clawServoRotate13.rotateClawPrep()),
                 //GRAB SetUp
@@ -861,8 +861,8 @@ public  class Auto_Framework extends Auto_Util {
                 //HandOffSetUpBack
                 new ParallelAction(backIntakeComponent.SwingHome(),intake2.SwingHome()),
                 intake2.DropSubClaw(),
-                drive.actionBuilder(pose2d).waitSeconds(.3).build(),
-                intake2.CloseSubClaw(),
+                drive.actionBuilder(pose2d).waitSeconds(.6).build(),
+                //intake2.CloseSubClaw(),
                 drive.actionBuilder(pose2d).waitSeconds(.1).build()
 
         );
@@ -870,7 +870,7 @@ public  class Auto_Framework extends Auto_Util {
     public SequentialAction Transfer(Pose2d pose2d) {
         return new SequentialAction(
                 //HandOff
-                drive.actionBuilder(pose2d).waitSeconds(.3).build(),
+                drive.actionBuilder(pose2d).waitSeconds(.2).build(),
                 clawServo12.closeClaw(),
                 drive.actionBuilder(pose2d).waitSeconds(.5).build(),
                 intake2.OpenSubClaw(),
@@ -1030,31 +1030,8 @@ public  class Auto_Framework extends Auto_Util {
                         SpecialPart9,
                         scoreSpecialOnBar2)*/
                 new SequentialAction(
-                        //GRAB SetUp
-                        drive.actionBuilder(beginPose).waitSeconds(1).build(),
-                        //HandOffSetupFront
-                        new ParallelAction(clawServo12.openClaw(),clawServoRotate13.rotateClawPrep()),
-                        //GRAB SetUp
-                        new ParallelAction(backIntakeComponent.SwingGrab(),intake2.SwingGrab()),
-                        drive.actionBuilder(beginPose).waitSeconds(1).build(),
-                        //GRAB
-                        intake2.CloseSubClaw(),
-                        drive.actionBuilder(beginPose).waitSeconds(.2).build(),
-                        //HandOffSetUpBack
-                        new ParallelAction(backIntakeComponent.SwingHome(),intake2.SwingHome()),
-                        intake2.DropSubClaw(),
-                        drive.actionBuilder(beginPose).waitSeconds(.3).build(),
-                        intake2.CloseSubClaw(),
-                        //HandOff
-                        drive.actionBuilder(beginPose).waitSeconds(.3).build(),
-                        clawServo12.closeClaw(),
-                        drive.actionBuilder(beginPose).waitSeconds(.5).build(),
-                        intake2.OpenSubClaw(),
-                        //LIFT!
-                        drive.actionBuilder(beginPose).waitSeconds(.3).build(),
-                        new ParallelAction(lift14.liftUpSpecialHeight(),clawServoRotate13.rotateClawHighBasket()),
-                        drive.actionBuilder(beginPose).waitSeconds(1).build()
-
+                        Grab(beginPose),
+                        Transfer(beginPose)
                 )
         );
 
