@@ -207,7 +207,7 @@ public  class Auto_Framework extends Auto_Util {
         int targetPositionLowerRung = 902+initialPosition; // Adjust based on desired lift distance
         int targetPositionUpperRung = 2318+initialPosition; // Adjust based on desired lift distance
         int targetpositiontest = 0;
-        int targetSpecialGrab = initialPosition + 600;
+        int targetSpecialGrab = initialPosition + 100;
 
         public Lift(HardwareMap hardwareMap) {
             lift = hardwareMap.get(DcMotorEx.class, "liftMotor");
