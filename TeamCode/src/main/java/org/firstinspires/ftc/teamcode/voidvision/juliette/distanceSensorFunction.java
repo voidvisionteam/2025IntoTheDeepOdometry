@@ -19,24 +19,21 @@ public class distanceSensorFunction extends LinearOpMode {
     //Main Code
     @Override
     public void runOpMode() {
+        robot.init(hardwareMap);
         while (opModeIsActive()){
-            distanceNumber();
+            distance();
         }
+    }
+//This is the function that you can copy into your code. It requires distance Sensor to be in hardware map.
+    //---------------------------------------------------------------------------------------------------------
 
-
+    private double distance(){
+        robot.init(hardwareMap); //instantiates hardwaremap inside the function
+        double distanceCm= robot.distanceSensor.getDistance(DistanceUnit.CM); //assigns the distance detected in centimeters.
+        telemetry.addData("Distance: ", distanceCm); //shows distance in the control hub
+        return distanceCm; //puts distance as the value of the function
     }
 
-    private double distanceNumber(){
-        robot.init(hardwareMap);
-        double distance= robot.distanceSensor.getDistance(DistanceUnit.CM);
-        telemetry.addData("Distance: ", distance);
-        return distance;
+//-------------------------------------------------------------------------------------------------------------
 }
-}
-/*
-           #Apparently it won't allow me to do referencable function because the SDK is too low
-           #So I put the one that will probably work down here
-           #This is untested
 
-*
-* */
