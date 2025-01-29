@@ -27,7 +27,7 @@ public class distanceSensorFunction extends LinearOpMode {
 //This is the function that you can copy into your code. It requires distance Sensor to be in hardware map.
     //---------------------------------------------------------------------------------------------------------
 
-    private double distance(){
+    public double distance(){
         robot.init(hardwareMap); //instantiates hardwaremap inside the function
         double distanceCm= robot.distanceSensor.getDistance(DistanceUnit.CM); //assigns the distance detected in centimeters.
         telemetry.addData("Distance: ", distanceCm); //shows distance in the control hub
