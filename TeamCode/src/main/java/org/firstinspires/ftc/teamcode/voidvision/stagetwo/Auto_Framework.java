@@ -860,6 +860,7 @@ public  class Auto_Framework extends Auto_Util {
                 drive.actionBuilder(pose2d).waitSeconds(.2).build(),
                 //HandOffSetUpBack
                 new ParallelAction(backIntakeComponent.SwingHome(),intake2.SwingHome()),
+                drive.actionBuilder(pose2d).waitSeconds(.3).build(),
                 intake2.DropSubClaw(),
                 drive.actionBuilder(pose2d).waitSeconds(.6).build(),
                 //intake2.CloseSubClaw(),

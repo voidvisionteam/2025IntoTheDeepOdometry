@@ -119,7 +119,10 @@ public class Sample_Base extends Auto_Framework{
                 ),
                 new SequentialAction(clawServo12.openClaw(),scoreSample1)
         );
-        Action postSample1a1 = drive.actionBuilder(new Pose2d(5,40,(135/360d)*fullTurn))
+        Action postSample1a2 = drive.actionBuilder(new Pose2d(5,40,(135/360d)*fullTurn))
+                .strafeTo(new Vector2d (5+2,40-2))
+                .build();
+        Action postSample1a1 = drive.actionBuilder(new Pose2d(5+2,40-2,(135/360d)*fullTurn))
                 .strafeTo(new Vector2d (8,38))
                 .turn((45/360d)*fullTurn)
                 .strafeTo(new Vector2d (8+7+3,34))
@@ -129,13 +132,17 @@ public class Sample_Base extends Auto_Framework{
                 .turn((-45/360d)*fullTurn)
                 .strafeTo(new Vector2d (8-3,38+2))
                 .build();
+        Action scoreSample2wait = drive.actionBuilder(new Pose2d(5,40,(135/360d)*fullTurn))
+                .waitSeconds(.5)
+                .build();
         Action Sample2 = new SequentialAction(
+                postSample1a2,
                 new ParallelAction(postSample1a1,lift14.liftDown(),clawServoRotate13.rotateClawHome()),
                 clawServoRotate13.rotateClawSpec(),
                 Grab(new Pose2d(8+7+3,34,(180/360d)*fullTurn)),
                 Transfer(new Pose2d(8+7+3,34,(180/360d)*fullTurn)),
                 new ParallelAction(lift14.liftUp(),scoreSample2),
-                clawServo12.openClaw()
+                new SequentialAction(clawServo12.openClaw(),scoreSample2wait)
         );
 
         waitForStart();
