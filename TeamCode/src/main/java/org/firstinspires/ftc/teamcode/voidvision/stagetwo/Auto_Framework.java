@@ -578,6 +578,8 @@ public  class Auto_Framework extends Auto_Util {
     public Pose2d beginPose = null;
     Pose2d rightBeginPose = new Pose2d(0, 0, 0);
     Pose2d leftBeginPose = new Pose2d(0, 28, 0);
+    Pose2d specimenLocation = new Pose2d(15,-41,0);
+    Vector2d specimenLocation1 = new Vector2d(15,-41);
 
     MecanumDrive drive = null;
     ClawServo clawServo12 = null;
@@ -588,16 +590,6 @@ public  class Auto_Framework extends Auto_Util {
     Intake2 intake2 = null;
     ExtendShelf extendShelf = null;
 
-    Action run1 = null;
-    Action run2 = null;
-    Action run3 = null;
-    Action run4 = null;
-    Action run5 = null;
-    Action run6 = null;
-    Action run7 = null;
-    Action run8= null;
-
-    Action runwait,run5back,runTest,runTest2,runwait2,runwait3,run6alt,run7alt,run8alt,run9alt,run9altback,run1a2Right,run1a2Left,run4a5,run8a9 = null;
 
     public void setupAutoFramework(){
         //Define initial Position
@@ -639,233 +631,6 @@ public  class Auto_Framework extends Auto_Util {
         //Init Shelf
         extendShelf = new ExtendShelf(hardwareMap);
     }
-
-    public void setupAutoActionsRight(){
-        //Define Actions
-
-        run1 = drive.actionBuilder(beginPose)
-                //.strafeTo(new Vector2d(21,6))
-                .strafeTo(new Vector2d(21,0))
-                .strafeTo(new Vector2d(21,6))
-                .build();
-        run2 = drive.actionBuilder(new Pose2d(21,6,0))
-                .strafeTo(new Vector2d(25+.1,6))
-                .build();
-        run3 = drive.actionBuilder(new Pose2d(25+.1,6,0))
-                //.strafeTo(new Vector2d(0,6))
-                .strafeTo(new Vector2d(23,4+57))
-                .strafeTo(new Vector2d(33,57+4))
-                .waitSeconds(.25)
-                .build();
-        runwait = drive.actionBuilder(new Pose2d(32, 61, 0)).waitSeconds(.5).build();
-        run4 = drive.actionBuilder(new Pose2d(32,61,0))
-                //.turn((110/360)*fullTurn)
-                //.strafeTo(new Vector2d(-10,0))
-                .strafeTo(new Vector2d(13,63))
-                .turn((135/360d)*fullTurn)
-                .build();
-        run5 = drive.actionBuilder(new Pose2d(13,63,(135/360d)*(2*Math.PI)))
-                .waitSeconds(.2)
-                .strafeTo(new Vector2d(8,70))
-                .build();
-        run5back = drive.actionBuilder(new Pose2d(8,70,(135/360d)*(2*Math.PI)))
-                .waitSeconds(.2)
-                .strafeTo(new Vector2d(13,63))
-                .build();
-        run6 = drive.actionBuilder(new Pose2d(13,63,(135/360d)*(2*Math.PI)))
-                .turn((135/360d)*fullTurn)
-                .build();
-        run7 = drive.actionBuilder(new Pose2d(10,68,(-.5*Math.PI)))
-                .strafeTo(new Vector2d(0,-6))
-                .build();
-        run8 = drive.actionBuilder(new Pose2d(0,-6,(-.5*Math.PI)))
-                .strafeTo(new Vector2d(95,0))
-                .build();
-        runTest = drive.actionBuilder(new Pose2d(0,0,0))
-                .strafeTo(new Vector2d(10,0))
-                .turn(.25*fullTurn)
-                .build();
-        runTest2 = drive.actionBuilder(beginPose)
-                .waitSeconds(.5)
-                .build();
-        runwait2 = drive.actionBuilder(beginPose)
-                .waitSeconds(2)
-                .build();
-        runwait3 = drive.actionBuilder(beginPose)
-                .waitSeconds(.5)
-                .build();
-        run6alt = drive.actionBuilder(new Pose2d(13,63,(135/360d)*(2*Math.PI)))
-                .turn((-135/360d)*fullTurn)
-                //.strafeTo(new Vector2d(13,57+5))
-                .strafeTo(new Vector2d(13,57+5+9+(5/8d)))
-                .strafeTo(new Vector2d(35,57+5+9+(5/8d)))
-                .build();
-        run7alt = drive.actionBuilder(new Pose2d(35,57+5+9+(5/8d),0)).waitSeconds(.5).build();
-        run8alt = drive.actionBuilder(new Pose2d(35,57+5+9+(5/8d),0))
-                //.turn((110/360)*fullTurn)
-                //.strafeTo(new Vector2d(-10,0))
-                .strafeTo(new Vector2d(13,63))
-                .turn((135/360d)*fullTurn)
-                .build();
-        run9alt = drive.actionBuilder(new Pose2d(13,63,(135/360d)*(2*Math.PI)))
-                .waitSeconds(.2)
-                .strafeTo(new Vector2d(8,70))
-                .build();
-        run9altback = drive.actionBuilder(new Pose2d(8,70,(135/360d)*(2*Math.PI)))
-                .waitSeconds(.2)
-                .strafeTo(new Vector2d(13,63))
-                .build();
-        run1a2Right = drive.actionBuilder(beginPose)
-                .strafeTo(new Vector2d(21,0))
-                .strafeTo(new Vector2d(25+.1,6))
-                .build();
-        run1a2Left = drive.actionBuilder(beginPose)
-                .strafeTo(new Vector2d(21,28-5))
-                .strafeTo(new Vector2d(25+.1,28-5))
-                .build();
-        run4a5= drive.actionBuilder(new Pose2d(32,61,0))
-                .strafeTo(new Vector2d(13,63))
-                .turn((135/360d)*fullTurn)
-                .waitSeconds(.2)
-                .strafeTo(new Vector2d(8,70))
-                .build();
-        run8a9 = drive.actionBuilder(new Pose2d(35,57+5+9+(5/8d),0))
-                .strafeTo(new Vector2d(13,63))
-                .turn((135/360d)*fullTurn)
-                .waitSeconds(.2)
-                .strafeTo(new Vector2d(8,70))
-                .build();
-    }
-    public void setupAutoActionsLeft(){
-        //Define Actions
-        run1 = drive.actionBuilder(beginPose)
-                //.strafeTo(new Vector2d(21,6))
-                //.strafeTo(new Vector2d(21,28))
-                .strafeTo(new Vector2d(21,28-5))
-                .build();
-        run2 = drive.actionBuilder(new Pose2d(21,28-5,0))
-                .strafeTo(new Vector2d(25+.1,28-5))
-                .build();
-        run3 = drive.actionBuilder(new Pose2d(25+.1,28-5,0))
-                //.strafeTo(new Vector2d(0,6))
-                .strafeTo(new Vector2d(23,4+57))
-                .strafeTo(new Vector2d(32,57+4))
-                .waitSeconds(.25)
-                .build();
-        runwait = drive.actionBuilder(new Pose2d(32,61,0)).waitSeconds(.5).build();
-        run4 = drive.actionBuilder(new Pose2d(32,61,0))
-                //.turn((110/360)*fullTurn)
-                //.strafeTo(new Vector2d(-10,0))
-                .strafeTo(new Vector2d(13,63))
-                .turn((135/360d)*fullTurn)
-                .build();
-        run5 = drive.actionBuilder(new Pose2d(13,63,(135/360d)*(2*Math.PI)))
-                .waitSeconds(.2)
-                .strafeTo(new Vector2d(8,70))
-                .build();
-        run5back = drive.actionBuilder(new Pose2d(8,70,(135/360d)*(2*Math.PI)))
-                .waitSeconds(.2)
-                .strafeTo(new Vector2d(13,63))
-                .build();
-        run6 = drive.actionBuilder(new Pose2d(13,63,(135/360d)*(2*Math.PI)))
-                .turn((135/360d)*fullTurn)
-                .build();
-        run7 = drive.actionBuilder(new Pose2d(10,68,(-.5*Math.PI)))
-                .strafeTo(new Vector2d(0,-6))
-                .build();
-        run8 = drive.actionBuilder(new Pose2d(0,-6,(-.5*Math.PI)))
-                .strafeTo(new Vector2d(95,0))
-                .build();
-        runTest = drive.actionBuilder(new Pose2d(0,0,0))
-                .strafeTo(new Vector2d(10,0))
-                .turn(.25*fullTurn)
-                .build();
-        runTest2 = drive.actionBuilder(beginPose)
-                .waitSeconds(.5)
-                .build();
-        runwait2 = drive.actionBuilder(beginPose)
-                .waitSeconds(2)
-                .build();
-        runwait3 = drive.actionBuilder(beginPose)
-                .waitSeconds(.5)
-                .build();
-        run6alt = drive.actionBuilder(new Pose2d(13,63,(135/360d)*(2*Math.PI)))
-                .turn((-135/360d)*fullTurn)
-                //.strafeTo(new Vector2d(13,57+5))
-                .strafeTo(new Vector2d(13,57+5+9+(5/8d)))
-                .strafeTo(new Vector2d(32,57+5+9+(5/8d)))
-                .build();
-        run7alt = drive.actionBuilder(new Pose2d(32,57+5+9+(5/8d),0)).waitSeconds(.5).build();
-        run8alt = drive.actionBuilder(new Pose2d(32,57+5+9+(5/8d),0))
-                //.turn((110/360)*fullTurn)
-                //.strafeTo(new Vector2d(-10,0))
-                .strafeTo(new Vector2d(13,63))
-                .turn((135/360d)*fullTurn)
-                .build();
-        run9alt = drive.actionBuilder(new Pose2d(13,63,(135/360d)*(2*Math.PI)))
-                .waitSeconds(.2)
-                .strafeTo(new Vector2d(8,70))
-                .build();
-        run9altback = drive.actionBuilder(new Pose2d(8,70,(135/360d)*(2*Math.PI)))
-                .waitSeconds(.2)
-                .strafeTo(new Vector2d(13,63))
-                .build();
-        run1a2Right = drive.actionBuilder(beginPose)
-                .strafeTo(new Vector2d(21,0))
-                .strafeTo(new Vector2d(25+.1,6))
-                .build();
-        run1a2Left = drive.actionBuilder(beginPose)
-                .strafeTo(new Vector2d(21,28-5))
-                .strafeTo(new Vector2d(25+.1,28-5))
-                .build();
-        run4a5= drive.actionBuilder(new Pose2d(32,61,0))
-                .strafeTo(new Vector2d(13,63))
-                .turn((135/360d)*fullTurn)
-                .waitSeconds(.2)
-                .strafeTo(new Vector2d(8,70))
-                .build();
-        run8a9 = drive.actionBuilder(new Pose2d(35,57+5+9+(5/8d),0))
-                .strafeTo(new Vector2d(13,63))
-                .turn((135/360d)*fullTurn)
-                .waitSeconds(.2)
-                .strafeTo(new Vector2d(8,70))
-                .build();
-    }
-    public void setupAutoActionsRightEstimate(boolean right){
-        if(right){
-            run1 = drive.actionBuilder(beginPose)
-                    //.strafeTo(new Vector2d(21,6))
-                    .strafeTo(new Vector2d(21,0))
-                    .strafeTo(new Vector2d(21,6))
-                    .build();
-            run2 = drive.actionBuilder(new Pose2d(21,6,0))
-                    .strafeTo(new Vector2d(25+.1,6))
-                    .build();
-            run3 = drive.actionBuilder(new Pose2d(25+.1,6,0))
-                    //.strafeTo(new Vector2d(0,6))
-                    .strafeTo(new Vector2d(23,4+57))
-                    .strafeTo(new Vector2d(33,57+4))
-                    .waitSeconds(.25)
-                    .build();
-        }
-        else{
-            run1 = drive.actionBuilder(beginPose)
-                    //.strafeTo(new Vector2d(21,6))
-                    //.strafeTo(new Vector2d(21,28))
-                    .strafeTo(new Vector2d(21,28-5))
-                    .build();
-            run2 = drive.actionBuilder(new Pose2d(21,28-5,0))
-                    .strafeTo(new Vector2d(25+.1,28-5))
-                    .build();
-            run3 = drive.actionBuilder(new Pose2d(25+.1,28-5,0))
-                    //.strafeTo(new Vector2d(0,6))
-                    .strafeTo(new Vector2d(23,4+57))
-                    .strafeTo(new Vector2d(32,57+4))
-                    .waitSeconds(.25)
-                    .build();
-        }
-    }
-
     public SequentialAction Grab(Pose2d pose2d) {
         return new SequentialAction(
                 //GRAB SetUp
@@ -942,6 +707,40 @@ public  class Auto_Framework extends Auto_Util {
                 ),
                 drive.actionBuilder(pose2d).waitSeconds(1).build()
 
+        );
+    }
+    public SequentialAction TransferSpecimen(Pose2d pose2d,Boolean zeroDegrees,int specimenNumber) {
+        return new SequentialAction(
+                //HandOff
+                drive.actionBuilder(pose2d).waitSeconds(.2).build(),
+                clawServo12.closeClaw(),
+                drive.actionBuilder(pose2d).waitSeconds(.5).build(),
+                intake2.OpenSubClaw(),
+                //LIFT!
+                drive.actionBuilder(pose2d).waitSeconds(.3).build(),
+                new ParallelAction(
+                        lift14.liftUpSpecialHeight(),
+                        clawServoRotate13.rotateClawHome()
+                ),
+                //SCORE!!
+                new ParallelAction(
+                        lift14.liftUp(),
+                        clawServoRotate13.rotateClawSpec(),
+                        drive.actionBuilder(pose2d)
+                                .strafeTo(new Vector2d(26+.1,6+2*(specimenNumber)))
+                                .build()
+                ),
+                lift14.liftDownLowBar(),
+                drive.actionBuilder(pose2d).waitSeconds(1).build()
+
+        );
+    }
+    public Action moveToGrabSpecimenLocation(Pose2d pose2d){
+        return new ParallelAction(
+                lift14.liftDown(),
+                drive.actionBuilder(pose2d)
+                        .strafeTo(specimenLocation1)
+                        .build()
         );
     }
 
