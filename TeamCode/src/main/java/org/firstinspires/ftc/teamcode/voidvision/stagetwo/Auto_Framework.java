@@ -679,8 +679,8 @@ public  class Auto_Framework extends Auto_Util {
                         clawServoRotate13.rotateClawHighBasket(),
                         drive.actionBuilde3(pose2d)
                                 .strafeTo(new Vector2d (8,38))
-                                .turn((-45/360d)*fullTurn)
                                 .strafeTo(new Vector2d (8-3+1,38+2+2))
+                                .turn((-45/360d)*fullTurn)
                                 .build()
                 ),
                 drive.actionBuilder(pose2d).waitSeconds(.01).build()
@@ -706,8 +706,8 @@ public  class Auto_Framework extends Auto_Util {
                         clawServoRotate13.rotateClawHighBasket(),
                         drive.actionBuilder(pose2d)
                                 .strafeTo(new Vector2d (8,38))
-                                .turn((-(45+30)/360d)*fullTurn)
                                 .strafeTo(new Vector2d (8-3+1,38+2+2))
+                                .turn((-(45+30)/360d)*fullTurn)
                                 .build()
                 ),
                 drive.actionBuilder(pose2d).waitSeconds(.01).build()
