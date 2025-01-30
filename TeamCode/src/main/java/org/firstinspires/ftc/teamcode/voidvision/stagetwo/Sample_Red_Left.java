@@ -10,15 +10,15 @@ import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.MecanumDrive;
-@Autonomous(name = "1Sample-Blue-Left-New",group = "Autonomous")
-public class Sample_Base extends Auto_Framework{
+@Autonomous(name = "1Sample-Red-Left-New",group = "Autonomous")
+public class Sample_Red_Left extends Auto_Framework{
     public MecanumDrive getMecanum(Pose2d start){
         return new MecanumDrive(hardwareMap,start);
     }
     @Override
     public void runOpMode() throws InterruptedException{
         //init Framework
-        setupAutoFramework(RevBlinkinLedDriver.BlinkinPattern.BLUE);
+        setupAutoFramework(RevBlinkinLedDriver.BlinkinPattern.RED);
         //Define initial Position
         beginPose = new Pose2d(0, 28, 0);
 
@@ -66,15 +66,15 @@ public class Sample_Base extends Auto_Framework{
                 //.strafeTo(new Vector2d(33,57+4))
 
                 //.strafeTo(new Vector2d(8,70))
-               // .turn((14/360d)*fullTurn*-1)
+                // .turn((14/360d)*fullTurn*-1)
                 //.waitSeconds(.5)
 
                 //.turn((31/360d)*fullTurn-1)
                 //.strafeTo(new Vector2d (8-3,38+2))
 
-               // .waitSeconds(2)
-               // .strafeTo(new Vector2d (8,38))
-               // .turn((45/360d)*fullTurn)
+                // .waitSeconds(2)
+                // .strafeTo(new Vector2d (8,38))
+                // .turn((45/360d)*fullTurn)
                 .waitSeconds(4)
 
 

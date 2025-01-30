@@ -7,6 +7,9 @@ import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+
+@Autonomous(name = "2Sample-Blue-Left-OG",group = "Autonomous")
 
 public class Blue_Left_Sample extends Auto_Framework{
     @Override
