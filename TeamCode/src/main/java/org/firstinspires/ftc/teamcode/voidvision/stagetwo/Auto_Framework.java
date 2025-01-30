@@ -751,7 +751,8 @@ public  class Auto_Framework extends Auto_Util {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        setupAutoFramework();
+        //setupAutoFramework();
+        lightStrip = new LightStrip(hardwareMap,RevBlinkinLedDriver.BlinkinPattern.GREEN);
         //setupAutoActionsRight();
 
         /*ParallelAction runToHighBar = new ParallelAction(run1a2Right,clawServoRotate13.rotateClawMid(),lift14.liftUpB());
@@ -880,7 +881,8 @@ public  class Auto_Framework extends Auto_Util {
                         ScoreOnBasketTwo,
                         BackFromBasketTwo
                 )
-        );*/
+        );
+
         Actions.runBlocking(
                 /*new SequentialAction(
                         runToHighBar,
@@ -895,12 +897,14 @@ public  class Auto_Framework extends Auto_Util {
                         SpecialPart7,
                         SpecialPart8,
                         SpecialPart9,
-                        scoreSpecialOnBar2)*/
-                new SequentialAction(
-                        Grab(beginPose),
-                        Transfer(beginPose,true)
-                )
+                        scoreSpecialOnBar2)
+        new SequentialAction(
+                Grab(beginPose),
+                Transfer(beginPose,true)
+        )
         );
+        */
+
 
     }
 }
