@@ -910,7 +910,7 @@ public  class Auto_Framework extends Auto_Util {
                         drive.actionBuilder(pose2d)
                                 .strafeTo(new Vector2d (8,38))
                                 .turn((-45/360d)*fullTurn)
-                                .strafeTo(new Vector2d (8-3+2,38+2+2))
+                                .strafeTo(new Vector2d (8-3+1,38+2+2))
                                 .build()
                 ),
                 drive.actionBuilder(pose2d).waitSeconds(1).build()
