@@ -191,8 +191,9 @@ public class Sample_Base extends Auto_Framework{
                 .turn((-(45+30)/360d)*fullTurn)
                 .strafeTo(new Vector2d (8-3+1,38+2+2))
                 .build();
-        Action scoreSample4wait = drive.actionBuilder(new Pose2d(5+1,40+2,(135/360d)*fullTurn))
-                .waitSeconds(.5)
+        Action scoreSample4wait = drive.actionBuilde3(new Pose2d(5+1,40+2,(135/360d)*fullTurn))
+                .waitSeconds(.6)
+                .strafeTo(new Vector2d (8,38))
                 .build();
         Action Sample4 = new SequentialAction(
                 postSample3a2,

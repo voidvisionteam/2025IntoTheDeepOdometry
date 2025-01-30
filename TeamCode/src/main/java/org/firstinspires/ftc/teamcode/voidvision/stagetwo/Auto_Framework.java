@@ -680,6 +680,7 @@ public  class Auto_Framework extends Auto_Util {
                         drive.actionBuilde3(pose2d)
                                 //.strafeTo(new Vector2d (8,38))
                                 .strafeTo(new Vector2d (8-3+1,38+2+2))
+                                .waitSeconds(.5)
                                 .turn((-45/360d)*fullTurn)
                                 .build()
                 ),
@@ -705,8 +706,9 @@ public  class Auto_Framework extends Auto_Util {
                         lift14.liftUp(),
                         clawServoRotate13.rotateClawHighBasket(),
                         drive.actionBuilder(pose2d)
-                                //.strafeTo(new Vector2d (8,38))
+                                .strafeTo(new Vector2d (8,38))
                                 .strafeTo(new Vector2d (8-3+1,38+2+2))
+                                //.waitSeconds(.5)
                                 .turn((-(45+30)/360d)*fullTurn)
                                 .build()
                 ),
