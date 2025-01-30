@@ -890,7 +890,7 @@ public  class Auto_Framework extends Auto_Util {
 
         );
     }
-    public SequentialAction Transfer(Pose2d pose2d) {
+    public SequentialAction Transfer(Pose2d pose2d,Boolean oneEightyDegrees) {
         return new SequentialAction(
                 //HandOff
                 drive.actionBuilder(pose2d).waitSeconds(.2).build(),
@@ -899,7 +899,47 @@ public  class Auto_Framework extends Auto_Util {
                 intake2.OpenSubClaw(),
                 //LIFT!
                 drive.actionBuilder(pose2d).waitSeconds(.3).build(),
-                new ParallelAction(lift14.liftUpSpecialHeight(),clawServoRotate13.rotateClawHighBasket()),
+                new ParallelAction(
+                        lift14.liftUpSpecialHeight(),
+                        clawServoRotate13.rotateClawHome()
+                ),
+                //SCORE!!
+                new ParallelAction(
+                        lift14.liftUp(),
+                        clawServoRotate13.rotateClawHighBasket(),
+                        drive.actionBuilder(pose2d)
+                                .strafeTo(new Vector2d (8,38))
+                                .turn((-45/360d)*fullTurn)
+                                .strafeTo(new Vector2d (8-3+2,38+2+2))
+                                .build()
+                ),
+                drive.actionBuilder(pose2d).waitSeconds(1).build()
+
+        );
+    }
+    public SequentialAction TransferAlt(Pose2d pose2d,Boolean twoTenDegrees) {
+        return new SequentialAction(
+                //HandOff
+                drive.actionBuilder(pose2d).waitSeconds(.2).build(),
+                clawServo12.closeClaw(),
+                drive.actionBuilder(pose2d).waitSeconds(.5).build(),
+                intake2.OpenSubClaw(),
+                //LIFT!
+                drive.actionBuilder(pose2d).waitSeconds(.3).build(),
+                new ParallelAction(
+                        lift14.liftUpSpecialHeight(),
+                        clawServoRotate13.rotateClawHome()
+                ),
+                //SCORE!!
+                new ParallelAction(
+                        lift14.liftUp(),
+                        clawServoRotate13.rotateClawHighBasket(),
+                        drive.actionBuilder(pose2d)
+                                .strafeTo(new Vector2d (8,38))
+                                .turn((-(45+30)/360d)*fullTurn)
+                                .strafeTo(new Vector2d (8-3+1,38+2+2))
+                                .build()
+                ),
                 drive.actionBuilder(pose2d).waitSeconds(1).build()
 
         );
@@ -1054,7 +1094,7 @@ public  class Auto_Framework extends Auto_Util {
                         scoreSpecialOnBar2)*/
                 new SequentialAction(
                         Grab(beginPose),
-                        Transfer(beginPose)
+                        Transfer(beginPose,true)
                 )
         );
 

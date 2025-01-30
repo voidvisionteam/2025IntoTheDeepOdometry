@@ -146,8 +146,8 @@ public class Sample_Base extends Auto_Framework{
                 new ParallelAction(postSample1a1,lift14.liftDown(),clawServoRotate13.rotateClawHome()),
                 clawServoRotate13.rotateClawSpec(),
                 Grab(new Pose2d(8+7+3+2,34,(180/360d)*fullTurn)),
-                Transfer(new Pose2d(8+7+3+2,34,(180/360d)*fullTurn)),
-                new ParallelAction(lift14.liftUp(),scoreSample2),
+                Transfer(new Pose2d(8+7+3+2,34,(180/360d)*fullTurn),true),
+                //new ParallelAction(lift14.liftUp(),scoreSample2),
                 new SequentialAction(clawServo12.openClaw(),scoreSample2wait)
         );
 
@@ -172,8 +172,8 @@ public class Sample_Base extends Auto_Framework{
                 new ParallelAction(postSample2a1,lift14.liftDown(),clawServoRotate13.rotateClawHome()),
                 clawServoRotate13.rotateClawSpec(),
                 Grab(new Pose2d(8+7+3+2,34+9.4*(1),(180/360d)*fullTurn)),
-                Transfer(new Pose2d(8+7+3+2,34+9.4*(1),(180/360d)*fullTurn)),
-                new ParallelAction(lift14.liftUp(),scoreSample3),
+                Transfer(new Pose2d(8+7+3+2,34+9.4*(1),(180/360d)*fullTurn),true),
+                //new ParallelAction(lift14.liftUp(),scoreSample3),
                 new SequentialAction(clawServo12.openClaw(),scoreSample3wait)
         );
 
@@ -198,8 +198,8 @@ public class Sample_Base extends Auto_Framework{
                 new ParallelAction(postSample3a1,lift14.liftDown(),clawServoRotate13.rotateClawHome()),
                 clawServoRotate13.rotateClawSpec(),
                 Grab(new Pose2d(8+7+3+2+1,34+9.4*(1)+1+.25,(210/360d)*fullTurn)),
-                Transfer(new Pose2d(8+7+3+2+1,34+9.4*(1)+1+.25,(210/360d)*fullTurn)),
-                new ParallelAction(lift14.liftUp(),scoreSample4),
+                TransferAlt(new Pose2d(8+7+3+2+1,34+9.4*(1)+1+.25,(210/360d)*fullTurn),true),
+                //new ParallelAction(lift14.liftUp(),scoreSample4),
                 new SequentialAction(clawServo12.openClaw(),scoreSample4wait)
         );
 
