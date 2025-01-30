@@ -575,7 +575,7 @@ public  class Auto_Framework extends Auto_Util {
     /*Auto Variables*/
     double fullTurn = 2*Math.PI*1.032;
 
-    Pose2d beginPose = null;
+    public Pose2d beginPose = null;
     Pose2d rightBeginPose = new Pose2d(0, 0, 0);
     Pose2d leftBeginPose = new Pose2d(0, 28, 0);
 
