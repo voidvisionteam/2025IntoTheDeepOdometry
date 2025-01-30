@@ -99,7 +99,7 @@ public class Sample_Base extends Auto_Framework{
 
 
 
-        Action runSample1 = drive.actionBuilder(beginPose)
+        Action runSample1 = drive.actionBuilde4(beginPose)
                 .strafeTo(new Vector2d(4,28))
                 .strafeTo(new Vector2d (8,38))//prep!!
                 //.waitSeconds(2)
@@ -116,7 +116,7 @@ public class Sample_Base extends Auto_Framework{
                 ),
                 new ParallelAction(
                         new SequentialAction(
-                                new SequentialAction(
+                                new ParallelAction(
                                         lift14.liftUp(),
                                         //.rotateClawSpec(),
                                         clawServoRotate13.rotateClawHighBasket()
@@ -129,10 +129,10 @@ public class Sample_Base extends Auto_Framework{
         Action postSample1a2 = drive.actionBuilder(new Pose2d(5+1,40+2,(135/360d)*fullTurn))
                 .strafeTo(new Vector2d (5+2,40-2))
                 .build();
-        Action postSample1a1 = drive.actionBuilder(new Pose2d(5+2,40-2,(135/360d)*fullTurn))
+        Action postSample1a1 = drive.actionBuilde3(new Pose2d(5+2,40-2,(135/360d)*fullTurn))
                 .strafeTo(new Vector2d (8,38))
                 .turn((45/360d)*fullTurn)
-                .strafeTo(new Vector2d (8+7+3+2,34))
+                .strafeTo(new Vector2d (8+7+3+2-1,34))
                 .build();
         Action scoreSample2 = drive.actionBuilder(new Pose2d(8+7+3+2,34,(180/360d)*fullTurn))
                 .strafeTo(new Vector2d (8,38))
@@ -146,8 +146,8 @@ public class Sample_Base extends Auto_Framework{
                 postSample1a2,
                 new ParallelAction(postSample1a1,lift14.liftDown(),clawServoRotate13.rotateClawHome()),
                 clawServoRotate13.rotateClawSpec(),
-                Grab(new Pose2d(8+7+3+2,34,(180/360d)*fullTurn)),
-                Transfer(new Pose2d(8+7+3+2,34,(180/360d)*fullTurn),true),
+                Grab(new Pose2d(8+7+3+2-1,34,(180/360d)*fullTurn)),
+                Transfer(new Pose2d(8+7+3+2-1,34,(180/360d)*fullTurn),true),
                 //new ParallelAction(lift14.liftUp(),scoreSample2),
                 new SequentialAction(clawServo12.openClaw(),scoreSample2wait)
         );
@@ -155,10 +155,10 @@ public class Sample_Base extends Auto_Framework{
         Action postSample2a2 = drive.actionBuilder(new Pose2d(5+1,40+2,(135/360d)*fullTurn))
                 .strafeTo(new Vector2d (5+2,40-2))
                 .build();
-        Action postSample2a1 = drive.actionBuilder(new Pose2d(5+2,40-2,(135/360d)*fullTurn))
+        Action postSample2a1 = drive.actionBuilde3(new Pose2d(5+2,40-2,(135/360d)*fullTurn))
                 .strafeTo(new Vector2d (8,38))
                 .turn((45/360d)*fullTurn)
-                .strafeTo(new Vector2d (8+7+3+2,34+9.4*(1) ))
+                .strafeTo(new Vector2d (8+7+3+2-1,34+9.4*(1) ))
                 .build();
         Action scoreSample3 = drive.actionBuilder(new Pose2d(8+7+3+2,34+9.4*(1),(180/360d)*fullTurn))
                 .strafeTo(new Vector2d (8,38))
@@ -172,8 +172,8 @@ public class Sample_Base extends Auto_Framework{
                 postSample2a2,
                 new ParallelAction(postSample2a1,lift14.liftDown(),clawServoRotate13.rotateClawHome()),
                 clawServoRotate13.rotateClawSpec(),
-                Grab(new Pose2d(8+7+3+2,34+9.4*(1),(180/360d)*fullTurn)),
-                Transfer(new Pose2d(8+7+3+2,34+9.4*(1),(180/360d)*fullTurn),true),
+                Grab(new Pose2d(8+7+3+2-1,34+9.4*(1),(180/360d)*fullTurn)),
+                Transfer(new Pose2d(8+7+3+2-1,34+9.4*(1),(180/360d)*fullTurn),true),
                 //new ParallelAction(lift14.liftUp(),scoreSample3),
                 new SequentialAction(clawServo12.openClaw(),scoreSample3wait)
         );
@@ -181,7 +181,7 @@ public class Sample_Base extends Auto_Framework{
         Action postSample3a2 = drive.actionBuilder(new Pose2d(5+1,40+2,(135/360d)*fullTurn))
                 .strafeTo(new Vector2d (5+2,40-2))
                 .build();
-        Action postSample3a1 = drive.actionBuilder(new Pose2d(5+2,40-2,(135/360d)*fullTurn))
+        Action postSample3a1 = drive.actionBuilde3(new Pose2d(5+2,40-2,(135/360d)*fullTurn))
                 .strafeTo(new Vector2d (8,38))
                 .turn(((45+30)/360d)*fullTurn)
                 .strafeTo(new Vector2d (8+7+3+2+1,34+9.4*(1)+1+.25 ))
