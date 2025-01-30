@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.voidvision.stagetwo.Sample;
+package org.firstinspires.ftc.teamcode.voidvision.stagetwo;
 
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.ParallelAction;
@@ -6,18 +6,16 @@ import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 
-import org.firstinspires.ftc.teamcode.MecanumDrive;
-import org.firstinspires.ftc.teamcode.voidvision.redLeftAuto;
-import org.firstinspires.ftc.teamcode.voidvision.stagetwo.Sample_Base;
-
-public class Red_Left_Sample extends Sample_Base {
+public class Blue_Left_Sample extends Auto_Framework{
     @Override
     public void runOpMode() throws InterruptedException {
         //init Framework
-        setupAutoFramework();
+        setupAutoFramework(RevBlinkinLedDriver.BlinkinPattern.BLUE);
         //Define initial Position
         beginPose = new Pose2d(0, 28, 0);
+        //Reorient Claw?
 
         //Define Actions
         Action run1 = drive.actionBuilder(beginPose)
@@ -114,21 +112,28 @@ public class Red_Left_Sample extends Sample_Base {
                 .build();
 
         //TrajectoryBuilder trajectoryBuilder = new TrajectoryBuilder();
-        ParallelAction runToHighBar = new ParallelAction(run1a2Left,clawServoRotate13.rotateClawMid(),lift14.liftUpB());
+        Action runToHighBar = new SequentialAction(
+                new ParallelAction(
+                        lift14.liftUpSpecialHeight(),
+                        clawServoRotate13.rotateClawHome()
+                ),
+                new ParallelAction(
+                        run1a2Left,
+                        clawServoRotate13.rotateClawSpec(),
+                        lift14.liftUpB()
+                )
+        );
         Action scoreOnHighBar = lift14.liftDown();
-        ParallelAction runToSampleOne = new ParallelAction(run3,clawServoRotate13.rotateClawDown(),clawServo12.openClaw());
+        ParallelAction runToSampleOne = new ParallelAction(run3,clawServoRotate13.rotateClawHome(),clawServo12.openClaw());
         ParallelAction retrieveSampleOne = new ParallelAction(runwait,clawServo12.closeClaw());
-        ParallelAction runToBasketOne = new ParallelAction(run4a5,clawServoRotate13.rotateClawUp(),lift14.liftUp());
+        ParallelAction runToBasketOne = new ParallelAction(run4a5,clawServoRotate13.rotateClawHighBasket(),lift14.liftUp());
         Action scoreOnBasketOne = clawServo12.openClaw();
         Action backFromBasketOne = new ParallelAction(run5back);
-        ParallelAction runToSampleTwo = new ParallelAction(run6alt,lift14.liftDown(),clawServoRotate13.rotateClawDown());
+        ParallelAction runToSampleTwo = new ParallelAction(run6alt,lift14.liftDown(),clawServoRotate13.rotateClawHome());
         ParallelAction retrieveSampleTwo = new ParallelAction(run7alt,clawServo12.closeClaw());
-        ParallelAction runToBasketTwo = new ParallelAction(run8a9, clawServoRotate13.rotateClawUp(),lift14.liftUp());
+        ParallelAction runToBasketTwo = new ParallelAction(run8a9, clawServoRotate13.rotateClawHighBasket(),lift14.liftUp());
         Action ScoreOnBasketTwo = clawServo12.openClaw();
         Action BackFromBasketTwo = new ParallelAction(run9altback);
-
-
-
 
 
         waitForStart();
@@ -148,62 +153,6 @@ public class Red_Left_Sample extends Sample_Base {
                         BackFromBasketTwo
                 )
         );
-
-
-        /*
-        Actions.runBlocking(new SequentialAction(
-                //score on high bar
-                run1,
-                clawServoRotate13.rotateClawMid(),
-                lift14.liftUpB(),
-                run2,
-                lift14.liftDown(),
-                clawServoRotate13.rotateClawDown(),
-                clawServo12.openClaw(),
-                //grab the sample
-                run3,
-                clawServo12.closeClaw(),
-                runwait,
-                clawServoRotate13.rotateClawUp(),
-                run4,
-                //drop the sample
-                lift14.liftUp(),
-                run5,
-                clawServo12.openClaw(),
-                run5back,
-
-                //back for more
-                lift14.liftDown(),
-                clawServoRotate13.rotateClawDown(),
-                run6alt,
-                clawServo12.closeClaw()
-                ,run7alt,
-
-                clawServoRotate13.rotateClawUp(),
-                run8alt,
-                //drop the sample (again)
-                lift14.liftUp(),
-                run9alt,
-                clawServo12.openClaw(),
-                run9altback
-
-        ));
-        Actions.runBlocking(
-                new SequentialAction(
-                        clawServoRotate13.rotateClawUp(),
-                        lift14.liftUp(),
-                        clawServo12.openClaw(),
-                        runwait2,
-                        clawServo12.closeClaw(),
-                        clawServoRotate13.rotateClawDown(),
-                        lift14.liftDown(),
-                        runTest2
-                )
-        );*/
-
-
-        //Actions.runBlocking(new SequentialAction(DecSat15));
-        //clawServoRotate13.clawservorotate.setPosition(clawServoRotate13.FinalrangeClawRotate);
 
     }
 }

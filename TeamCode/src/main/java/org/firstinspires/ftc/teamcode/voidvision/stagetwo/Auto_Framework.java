@@ -619,6 +619,26 @@ public  class Auto_Framework extends Auto_Util {
         //Init Shelf
         extendShelf = new ExtendShelf(hardwareMap);
     }
+    public void setupAutoFramework(RevBlinkinLedDriver.BlinkinPattern blinkinPattern){
+        //Define initial Position
+        beginPose = new Pose2d(0, 0, 0);
+        //Instantiate Mec Drive
+        drive = new MecanumDrive(hardwareMap, beginPose);
+        //Init Claw
+        clawServo12 = new ClawServo(hardwareMap);
+        //Init Claw Lift
+        clawServoRotate13 = new ClawServoRotate(hardwareMap);
+        //Init Lift
+        lift14 = new Lift(hardwareMap);
+        //Init intake2
+        intake2 = new Intake2(hardwareMap);
+        //Init arms
+        backIntakeComponent = new BackIntakeComponent(hardwareMap);
+        //Init Lightstrip
+        lightStrip = new LightStrip(hardwareMap,blinkinPattern);
+        //Init Shelf
+        extendShelf = new ExtendShelf(hardwareMap);
+    }
 
     public void setupAutoActionsRight(){
         //Define Actions
