@@ -93,8 +93,8 @@ public class Specimen_Base extends Auto_Framework{
                         moveToGrabSpecimenLocation(new Pose2d(26.1,6+2*(1),0)),
 
                         Grab(specimenLocation),
-                        TransferSpecimen(specimenLocation,true,1),
-                        moveToGrabSpecimenLocation(new Pose2d(26.1,6+2*(1),0))
+                        TransferSpecimen(specimenLocation,true,2),
+                        moveToGrabSpecimenLocation(new Pose2d(26.1,6+2*(2),0))
                 )
 
         );
