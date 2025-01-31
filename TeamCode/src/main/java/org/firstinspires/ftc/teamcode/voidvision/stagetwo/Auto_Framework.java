@@ -227,7 +227,7 @@ public  class Auto_Framework extends Auto_Util {
             @Override
             public boolean run(@NonNull TelemetryPacket packet) {
                 if (!initialized) {
-                    lift.setPower(0.99);
+                    lift.setPower(0.9999);
                     initialized = true;
                 }
 
@@ -679,9 +679,10 @@ public  class Auto_Framework extends Auto_Util {
                         clawServoRotate13.rotateClawHighBasket(),
                         drive.actionBuilde3(pose2d)
                                 //.strafeTo(new Vector2d (8,38))
-                                .strafeTo(new Vector2d (8-3+1,38+2+2))
+                                .strafeTo(new Vector2d (8-3+1,38+2+2-2))
                                 .waitSeconds(.5)
                                 .turn((-45/360d)*fullTurn)
+                                .strafeTo(new Vector2d (8-3+1,38+2+2))
                                 .build()
                 ),
                 drive.actionBuilder(pose2d).waitSeconds(.01).build()
@@ -753,7 +754,7 @@ public  class Auto_Framework extends Auto_Util {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        //setupAutoFramework();
+        setupAutoFramework();
         lightStrip = new LightStrip(hardwareMap,RevBlinkinLedDriver.BlinkinPattern.GREEN);
         //setupAutoActionsRight();
 
