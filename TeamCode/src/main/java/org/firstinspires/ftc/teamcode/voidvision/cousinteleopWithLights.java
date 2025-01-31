@@ -226,7 +226,7 @@ public class cousinteleopWithLights extends LinearOpMode {
                     break;
                 }
                 if (rout0 == 0) {
-                    moveServoToPosition(robot.subClawServo, robot.subClawOpen, 1);
+                    moveServoToPosition(robot.subClawServo, robot.subClawHalfOpen, 1);
                     robot.basketServo1.setPosition(0 + robot.FinalrangeBasket * robot.swingArmPrep);
                     robot.basketServo2.setPosition(robot.FinalrangeBasket - robot.FinalrangeBasket * robot.swingArmPrep);
                     moveServoToPosition(robot.subClawPitch, robot.subPitchGrab, 1);
@@ -266,7 +266,7 @@ public class cousinteleopWithLights extends LinearOpMode {
                     orb = 0;
                     rout3 = 1;
 
-                } else if (rout0 == 1) {
+                } else if (rout3 == 1) {
                     robot.basketServo1.setPosition(0 + robot.FinalrangeBasket * robot.swingArmInsideGrab);
                     robot.basketServo2.setPosition(robot.FinalrangeBasket - robot.FinalrangeBasket * robot.swingArmInsideGrab);
                     sleep(100);
@@ -277,7 +277,7 @@ public class cousinteleopWithLights extends LinearOpMode {
                     robot.basketServo2.setPosition(robot.FinalrangeBasket - robot.FinalrangeBasket * robot.swingArmPrep);
                     orb = 0;
 
-                    rout0 = 0;
+                    rout0 = 1;
                     rout1 = 0;
                     rout3 = 0;
                     inside = 1;
@@ -316,7 +316,7 @@ public class cousinteleopWithLights extends LinearOpMode {
                     clamp = true;
                     sleep(150);
 
-                    moveServoToPosition(robot.subClawServo, robot.subClawOpen, 1);
+                    moveServoToPosition(robot.subClawServo, robot.subClawHalfOpen, 1);
                     clampFailSafe=1;
                 } else if (inside == 1) {
                     moveServoToPosition(robot.subClawPitch, robot.subPitchGrab,1);
@@ -342,7 +342,12 @@ public class cousinteleopWithLights extends LinearOpMode {
                 }
             }
             if (gamepad2.right_bumper) {
-                robot.subClawServo.setPosition(robot.subClawOpen);
+                if (inside == 0) {
+                    robot.subClawServo.setPosition(robot.subClawHalfOpen);
+                }
+                else if (inside == 1){
+                    robot.subClawServo.setPosition(robot.subClawInsidePrep);
+                }
             }
 
 

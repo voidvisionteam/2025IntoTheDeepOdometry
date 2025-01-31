@@ -469,14 +469,14 @@ public  class Auto_Framework extends Auto_Util {
         double subClawOpen = 0.000;
         double subClawInsidePrep = 0.32;
         double subClawInsideGrab = 0.15;
-        double subClawClose = .259;
+        double subClawClose = .31;
 
         double subOrbHome = .9255;
         double subOrbPerp = 0.603;
 
         double subPitchGrab = .847;
         double subPitchHome = .32;
-        double subClawDrop=0.14;
+        double subClawDrop=0.25;
 
         public Intake2(HardwareMap hardwareMap){
             subClawServo = hardwareMap.get(Servo.class,"subclaw");
@@ -642,7 +642,7 @@ public  class Auto_Framework extends Auto_Util {
                 drive.actionBuilder(pose2d).waitSeconds(1).build(),
                 //GRAB
                 intake2.CloseSubClaw(),
-                drive.actionBuilder(pose2d).waitSeconds(.2).build(),
+                drive.actionBuilder(pose2d).waitSeconds(.3).build(),
                 //HandOffSetUpBack
                 new ParallelAction(backIntakeComponent.SwingHome(),intake2.SwingHome()),
                 drive.actionBuilder(pose2d).waitSeconds(.3).build(),
@@ -665,7 +665,7 @@ public  class Auto_Framework extends Auto_Util {
                 //HandOff
                 drive.actionBuilder(pose2d).waitSeconds(.2).build(),
                 clawServo12.closeClaw(),
-                //drive.actionBuilder(pose2d).waitSeconds(.5).build(),
+                drive.actionBuilder(pose2d).waitSeconds(.2).build(),
                 intake2.OpenSubClaw(),
                 //LIFT!
                 drive.actionBuilder(pose2d).waitSeconds(.3).build(),

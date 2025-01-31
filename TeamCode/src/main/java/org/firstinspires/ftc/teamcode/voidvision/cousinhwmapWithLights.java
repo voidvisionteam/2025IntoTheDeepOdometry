@@ -65,16 +65,17 @@ public class cousinhwmapWithLights extends HardwareMapUtil {
 
     public double swingArmHome = .025;
     public double swingArmInsideTrans = 0.33;
-    public double subClawClose = .259;
-    public double subClawDrop = 0.14;
+    public double subClawClose = .31;//+0.6
+    public double subClawDrop = 0.25;
     public double subClawInsidePrep = 0.32;
-    public double subClawInsideGrab = 0.06;
+    public double subClawInsideGrab = 0.17;
     public double swingArmPrep = 0.83;
+    public double subClawHalfOpen = 0.1;
     public double subClawOpen = 0;
     public double subOrbHome = .9255;
     public double subOrbInside= 0.75;
-    public double swingArmGrab = 0.96;
-    public double swingArmInsideGrab = 0.97;
+    public double swingArmGrab = 0.98;
+    public double swingArmInsideGrab = 0.92;
     public double subOrbPerp = 0.603;
 
     public double subPitchGrab = .847;
@@ -82,7 +83,7 @@ public class cousinhwmapWithLights extends HardwareMapUtil {
     double subPitchTrans=0;
 
     double clawRotateHome=.13;
-    double clawRotateSpec=.188;
+    double clawRotateSpec=.184;
     double clawRotateHighBasket=.21;
     double clawRotatePrep=.082;
     double clawRotateInit=.14;
@@ -158,7 +159,7 @@ public class cousinhwmapWithLights extends HardwareMapUtil {
         //armMotorTwo.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         blinkinLedDriver = hwMap.get(RevBlinkinLedDriver.class, "blinkin");
-        blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.GREEN);
+        blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.TWINKLES_FOREST_PALETTE);
     }
     public HardwareMap getHwmap(){return hwmap;}
 }
