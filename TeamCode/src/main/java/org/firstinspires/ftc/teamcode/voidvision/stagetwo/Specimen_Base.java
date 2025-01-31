@@ -56,14 +56,15 @@ public class Specimen_Base extends Auto_Framework{
                         run1a2Right,
                         clawServoRotate13.rotateClawSpec(),
                         lift14.liftUpB()));
+
         Action scoreOnHighBar = lift14.liftDown();
         Action CollectSpecimensRun = drive.actionBuilde2(new Pose2d(26+.1,6,0))
                 .strafeTo(new Vector2d(25+.1,-22))
                 .strafeTo(new Vector2d(49,-22))
-                .strafeTo(new Vector2d(49,-32))
+                .strafeTo(new Vector2d(49,-30))
                 .strafeTo(new Vector2d(9,-32))
                 .strafeTo(new Vector2d(49,-32))
-                .strafeTo(new Vector2d(49,-41))
+                .strafeTo(new Vector2d(49,-39))
                 .strafeTo(new Vector2d(9,-41))
                 .build();
         Action goToSpecimen = drive.actionBuilder(new Pose2d(49,-41,0))

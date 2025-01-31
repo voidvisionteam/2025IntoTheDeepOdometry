@@ -107,7 +107,7 @@ public class Sample_Base extends Auto_Framework{
                 .strafeTo(new Vector2d (8-3+1,38+2+2))
                 .build();
         Action scoreSample1 = drive.actionBuilder(new Pose2d(5+1,40+2,(135/360d)*fullTurn))
-                .waitSeconds(.5)
+                .waitSeconds(0)
                 .build();
         Action Sample1 = new SequentialAction(
                 new ParallelAction(
@@ -140,7 +140,7 @@ public class Sample_Base extends Auto_Framework{
                 .strafeTo(new Vector2d (8-3+2,38+2+2))
                 .build();
         Action scoreSample2wait = drive.actionBuilder(new Pose2d(5+1,40+2,(135/360d)*fullTurn))
-                .waitSeconds(.5)
+                .waitSeconds(.0)
                 .build();
         Action Sample2 = new SequentialAction(
                 postSample1a2,
@@ -166,7 +166,7 @@ public class Sample_Base extends Auto_Framework{
                 .strafeTo(new Vector2d (8-3+1,38+2+2))
                 .build();
         Action scoreSample3wait = drive.actionBuilder(new Pose2d(5+1,40+2,(135/360d)*fullTurn))
-                .waitSeconds(.5)
+                .waitSeconds(0)
                 .build();
         Action Sample3 = new SequentialAction(
                 postSample2a2,

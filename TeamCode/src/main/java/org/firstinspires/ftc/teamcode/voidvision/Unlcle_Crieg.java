@@ -7,6 +7,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
+
 import com.qualcomm.robotcore.hardware.CRServo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
@@ -50,6 +52,7 @@ public class Unlcle_Crieg extends LinearOpMode {
 
 
     //LiftMotorCOnstants
+    static double distance;
     int initialPosition = 13;
     int targetPositionLowerBasket = 1802; // Adjust based on desired lift distance
     int targetPositionUpperBasket = 2570; // Adjust based on desired lift distance
@@ -195,6 +198,7 @@ public class Unlcle_Crieg extends LinearOpMode {
                     transfer=1;
                 }
             }
+            //revBlinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.RED);
 
             //--------sub claw -------
 
@@ -247,15 +251,12 @@ public class Unlcle_Crieg extends LinearOpMode {
                     rout3 = 0;
                     inside = 0;
                 }
-                if(distanceNumber() <= 2) {
-                    robot.subClawServo.setPosition(robot.subClawClose);
-                    moveServoToPosition(robot.subOrbServo, robot.subOrbHome, 1);
-                    orb = 0;
-                    robot.basketServo1.setPosition(0 + robot.FinalrangeBasket * robot.swingArmHome);
-                    robot.basketServo2.setPosition(robot.FinalrangeBasket - robot.FinalrangeBasket * robot.swingArmHome);
-                    moveServoToPosition(robot.subClawPitch, robot.subPitchHome, 1);
+                if(distanceNumber() >= 2) {
+
 
                 }
+
+
                 normal=0;
             }
             while (insidepick==1) {//inside pickup
@@ -370,7 +371,9 @@ public class Unlcle_Crieg extends LinearOpMode {
             //telemetry.addData("INTAKE",intakePartition);
             //telemetry.addData("CLAMP",clamp);
             //telemetry.addData("clamp",robot.clawServo.getPosition());
+            //distance = distanceNumber();
             telemetry.addData("LeftTrigger",gamepad2.left_trigger*.3);
+            //telemetry.addData("Distance: ", distance);
             telemetry.update();
         }
     }
