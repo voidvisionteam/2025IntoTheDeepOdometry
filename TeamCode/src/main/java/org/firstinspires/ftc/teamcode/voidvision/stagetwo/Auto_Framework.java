@@ -695,7 +695,7 @@ public  class Auto_Framework extends Auto_Util {
                 //HandOff
                 drive.actionBuilder(pose2d).waitSeconds(.2).build(),
                 clawServo12.closeClaw(),
-                //drive.actionBuilder(pose2d).waitSeconds(.5).build(),
+                drive.actionBuilder(pose2d).waitSeconds(.2).build(),
                 intake2.OpenSubClaw(),
                 //LIFT!
                 drive.actionBuilder(pose2d).waitSeconds(.3).build(),
@@ -711,7 +711,7 @@ public  class Auto_Framework extends Auto_Util {
                                 .strafeTo(new Vector2d (8,38))
                                 .strafeTo(new Vector2d (8-3+1,38+2+2))
                                 //.waitSeconds(.5)
-                                .turn((-(45+30)/360d)*fullTurn)
+                                .turn((-(45+30+5)/360d)*fullTurn)
                                 .build()
                 ),
                 drive.actionBuilder(pose2d).waitSeconds(.01).build()
