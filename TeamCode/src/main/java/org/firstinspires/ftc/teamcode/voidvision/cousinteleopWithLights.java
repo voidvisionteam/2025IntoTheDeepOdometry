@@ -8,6 +8,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.CRServo;
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+
 
 @TeleOp(name="cousinteleopWithLights", group="Pushbot")
 public class cousinteleopWithLights extends LinearOpMode {
@@ -242,7 +244,9 @@ public class cousinteleopWithLights extends LinearOpMode {
                     rout1 = 0;
                     rout3 = 0;
                     inside = 0;
+
                 }
+
                 normal=0;
             }
             while (insidepick==1) {//inside pickup
@@ -435,6 +439,12 @@ public class cousinteleopWithLights extends LinearOpMode {
         // Ensure both servos end at their exact target positions
         servo1.setPosition(targetPosition1);
         servo2.setPosition(targetPosition2);
+    }
+    private double distanceNumber(){
+        robot.init(hardwareMap);
+        double distance= robot.distanceSensor.getDistance(DistanceUnit.CM);
+        telemetry.addData("Distance: ", distance);
+        return distance;
     }
     private void moveServoToPosition(Servo servo, double targetPosition, double speedFactor) {
         double startPosition = servo.getPosition();
