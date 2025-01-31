@@ -578,8 +578,8 @@ public  class Auto_Framework extends Auto_Util {
     public Pose2d beginPose = null;
     Pose2d rightBeginPose = new Pose2d(0, 0, 0);
     Pose2d leftBeginPose = new Pose2d(0, 28, 0);
-    Pose2d specimenLocation = new Pose2d(15,-41,0);
-    Vector2d specimenLocation1 = new Vector2d(15,-41);
+    Pose2d specimenLocation = new Pose2d(15+2+2,-41+5+3,0);
+    Vector2d specimenLocation1 = new Vector2d(15+2+2,-41+5+3);
 
     MecanumDrive drive = null;
     ClawServo clawServo12 = null;
@@ -733,9 +733,10 @@ public  class Auto_Framework extends Auto_Util {
                 ),
                 //SCORE!!
                 new ParallelAction(
-                        lift14.liftUp(),
+                        lift14.liftUpB(),
                         clawServoRotate13.rotateClawSpec(),
                         drive.actionBuilder(pose2d)
+                                .strafeTo(new Vector2d(26+.1-3,6+2*(specimenNumber)))
                                 .strafeTo(new Vector2d(26+.1,6+2*(specimenNumber)))
                                 .build()
                 ),

@@ -14,10 +14,7 @@ public class Specimen_Base extends Auto_Framework{
 
     @Override
     public void runOpMode() throws InterruptedException{
-        //Define initial Position
-        beginPose = new Pose2d(0, 0, 0);
-        //Instantiate Mec Drive
-        drive = new MecanumDrive(hardwareMap, beginPose);
+        setupAutoFramework();
         Action runSpecialTestRun = drive.actionBuilder(beginPose)
                 .strafeTo(new Vector2d(25.1,6))
                 .strafeTo(new Vector2d(25+.1,-22))
