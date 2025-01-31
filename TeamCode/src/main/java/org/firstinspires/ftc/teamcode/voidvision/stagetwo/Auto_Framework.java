@@ -469,7 +469,7 @@ public  class Auto_Framework extends Auto_Util {
         double subClawOpen = 0.000;
         double subClawInsidePrep = 0.32;
         double subClawInsideGrab = 0.15;
-        double subClawClose = .31;
+        double subClawClose = .33;
 
         double subOrbHome = .9255;
         double subOrbPerp = 0.603;
@@ -736,7 +736,7 @@ public  class Auto_Framework extends Auto_Util {
                         lift14.liftUpB(),
                         clawServoRotate13.rotateClawSpec(),
                         drive.actionBuilder(pose2d)
-                                .strafeTo(new Vector2d(26+.1-3,6+2*(specimenNumber)))
+                                .strafeTo(new Vector2d(26+.1-6,6+2*(specimenNumber)))
                                 .strafeTo(new Vector2d(26+.1,6+2*(specimenNumber)))
                                 .build()
                 ),

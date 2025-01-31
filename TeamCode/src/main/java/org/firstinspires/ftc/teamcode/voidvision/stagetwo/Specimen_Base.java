@@ -67,7 +67,7 @@ public class Specimen_Base extends Auto_Framework{
                 .strafeTo(new Vector2d(49,-39))
                 .strafeTo(new Vector2d(9,-41))
                 .build();
-        Action goToSpecimen = drive.actionBuilder(new Pose2d(49,-41,0))
+        Action goToSpecimen = drive.actionBuilder(new Pose2d(9,-41,0))
                 .strafeTo(specimenLocation1)
                 .build();
         Action CollectSpecimens = new SequentialAction(
@@ -76,7 +76,8 @@ public class Specimen_Base extends Auto_Framework{
                         clawServoRotate13.rotateClawHome(),
                         new SequentialAction(
                                 CollectSpecimensRun,
-                                goToSpecimen)
+                                goToSpecimen
+                        )
                 )
         );
 
@@ -90,7 +91,7 @@ public class Specimen_Base extends Auto_Framework{
 
                         Grab(specimenLocation),
                         TransferSpecimen(specimenLocation,true,1),
-                        moveToGrabSpecimenLocation(new Pose2d(26.1,6+2*(1),0)),
+                        moveToGrabSpecimenLocation(new Pose2d(26.1-1,6+2*(1),0)),
 
                         Grab(specimenLocation),
                         TransferSpecimen(specimenLocation,true,2),
