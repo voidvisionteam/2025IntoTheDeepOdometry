@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.voidvision.stagetwo;
+package org.firstinspires.ftc.teamcode.voidvision.Willy_D;
 
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.ParallelAction;
@@ -9,8 +9,8 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.MecanumDrive;
-@Autonomous(name = "1 3 Spec COMP",group = "Autonomous")
-public class Specimen_Base extends Auto_Framework{
+@Autonomous(name = "Full Send",group = "Autonomous")
+public class Full_Send extends FullSendFramework{
 
     @Override
     public void runOpMode() throws InterruptedException{
@@ -95,7 +95,7 @@ public class Specimen_Base extends Auto_Framework{
 
                         Grab(specimenLocation),
                         TransferSpecimen(specimenLocation,true,2),
-                        moveToGrabSpecimenLocation(new Pose2d(26.1,6+2*(2),0))
+                        Park(new Pose2d(26.1,6+2*(2),0))
                 )
 
         );
