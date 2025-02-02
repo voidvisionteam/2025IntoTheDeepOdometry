@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 
 public abstract class HardwareMapUtil {
-    HardwareMap hwMap = null;
+    public HardwareMap hwMap = null;
     private ElapsedTime period  = new ElapsedTime();
 
 
