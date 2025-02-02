@@ -647,19 +647,21 @@ public  class FullSendFramework extends Auto_Util {
                 new ParallelAction(backIntakeComponent.SwingHome(),intake2.SwingHome()),
                 drive.actionBuilder(pose2d).waitSeconds(.5).build(),
                 //intake2.DropSubClaw(),
-                new SequentialAction(
+                new ParallelAction(
                         new SequentialAction(
                                 intake2.DropSubClaw(),
-                                drive.actionBuilder(pose2d).waitSeconds(1).build(),
+                                drive.actionBuilder(pose2d).waitSeconds(0.5).build(),
                                 intake2.CloseSubClaw()
                         ),
+                        new SequentialAction(
                         drive.actionBuilder(pose2d).waitSeconds(0.3).build(),
                         clawServoRotate13.rotateClawPrep()),
                 //clawServoRotate13.rotateClawPrep(),
                 //intake2.CloseSubClaw(),
                 drive.actionBuilder(pose2d).waitSeconds(.1).build()
 
-        );
+        ))
+                    ;
     }
     public SequentialAction Transfer(Pose2d pose2d,Boolean oneEightyDegrees) {
         return new SequentialAction(

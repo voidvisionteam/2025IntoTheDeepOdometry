@@ -681,7 +681,7 @@ public  class Auto_Framework extends Auto_Util {
                                 //.strafeTo(new Vector2d (8,38))
                                 //.strafeTo(new Vector2d (8-3+1+2,38+2+2-2))
                                 .waitSeconds(.3)
-                                .strafeTo(new Vector2d (8-3+1,38+2+2-1))
+                                .strafeTo(new Vector2d (8-3+1,38+2+2-0.5))
                                 .waitSeconds(.2)
                                 .turn((-45/360d)*fullTurn)
                                 .build()

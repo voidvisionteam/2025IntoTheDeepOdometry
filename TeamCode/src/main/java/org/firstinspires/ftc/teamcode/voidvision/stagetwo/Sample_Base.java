@@ -139,7 +139,7 @@ public class Sample_Base extends Auto_Framework{
                 .turn((-45/360d)*fullTurn)
                 .strafeTo(new Vector2d (8-3+2,38+2+2))
                 .build();
-        Action scoreSample2wait = drive.actionBuilder(new Pose2d(5+1,40+2,(135/360d)*fullTurn))
+        Action scoreSample2wait = drive.actionBuilder(new Pose2d(5+1,40+2+0.5,(135/360d)*fullTurn))
                 .waitSeconds(.0)
                 .build();
         Action Sample2 = new SequentialAction(
@@ -152,7 +152,7 @@ public class Sample_Base extends Auto_Framework{
                 new SequentialAction(clawServo12.openClaw(),scoreSample2wait)
         );
 
-        Action postSample2a2 = drive.actionBuilder(new Pose2d(5+1,40+2,(135/360d)*fullTurn))
+        Action postSample2a2 = drive.actionBuilder(new Pose2d(5+1,40+2+.5,(135/360d)*fullTurn))
                 .strafeTo(new Vector2d (5+2,40-2))
                 .build();
         Action postSample2a1 = drive.actionBuilde3(new Pose2d(5+2,40-2,(135/360d)*fullTurn))
@@ -165,7 +165,7 @@ public class Sample_Base extends Auto_Framework{
                 .turn((-45/360d)*fullTurn)
                 .strafeTo(new Vector2d (8-3+1,38+2+2))
                 .build();
-        Action scoreSample3wait = drive.actionBuilder(new Pose2d(5+1,40+2,(135/360d)*fullTurn))
+        Action scoreSample3wait = drive.actionBuilder(new Pose2d(5+1,40+2+0.5,(135/360d)*fullTurn))
                 .waitSeconds(0)
                 .build();
         Action Sample3 = new SequentialAction(
@@ -178,7 +178,7 @@ public class Sample_Base extends Auto_Framework{
                 new SequentialAction(clawServo12.openClaw(),scoreSample3wait)
         );
 
-        Action postSample3a2 = drive.actionBuilder(new Pose2d(5+1,40+2,(135/360d)*fullTurn))
+        Action postSample3a2 = drive.actionBuilder(new Pose2d(5+1,40+2+.5,(135/360d)*fullTurn))
                 .strafeTo(new Vector2d (5+2,40-2))
                 .build();
         Action postSample3a1 = drive.actionBuilde3(new Pose2d(5+2,40-2,(135/360d)*fullTurn))
