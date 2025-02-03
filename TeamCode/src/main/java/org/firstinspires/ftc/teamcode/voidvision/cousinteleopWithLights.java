@@ -67,6 +67,7 @@ public class cousinteleopWithLights extends LinearOpMode {
     int insidepick = 0;
     int transfer = 0;
     int clampFailSafe=0;
+    int transfercount = 0;
 
     @Override
     public void runOpMode() {
@@ -118,12 +119,13 @@ public class cousinteleopWithLights extends LinearOpMode {
             if (gamepad1.left_bumper) {
                 slowamount = .1;
             }
-            //if(gamepad1.b){intakePartition = !intakePartition;sleepWithOpModeCheck(200);}
 
-            if(gamepad2.right_bumper){endgameLiftBoost = .9;}
-            else{endgameLiftBoost = 1;}
-
-            robot.liftMotor.setPower(-1*gamepad2.left_stick_y*(robot.liftBrake / endgameLiftBoost));
+            if (gamepad2.left_stick_y > 0) {
+                robot.liftMotor.setPower((-1 * gamepad2.left_stick_y) - 0.1);//-power is up
+            }
+            else if (gamepad2.left_stick_y<= 0){
+                robot.liftMotor.setPower((-1 * gamepad2.left_stick_y));
+            }
 
             if(gamepad2.x){
                 if (clampFailSafe==0) {
@@ -185,10 +187,7 @@ public class cousinteleopWithLights extends LinearOpMode {
                 }
             }
             if (gamepad2.dpad_up){//transfer cycler
-                if(transfer==1){
-                    transfer=0;
-                }
-                else{
+                if(transfer==0){
                     transfer=1;
                 }
             }
@@ -287,37 +286,41 @@ public class cousinteleopWithLights extends LinearOpMode {
 
 
 
-            while (transfer==1) {//transfer claw to claw
-                if((gamepad1.left_stick_x != 0)||(gamepad1.left_stick_y != 0)){
-                    transfer=0;
-                    break;
-                }
-                else{
-
-                }
+            if (transfer==1) {//transfer claw to claw
                 if (inside == 0) {
-                    robot.range1Servo.setPosition(0+ robot.Finalrange*0);
-                    robot.range2Servo.setPosition(robot.Finalrange-robot.Finalrange*0);
-                    moveServoToPosition(robot.subClawPitch, robot.subPitchHome, 1);
-                    moveServoToPosition(robot.subOrbServo, robot.subOrbHome, 1);
-                    orb = 0;
-                    robot.clawServo.setPosition(.1);
-                    robot.basketServo1.setPosition(0 + robot.FinalrangeBasket * robot.swingArmHome);
-                    robot.basketServo2.setPosition(robot.FinalrangeBasket - robot.FinalrangeBasket * robot.swingArmHome);
-                    moveServoToPosition(robot.clawRotateServo, robot.clawRotatePrep, 1);
+                    if (transfercount == 0) {
+                        robot.range1Servo.setPosition(0 + robot.Finalrange * 0);
+                        robot.range2Servo.setPosition(robot.Finalrange - robot.Finalrange * 0);
+                        robot.subClawPitch.setPosition(robot.subPitchHome);
+                        robot.subOrbServo.setPosition(robot.subOrbHome);
+                        orb = 0;
+                        transfercount=1;
+                    }
+                    else if (transfercount == 1) {
+                        robot.basketServo1.setPosition(0 + robot.FinalrangeBasket * robot.swingArmHome);
+                        robot.basketServo2.setPosition(robot.FinalrangeBasket - robot.FinalrangeBasket * robot.swingArmHome);
+                        robot.clawRotateServo.setPosition(robot.clawRotatePrep);
+                        robot.subClawServo.setPosition(robot.subClawDrop);
+                        robot.clawServo.setPosition(.1);
+                        transfercount=2;
+                    }
+                    else if (transfercount==2) {
+                        sleep(400);
+                        robot.subClawServo.setPosition(robot.subClawClose);
 
-                    moveServoToPosition(robot.subClawServo, robot.subClawDrop, 1);
-                    sleep(100);
-                    moveServoToPosition(robot.subClawServo, robot.subClawClose, 1);
+                        robot.clawServo.setPosition(.1 + robot.clawclaw);
 
+                        clamp = true;
+                        transfercount=3;
+                    }
+                    else if (transfercount == 3) {
+                        sleep(150);
 
-                    robot.clawServo.setPosition(.1 + robot.clawclaw);
-
-                    clamp = true;
-                    sleep(150);
-
-                    moveServoToPosition(robot.subClawServo, robot.subClawHalfOpen, 1);
-                    clampFailSafe=1;
+                        robot.subClawServo.setPosition(robot.subClawOpen);
+                        clampFailSafe = 1;
+                        transfercount=0;
+                        transfer=0;
+                    }
                 } else if (inside == 1) {
                     moveServoToPosition(robot.subClawPitch, robot.subPitchGrab,1);
                     orb = 0;
