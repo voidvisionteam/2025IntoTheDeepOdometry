@@ -120,10 +120,10 @@ public class cousinteleopWithLights extends LinearOpMode {
                 slowamount = .1;
             }
 
-            if (gamepad2.left_stick_y > 0) {
-                robot.liftMotor.setPower((-1 * gamepad2.left_stick_y) - 0.1);//-power is up
+            if (gamepad2.left_stick_y >= 0) {
+                robot.liftMotor.setPower((-1 * (gamepad2.left_stick_y -0.2)));//-power is up
             }
-            else if (gamepad2.left_stick_y<= 0){
+            else if (gamepad2.left_stick_y< 0){
                 robot.liftMotor.setPower((-1 * gamepad2.left_stick_y));
             }
 

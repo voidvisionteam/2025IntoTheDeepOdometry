@@ -690,6 +690,24 @@ public  class Auto_Framework extends Auto_Util {
 
         );
     }
+    public SequentialAction MoveToScoreSample(Pose2d pose2d,Boolean oneEightyDegrees) {
+        return new SequentialAction(
+                new ParallelAction(
+                        lift14.liftUp(),
+                        //clawServoRotate13.rotateClawHighBasket(),
+                        drive.actionBuilde3(pose2d)
+                                //.strafeTo(new Vector2d (8,38))
+                                //.strafeTo(new Vector2d (8-3+1+2,38+2+2-2))
+                                .waitSeconds(.3)
+                                .strafeTo(new Vector2d (8-3+1,38+2+2-0.5))
+                                .waitSeconds(.2)
+                                .turn((-45/360d)*fullTurn)
+                                .build()
+                ),
+                drive.actionBuilder(pose2d).waitSeconds(.01).build()
+
+        );
+    }
     public SequentialAction TransferAlt(Pose2d pose2d,Boolean twoTenDegrees) {
         return new SequentialAction(
                 //HandOff
