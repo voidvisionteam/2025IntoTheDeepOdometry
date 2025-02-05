@@ -664,6 +664,8 @@ public  class Auto_Framework2 extends Auto_Util {
         lightStrip = new LightStrip(hardwareMap,blinkinPattern);
         //Init Shelf
         extendShelf = new ExtendShelf(hardwareMap);
+        //Init clock
+        clock = new Clock();
     }
     public Action Prep(){
         return new ParallelAction(
@@ -688,75 +690,103 @@ public  class Auto_Framework2 extends Auto_Util {
                 clock.NonBlockingWait(1),
                 //GRAB
                 intake2.CloseSubClaw(),
-                clock.NonBlockingWait(.3),
-                //HandOffSetUpBack
-                new ParallelAction(backIntakeComponent.SwingHome(),intake2.SwingHome()),
-                clock.NonBlockingWait(.3),
-                //intake2.DropSubClaw(),
-                new ParallelAction(
-                        new SequentialAction(
-                                intake2.DropSubClaw(),
-                                clock.NonBlockingWait(.5),
-                                intake2.CloseSubClaw()
-                        ),
-                        clawServoRotate13.rotateClawPrep()),
-                //clawServoRotate13.rotateClawPrep(),
-                //intake2.CloseSubClaw(),
-                clock.NonBlockingWait(.1)
+                clock.NonBlockingWait(.3)
 
         );
     }
-    public SequentialAction Transfer(Pose2d pose2d,Boolean oneEightyDegrees) {
-        return new SequentialAction(
-                //HandOff
-                drive.actionBuilder(pose2d).waitSeconds(.2).build(),
-                clawServo12.closeClaw(),
-                drive.actionBuilder(pose2d).waitSeconds(.2).build(),
-                intake2.OpenSubClaw(),
-                //LIFT!
-                drive.actionBuilder(pose2d).waitSeconds(.3).build(),
-                new ParallelAction(
-                        lift14.liftUpSpecialHeight(),
-                        clawServoRotate13.rotateClawHighBasket()
+    public Action Transfer(Pose2d pose2d,Boolean oneEightyDegrees) {
+        return new ParallelAction(
+                new SequentialAction(
+                        new SequentialAction(
+                                //HandOffSetUpBack
+                                new ParallelAction(backIntakeComponent.SwingHome(),intake2.SwingHome()),
+                                clock.NonBlockingWait(.3),
+                                //intake2.DropSubClaw(),
+                                new ParallelAction(
+                                        new SequentialAction(
+                                                intake2.DropSubClaw(),
+                                                clock.NonBlockingWait(.5),
+                                                intake2.CloseSubClaw()
+                                        ),
+                                        clawServoRotate13.rotateClawPrep()),
+                                //clawServoRotate13.rotateClawPrep(),
+                                //intake2.CloseSubClaw(),
+                                clock.NonBlockingWait(.1)
+                        ),
+                        //HandOff
+                        //drive.actionBuilder(pose2d).waitSeconds(.2).build(),
+                        clock.NonBlockingWait(.2),
+                        clawServo12.closeClaw(),
+                        //drive.actionBuilder(pose2d).waitSeconds(.2).build(),
+                        clock.NonBlockingWait(.2),
+                        intake2.OpenSubClaw(),
+                        //LIFT!
+                        //drive.actionBuilder(pose2d).waitSeconds(.3).build(),
+                        clock.NonBlockingWait(.3),
+                        new ParallelAction(
+                                lift14.liftUp(),
+                                clawServoRotate13.rotateClawHighBasket()
+                        )
                 ),
                 //SCORE!!
                 new ParallelAction(
-                        lift14.liftUp(),
+
                         //clawServoRotate13.rotateClawHighBasket(),
                         drive.actionBuilde3(pose2d)
                                 //.strafeTo(new Vector2d (8,38))
                                 //.strafeTo(new Vector2d (8-3+1+2,38+2+2-2))
                                 .waitSeconds(.3)
-                                //.strafeTo(new Vector2d (8-3+1,38+2+2-0.5))
-                                //.waitSeconds(.2)
-                                //.turn((-45/360d)*fullTurn)
+                                .strafeTo(new Vector2d (8-3+1,38+2+2-0.5))
+                                .waitSeconds(1)
+                                .turn((-45/360d)*fullTurn)
                                 .build()
                 ),
                 drive.actionBuilder(pose2d).waitSeconds(.01).build()
 
         );
     }
-    public SequentialAction TransferAlt(Pose2d pose2d,Boolean twoTenDegrees) {
-        return new SequentialAction(
-                //HandOff
-                drive.actionBuilder(pose2d).waitSeconds(.2).build(),
-                clawServo12.closeClaw(),
-                drive.actionBuilder(pose2d).waitSeconds(.2).build(),
-                intake2.OpenSubClaw(),
-                //LIFT!
-                drive.actionBuilder(pose2d).waitSeconds(.3).build(),
-                new ParallelAction(
-                        lift14.liftUpSpecialHeight(),
-                        clawServoRotate13.rotateClawHome()
+    public Action TransferAlt(Pose2d pose2d,Boolean twoTenDegrees) {
+        return new ParallelAction(
+                new SequentialAction(
+                        new SequentialAction(
+                                //HandOffSetUpBack
+                                new ParallelAction(backIntakeComponent.SwingHome(),intake2.SwingHome()),
+                                clock.NonBlockingWait(.3),
+                                //intake2.DropSubClaw(),
+                                new ParallelAction(
+                                        new SequentialAction(
+                                                intake2.DropSubClaw(),
+                                                clock.NonBlockingWait(.5),
+                                                intake2.CloseSubClaw()
+                                        ),
+                                        clawServoRotate13.rotateClawPrep()),
+                                //clawServoRotate13.rotateClawPrep(),
+                                //intake2.CloseSubClaw(),
+                                clock.NonBlockingWait(.1)
+                        ),
+                        //HandOff
+                        //drive.actionBuilder(pose2d).waitSeconds(.2).build(),
+                        clock.NonBlockingWait(.2),
+                        clawServo12.closeClaw(),
+                        //drive.actionBuilder(pose2d).waitSeconds(.2).build(),
+                        clock.NonBlockingWait(.2),
+                        intake2.OpenSubClaw(),
+                        //LIFT!
+                        //drive.actionBuilder(pose2d).waitSeconds(.3).build(),
+                        clock.NonBlockingWait(.3),
+                        new ParallelAction(
+                                lift14.liftUp(),
+                                clawServoRotate13.rotateClawHighBasket()
+                        )
                 ),
                 //SCORE!!
                 new ParallelAction(
-                        lift14.liftUp(),
-                        clawServoRotate13.rotateClawHighBasket(),
+                        //lift14.liftUp(),
+                        //clawServoRotate13.rotateClawHighBasket(),
                         drive.actionBuilder(pose2d)
                                 .strafeTo(new Vector2d (8,38))
                                 .strafeTo(new Vector2d (8-3+1,38+2+2))
-                                //.waitSeconds(.5)
+                                .waitSeconds(.5)
                                 .turn((-(45+30+5)/360d)*fullTurn)
                                 .build()
                 ),
