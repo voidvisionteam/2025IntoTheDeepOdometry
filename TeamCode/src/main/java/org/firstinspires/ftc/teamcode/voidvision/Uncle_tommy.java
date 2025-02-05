@@ -150,6 +150,24 @@ public class Uncle_tommy extends LinearOpMode {
                 robot.clawServo.setPosition(.1);
             }
             //extender
+            //hang controls
+            if (gamepad1.a){
+                moveServoToPosition(robot.hangServo, robot.hangDown,1);
+            }
+            if (gamepad1.b){
+                moveServoToPosition(robot.hangServo, robot.hangUp,1);
+            }
+            if (gamepad1.dpad_down){
+                robot.hangMotor.setPower(0);
+            }
+            if (gamepad1.dpad_right){
+                robot.hangMotor.setPower(0.3);
+            }
+            if (gamepad1.dpad_up){
+                robot.hangMotor.setPower(0.5);
+            }
+
+
             //GAMEPAD 2 CONTROLLS
 
             if(gamepad2.y){

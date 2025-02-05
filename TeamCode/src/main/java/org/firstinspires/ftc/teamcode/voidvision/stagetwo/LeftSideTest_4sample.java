@@ -100,62 +100,44 @@ public class LeftSideTest_4sample extends Auto_Framework{
                 .strafeTo(new Vector2d(21,28-5))
                 .strafeTo(new Vector2d(25+.1,28-5))
                 .build();
-        Action Speciman1 = new ParallelAction(
+        Action Speciman1 = new SequentialAction(
+        new ParallelAction(
                 runToHighBar,
                 new SequentialAction(
                         new ParallelAction(
-                        lift14.liftUpSpecialHeight(),
-                        clawServoRotate13.rotateClawHome()
+                                lift14.liftUpSpecialHeight(),
+                                clawServoRotate13.rotateClawHome()
                         ),
                         new ParallelAction(
-                                lift14.liftUp(),
+                                lift14.liftUpB(),
                                 clawServoRotate13.rotateClawSpec()
                         )
 
 
                 )
 
+        ),
+        new ParallelAction(
+                lift14.liftDown(),
+                clawServoRotate13.rotateClawHome()
+        )
         );
 
 
 
-        Action runSample1 = drive.actionBuilder(beginPose)
-                .strafeTo(new Vector2d(4,28))
-                .strafeTo(new Vector2d (8,38))//prep!!
-                //.waitSeconds(2)
-                .turn((135/360d)*fullTurn)
-                .strafeTo(new Vector2d (8-3+1,38+2+2))
+
+
+        Action postSpeciman1a2 = drive.actionBuilder(new Pose2d(25+.1,28-5,(0/360d)*fullTurn))
+                .strafeTo(new Vector2d(23,4+57))
+                .strafeTo(new Vector2d(32,57+4))
                 .build();
-        Action scoreSample1 = drive.actionBuilder(new Pose2d(5+1,40+2,(135/360d)*fullTurn))
-                .waitSeconds(.5)
-                .build();
-        Action Sample1 = new SequentialAction(
-                new ParallelAction(
-                        lift14.liftUpSpecialHeight(),
-                        clawServoRotate13.rotateClawHome()
-                ),
-                new ParallelAction(
-                        new SequentialAction(
-                                new SequentialAction(
-                                        lift14.liftUp(),
-                                        //.rotateClawSpec(),
-                                        clawServoRotate13.rotateClawHighBasket()
-                                )
-                        ),
-                        runSample1
-                ),
-                new SequentialAction(clawServo12.openClaw(),scoreSample1)
-        );
-        Action postSample1a2 = drive.actionBuilder(new Pose2d(5+1,40+2,(135/360d)*fullTurn))
-                .strafeTo(new Vector2d (5+2,40-2))
-                .build();
-        Action postSample1a1 = drive.actionBuilder(new Pose2d(5+2,40-2,(135/360d)*fullTurn))
+        Action postSample1a1 = drive.actionBuilder(new Pose2d(32,57+4,(135/360d)*fullTurn))
                 .strafeTo(new Vector2d (8,38))
                 .turn((-135/360d)*fullTurn)
                 .strafeTo(new Vector2d (30,34))
                 .build();
         Action scoreSample2 = drive.actionBuilder(new Pose2d(30,34,(0/360d)*fullTurn))
-                .strafeTo(new Vector2d (8,38))
+                .strafeTo(new Vector2d (8,38))//ADD TUrn while drive here
                 .turn((135/360d)*fullTurn)
                 .strafeTo(new Vector2d (8-3+2,38+2+2))
                 .build();
@@ -163,12 +145,10 @@ public class LeftSideTest_4sample extends Auto_Framework{
                 .waitSeconds(.0)
                 .build();
         Action Sample2 = new SequentialAction(
-                postSample1a2,
-                new ParallelAction(postSample1a1,lift14.liftDown(),clawServoRotate13.rotateClawHome()),
+                postSpeciman1a2,
+                new ParallelAction(lift14.liftDown(),clawServoRotate13.rotateClawHome()),
                 clawServo12.closeClaw(),
-                //Grab(new Pose2d(8+7+3+2,34,(180/360d)*fullTurn)),
-                //Transfer(new Pose2d(8+7+3+2,34,(180/360d)*fullTurn),true),
-                //new ParallelAction(lift14.liftUp(),scoreSample2),
+                new ParallelAction(lift14.liftUp(),scoreSample2),
                 new SequentialAction(clawServo12.openClaw(),scoreSample2wait)
         );
 
@@ -226,7 +206,7 @@ public class LeftSideTest_4sample extends Auto_Framework{
 
         waitForStart();
         Actions.runBlocking(
-                new SequentialAction(Sample1,Sample2,Sample3,Sample4)
+                new SequentialAction(Speciman1,Sample2,Sample3,Sample4)
 
         );
     }

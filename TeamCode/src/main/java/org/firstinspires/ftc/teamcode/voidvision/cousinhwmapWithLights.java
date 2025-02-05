@@ -26,6 +26,7 @@ public class cousinhwmapWithLights extends HardwareMapUtil {
     public DcMotor rightbackDrive = null;
     public DcMotor liftMotor = null;
     public DcMotor armMotorTwo = null;
+    public DcMotor hangMotor = null;
     public CRServo armServo = null;
     public Servo posServo = null;
     public Servo range1Servo = null;  // Servo for left range
@@ -37,6 +38,7 @@ public class cousinhwmapWithLights extends HardwareMapUtil {
     public CRServo intakeServo = null;
     public CRServo transitionServo = null;
     public ColorSensor colorSensor = null;
+    public Servo hangServo = null;
     public DistanceSensor distanceSensor = null;
 
 
@@ -88,6 +90,9 @@ public class cousinhwmapWithLights extends HardwareMapUtil {
     double clawRotatePrep=.082;
     double clawRotateInit=.14;
 
+    public double hangUp = 0.6;
+    public double hangDown = 0;
+
 
 
 
@@ -110,6 +115,7 @@ public class cousinhwmapWithLights extends HardwareMapUtil {
 
         // Initialize arm motors and servos (commented out if not needed yet)
         liftMotor = HardwareInitMotor("liftMotor", false);
+        hangMotor = HardwareInitMotor("hang",false);
         // armMotorTwo = HardwareInitMotor("arm_2", true);
         // armServo = hwMap.get(CRServo.class, "servo");
         // posServo = hwMap.get(Servo.class, "posServo");
@@ -122,6 +128,7 @@ public class cousinhwmapWithLights extends HardwareMapUtil {
         basketServo2 = HardwareInitServo("basket2", FinalrangeBasket); // Right basket servo
         basketServo1.setPosition(0+FinalrangeBasket*swingArmHome);
         basketServo2.setPosition(FinalrangeBasket-FinalrangeBasket*swingArmHome);
+        hangServo = HardwareInitServo("hangServo", hangDown);
 
         Arm1 =basketServo1;
         Arm2 = basketServo2;

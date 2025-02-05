@@ -214,11 +214,11 @@ public  class Auto_Framework extends Auto_Util {
             lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             lift.setDirection(DcMotorSimple.Direction.REVERSE);
             initialPosition = lift.getCurrentPosition();
-            targetPositionLowerBasket = 1802+initialPosition; // Adjust based on desired lift distance
-            targetPositionUpperBasket = 2570+initialPosition+1550; // Adjust based on desired lift distance
+            targetPositionLowerBasket = 1292+initialPosition; // Adjust based on desired lift distance
+            targetPositionUpperBasket = 2955+initialPosition; // Adjust based on desired lift distance
             targetPositionLowerRung = 902+initialPosition; // Adjust based on desired lift distance
-            targetPositionUpperRung = 2318+initialPosition+400-30-30; // Adjust based on desired lift distance
-            targetpositiontest = targetPositionUpperRung-300;
+            targetPositionUpperRung = 1902+initialPosition; // Adjust based on desired lift distance
+            targetpositiontest = targetPositionUpperRung-220;
         }
 
         public class LiftUp implements Action {
