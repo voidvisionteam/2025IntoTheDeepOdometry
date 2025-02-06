@@ -90,8 +90,8 @@ public class cousinhwmapWithLights extends HardwareMapUtil {
     double clawRotatePrep=.082;
     double clawRotateInit=.14;
 
-    public double hangUp = 0.6;
-    public double hangDown = 0;
+    public double hangUp = 0;
+    public double hangDown = 0.8;
 
 
 

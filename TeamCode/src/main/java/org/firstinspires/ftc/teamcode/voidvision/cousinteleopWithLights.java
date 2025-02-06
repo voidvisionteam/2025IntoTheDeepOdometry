@@ -154,7 +154,7 @@ public class cousinteleopWithLights extends LinearOpMode {
                 robot.hangMotor.setPower(0.3);
             }
             if (gamepad1.dpad_up){
-                robot.hangMotor.setPower(0.5);
+                robot.hangMotor.setPower(0.7);
             }
             //GAMEPAD 2 CONTROLLS
 
