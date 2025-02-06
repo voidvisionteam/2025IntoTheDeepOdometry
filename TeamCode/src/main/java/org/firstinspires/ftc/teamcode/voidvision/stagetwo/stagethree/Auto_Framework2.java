@@ -745,6 +745,31 @@ public  class Auto_Framework2 extends Auto_Util {
 
         );
     }
+    public Action NewTransfer(Pose2d pose2d,Boolean oneEightyDegrees) {
+        return new ParallelAction(
+                new SequentialAction(
+                        new ParallelAction(
+                                new SequentialAction(
+                                        clock.NonBlockingWait(.5),
+                                        clawServo12.closeClaw(),
+                                        clock.NonBlockingWait(.5),
+                                        lift14.liftUp(),
+                                        clawServoRotate13.rotateClawHighBasket()
+                                ),
+                                drive.actionBuilde3(pose2d)
+                                        //.strafeTo(new Vector2d (8,38))
+                                        //.strafeTo(new Vector2d (8-3+1+2,38+2+2-2))
+                                        //.waitSeconds(.3)
+                                        .strafeTo(new Vector2d (8-3+1,38+2+2-0.5))
+                                        .waitSeconds(1)
+                                        .turn((-45/360d)*fullTurn)
+                                        .build()
+                        )
+                )
+                //drive.actionBuilder(pose2d).waitSeconds(.01).build()
+
+        );
+    }
     public Action TransferAlt(Pose2d pose2d,Boolean twoTenDegrees) {
         return new ParallelAction(
                 new SequentialAction(
@@ -759,7 +784,8 @@ public  class Auto_Framework2 extends Auto_Util {
                                                 clock.NonBlockingWait(.5),
                                                 intake2.CloseSubClaw()
                                         ),
-                                        clawServoRotate13.rotateClawPrep()),
+                                        clawServoRotate13.rotateClawPrep()
+                                ),
                                 //clawServoRotate13.rotateClawPrep(),
                                 //intake2.CloseSubClaw(),
                                 clock.NonBlockingWait(.1)
@@ -785,13 +811,35 @@ public  class Auto_Framework2 extends Auto_Util {
                         //clawServoRotate13.rotateClawHighBasket(),
                         drive.actionBuilder(pose2d)
                                 .strafeTo(new Vector2d (8,38))
-                                .strafeTo(new Vector2d (8-3+1,38+2+2))
+                                .strafeTo(new Vector2d (8-3+1,38+2+2-.5))
                                 .waitSeconds(.5)
                                 .turn((-(45+30+5)/360d)*fullTurn)
                                 .build()
                 ),
                 drive.actionBuilder(pose2d).waitSeconds(.01).build()
 
+        );
+    }
+    Action ScoreSampleWaitAction(boolean Xis6, boolean Yis41_5, boolean angleIs135){
+        return new SequentialAction(drive.actionBuilder(new Pose2d(6,42,(135/360d)*fullTurn))
+                .waitSeconds(0)
+                .build());
+    }
+    Action PostSampleBackupAction(boolean Xis6, boolean Yis41_5, boolean angleIs135){
+        return new SequentialAction(
+                drive.actionBuilder(new Pose2d(5+1,40+2,(135/360d)*fullTurn))
+                        .turn((45/360d)*fullTurn)
+                        //.strafeTo(new Vector2d (5+2,40-2))
+                        .build()
+        );
+    }
+    Action AutonomousEndPark(){
+        return new SequentialAction(
+                drive.actionBuilde3(new Pose2d(5+1,40+2,(135/360d)*fullTurn))
+                        .turn((45/360d)*fullTurn)
+                        .strafeTo(new Vector2d (5+2+50,40-2-25))
+                        .turn((-90/360d)*fullTurn)
+                        .build()
         );
     }
     public SequentialAction TransferSpecimen(Pose2d pose2d,Boolean zeroDegrees,int specimenNumber) {
