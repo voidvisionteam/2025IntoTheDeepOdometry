@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.voidvision.Qualifier2;
+package org.firstinspires.ftc.teamcode.voidvision;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -6,13 +6,14 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.CRServo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 
-@TeleOp(name="Qual 2 COMP CODE", group="Pushbot")
-public class QUAL_2_compCode extends LinearOpMode {
-    QUAL_2_HWMAP robot = new QUAL_2_HWMAP();
+@TeleOp(name="1 State Code", group="Pushbot")
+public class State_Code extends LinearOpMode {
+    cousinhwmapWithLights robot = new cousinhwmapWithLights();
     private ElapsedTime runtime = new ElapsedTime();
 
 
@@ -66,6 +67,7 @@ public class QUAL_2_compCode extends LinearOpMode {
     int insidepick = 0;
     int transfer = 0;
     int clampFailSafe=0;
+    int transfercount = 0;
 
     @Override
     public void runOpMode() {
@@ -117,12 +119,13 @@ public class QUAL_2_compCode extends LinearOpMode {
             if (gamepad1.left_bumper) {
                 slowamount = .1;
             }
-            //if(gamepad1.b){intakePartition = !intakePartition;sleepWithOpModeCheck(200);}
 
-            if(gamepad2.right_bumper){endgameLiftBoost = .9;}
-            else{endgameLiftBoost = 1;}
-
-            robot.liftMotor.setPower(-1*gamepad2.left_stick_y*(robot.liftBrake / endgameLiftBoost));
+            if (gamepad2.left_stick_y >= 0) {
+                robot.liftMotor.setPower((-1 * (gamepad2.left_stick_y -0.2)));//-power is up
+            }
+            else if (gamepad2.left_stick_y< 0){
+                robot.liftMotor.setPower((-1 * gamepad2.left_stick_y));
+            }
 
             if(gamepad2.x){
                 if (clampFailSafe==0) {
@@ -137,6 +140,22 @@ public class QUAL_2_compCode extends LinearOpMode {
                 robot.clawServo.setPosition(.1);
             }
             //extender
+            //hang
+            if (gamepad1.a){
+                moveServoToPosition(robot.hangServo, robot.hangDown,1);
+            }
+            if (gamepad1.b){
+                moveServoToPosition(robot.hangServo, robot.hangUp,1);
+            }
+            if (gamepad1.dpad_down){
+                robot.hangMotor.setPower(0);
+            }
+            if (gamepad1.dpad_right){
+                robot.hangMotor.setPower(0.3);
+            }
+            if (gamepad1.dpad_up){
+                robot.hangMotor.setPower(0.7);
+            }
             //GAMEPAD 2 CONTROLLS
 
             if(gamepad2.y){
@@ -184,10 +203,7 @@ public class QUAL_2_compCode extends LinearOpMode {
                 }
             }
             if (gamepad2.dpad_up){//transfer cycler
-                if(transfer==1){
-                    transfer=0;
-                }
-                else{
+                if(transfer==0){
                     transfer=1;
                 }
             }
@@ -287,7 +303,7 @@ public class QUAL_2_compCode extends LinearOpMode {
 
 
             while (transfer==1) {//transfer claw to claw
-                if((gamepad1.left_stick_x != 0)||(gamepad1.left_stick_y != 0)){
+                if((gamepad1.left_stick_x != 0)||(gamepad1.left_stick_y != 0)||(gamepad1.right_stick_x!=0)){
                     transfer=0;
                     break;
                 }
