@@ -10,7 +10,7 @@ import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.MecanumDrive;
-@Autonomous(name = "Sample_Base_3",group = "Autonomous")
+@Autonomous(name = "1 4 Sample_Base",group = "Autonomous")
 public class Sample_Base3 extends Auto_Framework2{
     public MecanumDrive getMecanum(Pose2d start){
         return new MecanumDrive(hardwareMap,start);
@@ -112,7 +112,8 @@ public class Sample_Base3 extends Auto_Framework2{
         Action Sample1 = new SequentialAction(
                 new ParallelAction(
                         lift14.liftUpSpecialHeight(),
-                        clawServoRotate13.rotateClawHome()
+                        clawServoRotate13.rotateClawHome(),
+                        hangServo.hangServoUp()
                 ),
                 new ParallelAction(
                         new SequentialAction(

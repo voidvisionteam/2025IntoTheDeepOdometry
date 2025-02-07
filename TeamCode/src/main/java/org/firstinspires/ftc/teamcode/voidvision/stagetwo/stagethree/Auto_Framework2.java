@@ -100,6 +100,24 @@ public  class Auto_Framework2 extends Auto_Util {
             clawservo.setPosition(opened);
         }
     }
+    public class hangServo {
+        Servo hangServo;
+        double hangUp = 0;
+        double hangDown = 0.8;
+        public hangServo(HardwareMap hardwareMap) {
+            hangServo = hardwareMap.get(Servo.class, "hangServo");
+            hangServo.setPosition(hangDown);
+            //clawservo.setPosition(0);
+        }
+        public class hangServoUp implements Action {
+            @Override
+            public boolean run(@NonNull TelemetryPacket packet) {
+                hangServo.setPosition(hangUp);
+                return false;
+            }
+        }
+        public Action hangServoUp() {return new hangServo.hangServoUp();}
+    }
     public class ClawServoRotate{
 
         Servo clawservorotate;
@@ -113,6 +131,8 @@ public  class Auto_Framework2 extends Auto_Util {
         double clawRotateHighBasket=.21;
         double clawRotatePrep=.082;
         double clawRotateInit=.14;
+        double hangUp = 0;
+        double hangDown = 0.8;
 
         public ClawServoRotate(HardwareMap hardwareMap){
             clawservorotate = hardwareMap.get(Servo.class,"terminator");
@@ -614,6 +634,7 @@ public  class Auto_Framework2 extends Auto_Util {
 
     MecanumDrive drive = null;
     ClawServo clawServo12 = null;
+    hangServo hangServo = null;
     ClawServoRotate clawServoRotate13 = null;
     Lift lift14 = null;
     LightStrip lightStrip = null;
@@ -628,6 +649,7 @@ public  class Auto_Framework2 extends Auto_Util {
         beginPose = new Pose2d(0, 0, 0);
         //Instantiate Mec Drive
         drive = new MecanumDrive(hardwareMap, beginPose);
+        hangServo = new hangServo(hardwareMap);
         //Init Claw
         clawServo12 = new ClawServo(hardwareMap);
         //Init Claw Lift
@@ -650,6 +672,7 @@ public  class Auto_Framework2 extends Auto_Util {
         beginPose = new Pose2d(0, 0, 0);
         //Instantiate Mec Drive
         drive = new MecanumDrive(hardwareMap, beginPose);
+        hangServo = new hangServo(hardwareMap);
         //Init Claw
         clawServo12 = new ClawServo(hardwareMap);
         //Init Claw Lift
@@ -694,6 +717,8 @@ public  class Auto_Framework2 extends Auto_Util {
 
         );
     }
+
+
     public Action Transfer(Pose2d pose2d,Boolean oneEightyDegrees) {
         return new ParallelAction(
                 new SequentialAction(

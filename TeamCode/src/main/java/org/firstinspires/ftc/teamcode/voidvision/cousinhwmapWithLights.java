@@ -128,7 +128,7 @@ public class cousinhwmapWithLights extends HardwareMapUtil {
         basketServo2 = HardwareInitServo("basket2", FinalrangeBasket); // Right basket servo
         basketServo1.setPosition(0+FinalrangeBasket*swingArmHome);
         basketServo2.setPosition(FinalrangeBasket-FinalrangeBasket*swingArmHome);
-        hangServo = HardwareInitServo("hangServo", hangDown);
+        hangServo = HardwareInitServo("hangServo", hangUp);
 
         Arm1 =basketServo1;
         Arm2 = basketServo2;
