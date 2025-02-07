@@ -723,6 +723,8 @@ public  class Auto_Framework2 extends Auto_Util {
                         //LIFT!
                         //drive.actionBuilder(pose2d).waitSeconds(.3).build(),
                         clock.NonBlockingWait(.3),
+                        new ParallelAction(clawServoRotate13.rotateClawHome(),lift14.liftUpSpecialHeight()),
+                        clock.NonBlockingWait(.3),
                         new ParallelAction(
                                 lift14.liftUp(),
                                 clawServoRotate13.rotateClawHighBasket()
@@ -735,9 +737,9 @@ public  class Auto_Framework2 extends Auto_Util {
                         drive.actionBuilde3(pose2d)
                                 //.strafeTo(new Vector2d (8,38))
                                 //.strafeTo(new Vector2d (8-3+1+2,38+2+2-2))
-                                .waitSeconds(.3)
-                                .strafeTo(new Vector2d (8-3+1,38+2+2-0.5))
                                 .waitSeconds(1)
+                                .strafeTo(new Vector2d (8-3+1,38+2+2-0.5))
+                                .waitSeconds(1.5)
                                 .turn((-45/360d)*fullTurn)
                                 .build()
                 ),
@@ -761,7 +763,7 @@ public  class Auto_Framework2 extends Auto_Util {
                                         //.strafeTo(new Vector2d (8-3+1+2,38+2+2-2))
                                         //.waitSeconds(.3)
                                         .strafeTo(new Vector2d (8-3+1,38+2+2-0.5))
-                                        .waitSeconds(1)
+                                        .waitSeconds(1.5)
                                         .turn((-45/360d)*fullTurn)
                                         .build()
                         )
@@ -800,6 +802,7 @@ public  class Auto_Framework2 extends Auto_Util {
                         //LIFT!
                         //drive.actionBuilder(pose2d).waitSeconds(.3).build(),
                         clock.NonBlockingWait(.3),
+                        new ParallelAction(clawServoRotate13.rotateClawHome(),lift14.liftUpSpecialHeight()),
                         new ParallelAction(
                                 lift14.liftUp(),
                                 clawServoRotate13.rotateClawHighBasket()
@@ -812,7 +815,7 @@ public  class Auto_Framework2 extends Auto_Util {
                         drive.actionBuilder(pose2d)
                                 .strafeTo(new Vector2d (8,38))
                                 .strafeTo(new Vector2d (8-3+1,38+2+2-.5))
-                                .waitSeconds(.5)
+                                .waitSeconds(1)
                                 .turn((-(45+30+5)/360d)*fullTurn)
                                 .build()
                 ),
@@ -822,7 +825,7 @@ public  class Auto_Framework2 extends Auto_Util {
     }
     Action ScoreSampleWaitAction(boolean Xis6, boolean Yis41_5, boolean angleIs135){
         return new SequentialAction(drive.actionBuilder(new Pose2d(6,42,(135/360d)*fullTurn))
-                .waitSeconds(0)
+                .waitSeconds(.2)
                 .build());
     }
     Action PostSampleBackupAction(boolean Xis6, boolean Yis41_5, boolean angleIs135){
@@ -835,7 +838,7 @@ public  class Auto_Framework2 extends Auto_Util {
     }
     Action AutonomousEndPark(){
         return new SequentialAction(
-                drive.actionBuilde3(new Pose2d(5+1,40+2,(135/360d)*fullTurn))
+                drive.actionBuilde2(new Pose2d(5+1,40+2,(135/360d)*fullTurn))
                         .turn((45/360d)*fullTurn)
                         .strafeTo(new Vector2d (5+2+50,40-2-25))
                         .turn((-90/360d)*fullTurn)
