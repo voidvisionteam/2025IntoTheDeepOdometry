@@ -202,16 +202,15 @@ public class Sample_Base3 extends Auto_Framework2{
                 new SequentialAction(
                         clawServo12.openClaw(),
                         ScoreSampleWaitAction(true,true,true),
-                        PostSampleBackupAction(true,true,true)
+                        PostSampleBackupActionSample4Prep(true,true,true)
                 )
         );
 
         Action postSample3a2 = drive.actionBuilder(new Pose2d(5+1,40+2+.5,(135/360d)*fullTurn))
                 .strafeTo(new Vector2d (5+2,40-2))
                 .build();
-        Action postSample3a1 = drive.actionBuilde3(new Pose2d(5+1,40+2,(180/360d)*fullTurn))
+        Action postSample3a1 = drive.actionBuilde3(new Pose2d(5+1,40+2,(215/360d)*fullTurn))
                 //.strafeTo(new Vector2d (8,38))
-                .turn(((30+5)/360d)*fullTurn)
                 .strafeTo(new Vector2d (8+7+3+2+1-1+1+1,34+9.4*(1)+1+.25 -1))
                 .build();
         Action scoreSample4 = drive.actionBuilder(new Pose2d(8+7+3+2+1,34+9.4*(1)+1+.25,(215/360d)*fullTurn))

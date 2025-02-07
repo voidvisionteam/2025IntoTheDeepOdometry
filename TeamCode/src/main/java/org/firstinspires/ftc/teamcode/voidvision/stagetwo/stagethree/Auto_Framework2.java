@@ -477,7 +477,7 @@ public  class Auto_Framework2 extends Auto_Util {
 
         double subPitchGrab = .847;
         double subPitchHome = .32;
-        double subClawDrop=0.25;
+        double subClawDrop=0.28;
 
         public Intake2(HardwareMap hardwareMap){
             subClawServo = hardwareMap.get(Servo.class,"subclaw");
@@ -708,7 +708,11 @@ public  class Auto_Framework2 extends Auto_Util {
                                                 clock.NonBlockingWait(.5),
                                                 intake2.CloseSubClaw()
                                         ),
-                                        clawServoRotate13.rotateClawPrep()),
+                                        new SequentialAction(
+                                                clock.NonBlockingWait(.1),
+                                                clawServoRotate13.rotateClawPrep()
+                                        )
+                                ),
                                 //clawServoRotate13.rotateClawPrep(),
                                 //intake2.CloseSubClaw(),
                                 clock.NonBlockingWait(.1)
@@ -724,7 +728,7 @@ public  class Auto_Framework2 extends Auto_Util {
                         //drive.actionBuilder(pose2d).waitSeconds(.3).build(),
                         clock.NonBlockingWait(.3),
                         new ParallelAction(clawServoRotate13.rotateClawHome(),lift14.liftUpSpecialHeight()),
-                        clock.NonBlockingWait(.3),
+                        clock.NonBlockingWait(.01),
                         new ParallelAction(
                                 lift14.liftUp(),
                                 clawServoRotate13.rotateClawHighBasket()
@@ -737,9 +741,9 @@ public  class Auto_Framework2 extends Auto_Util {
                         drive.actionBuilde3(pose2d)
                                 //.strafeTo(new Vector2d (8,38))
                                 //.strafeTo(new Vector2d (8-3+1+2,38+2+2-2))
-                                .waitSeconds(1)
+                                .waitSeconds(0.5)
                                 .strafeTo(new Vector2d (8-3+1,38+2+2-0.5))
-                                .waitSeconds(1.5)
+                                .waitSeconds(1.2)
                                 .turn((-45/360d)*fullTurn)
                                 .build()
                 ),
@@ -825,7 +829,7 @@ public  class Auto_Framework2 extends Auto_Util {
     }
     Action ScoreSampleWaitAction(boolean Xis6, boolean Yis41_5, boolean angleIs135){
         return new SequentialAction(drive.actionBuilder(new Pose2d(6,42,(135/360d)*fullTurn))
-                .waitSeconds(.2)
+                .waitSeconds(.1)
                 .build());
     }
     Action PostSampleBackupAction(boolean Xis6, boolean Yis41_5, boolean angleIs135){
@@ -836,11 +840,25 @@ public  class Auto_Framework2 extends Auto_Util {
                         .build()
         );
     }
+    Action PostSampleBackupActionSample4Prep(boolean Xis6, boolean Yis41_5, boolean angleIs135){
+        return new SequentialAction(
+                drive.actionBuilder(new Pose2d(5+1,40+2,(135/360d)*fullTurn))
+                        .turn((80/360d)*fullTurn)
+                        //.strafeTo(new Vector2d (5+2,40-2))
+                        .build()
+        );
+    }
+    Action PostSampleBackupActionFinalpark(boolean Xis6, boolean Yis41_5, boolean angleIs135){
+        return new SequentialAction(
+                drive.actionBuilder(new Pose2d(5+1,40+2,(135/360d)*fullTurn))
+                        //.strafeTo(new Vector2d (5+2,40-2))
+                        .build()
+        );
+    }
     Action AutonomousEndPark(){
         return new SequentialAction(
                 drive.actionBuilde2(new Pose2d(5+1,40+2,(135/360d)*fullTurn))
-                        .turn((45/360d)*fullTurn)
-                        .strafeTo(new Vector2d (5+2+50,40-2-25))
+                        .strafeTo(new Vector2d (5+2+50,40-2-20))
                         .turn((-90/360d)*fullTurn)
                         .build()
         );

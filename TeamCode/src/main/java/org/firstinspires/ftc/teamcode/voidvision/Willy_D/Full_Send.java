@@ -95,7 +95,7 @@ public class Full_Send extends FullSendFramework{
 
                         Grab(specimenLocation),
                         TransferSpecimen(specimenLocation,true,2),
-                        Park(new Pose2d(26.1,6+2*(2),0))
+                        Park(new Pose2d(23,5,0))
                 )
 
         );

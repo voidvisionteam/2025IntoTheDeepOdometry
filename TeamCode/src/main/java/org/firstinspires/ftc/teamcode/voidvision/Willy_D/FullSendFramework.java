@@ -216,9 +216,9 @@ public  class FullSendFramework extends Auto_Util {
             initialPosition = lift.getCurrentPosition();
             targetPositionLowerBasket = 1802+initialPosition; // Adjust based on desired lift distance
             targetPositionUpperBasket = 2570+initialPosition+1550; // Adjust based on desired lift distance
-            targetPositionLowerRung = 902+initialPosition; // Adjust based on desired lift distance
-            targetPositionUpperRung = 2318+initialPosition+400-30-30; // Adjust based on desired lift distance
-            targetpositiontest = targetPositionUpperRung-300;
+            targetPositionLowerRung = 1100+initialPosition; // Adjust based on desired lift distance
+            targetPositionUpperRung = 1902+initialPosition; // Adjust based on desired lift distance
+            targetpositiontest = targetPositionUpperRung-220;
         }
 
         public class LiftUp implements Action {
@@ -744,7 +744,7 @@ public  class FullSendFramework extends Auto_Util {
                                 .build()
                 ),
                 lift14.liftDownLowBar(),
-                drive.actionBuilder(pose2d).waitSeconds(.1).build()
+                drive.actionBuilder(pose2d).waitSeconds(.01).build()
 
         );
     }
