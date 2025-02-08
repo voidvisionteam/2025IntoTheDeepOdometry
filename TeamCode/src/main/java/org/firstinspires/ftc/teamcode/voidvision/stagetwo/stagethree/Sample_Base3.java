@@ -10,7 +10,7 @@ import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.MecanumDrive;
-@Autonomous(name = "1 4 Sample_Base",group = "Autonomous")
+@Autonomous(name = "4 Sample STATE",group = "Autonomous")
 public class Sample_Base3 extends Auto_Framework2{
     public MecanumDrive getMecanum(Pose2d start){
         return new MecanumDrive(hardwareMap,start);

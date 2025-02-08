@@ -103,7 +103,7 @@ public  class Auto_Framework2 extends Auto_Util {
     public class hangServo {
         Servo hangServo;
         double hangUp = 0;
-        double hangDown = 0.8;
+        double hangDown = 0.88;
         public hangServo(HardwareMap hardwareMap) {
             hangServo = hardwareMap.get(Servo.class, "hangServo");
             hangServo.setPosition(hangDown);

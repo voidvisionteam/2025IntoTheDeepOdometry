@@ -34,6 +34,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import org.firstinspires.ftc.teamcode.MecanumDrive;
 import org.firstinspires.ftc.teamcode.voidvision.Auto_Util;
 import org.firstinspires.ftc.teamcode.voidvision.redRightAutoSPECIAL;
+import org.firstinspires.ftc.teamcode.voidvision.stagetwo.stagethree.Auto_Framework2;
 import org.firstinspires.ftc.teamcode.voidvision.teenagehwmap;
 
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -98,6 +99,24 @@ public  class FullSendFramework extends Auto_Util {
         public void openClaw2() {
             clawservo.setPosition(opened);
         }
+    }
+    public class hangServo {
+        Servo hangServo;
+        double hangUp = 0;
+        double hangDown = 0.88;
+        public hangServo(HardwareMap hardwareMap) {
+            hangServo = hardwareMap.get(Servo.class, "hangServo");
+            hangServo.setPosition(hangDown);
+            //clawservo.setPosition(0);
+        }
+        public class hangServoUp implements Action {
+            @Override
+            public boolean run(@NonNull TelemetryPacket packet) {
+                hangServo.setPosition(hangUp);
+                return false;
+            }
+        }
+        public Action hangServoUp() {return new FullSendFramework.hangServo.hangServoUp();}
     }
     public class ClawServoRotate{
 
@@ -583,6 +602,7 @@ public  class FullSendFramework extends Auto_Util {
 
     MecanumDrive drive = null;
     ClawServo clawServo12 = null;
+    hangServo hangServo = null;
     ClawServoRotate clawServoRotate13 = null;
     Lift lift14 = null;
     LightStrip lightStrip = null;
@@ -598,6 +618,7 @@ public  class FullSendFramework extends Auto_Util {
         drive = new MecanumDrive(hardwareMap, beginPose);
         //Init Claw
         clawServo12 = new ClawServo(hardwareMap);
+        hangServo = new hangServo(hardwareMap);
         //Init Claw Lift
         clawServoRotate13 = new ClawServoRotate(hardwareMap);
         //Init Lift
@@ -616,6 +637,7 @@ public  class FullSendFramework extends Auto_Util {
         beginPose = new Pose2d(0, 0, 0);
         //Instantiate Mec Drive
         drive = new MecanumDrive(hardwareMap, beginPose);
+        hangServo = new hangServo(hardwareMap);
         //Init Claw
         clawServo12 = new ClawServo(hardwareMap);
         //Init Claw Lift

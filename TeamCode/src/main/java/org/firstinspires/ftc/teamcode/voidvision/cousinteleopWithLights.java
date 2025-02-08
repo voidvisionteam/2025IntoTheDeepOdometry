@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.voidvision;
 
 
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -16,7 +17,7 @@ public class cousinteleopWithLights extends LinearOpMode {
     cousinhwmapWithLights robot = new cousinhwmapWithLights();
     private ElapsedTime runtime = new ElapsedTime();
 
-
+    public RevBlinkinLedDriver blinkinLedDriver = null;
     static double turnPower;
     static double fwdBackPower;
     static double strafePower;
@@ -85,6 +86,7 @@ public class cousinteleopWithLights extends LinearOpMode {
 
 
         while (opModeIsActive()) {
+            blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.CP1_2_END_TO_END_BLEND);
             // ---- Drive Control ----
             fwdBackPower = direction * -gamepad1.left_stick_y * slowamount;
             strafePower = direction * -gamepad1.left_stick_x * slowamount;
@@ -248,6 +250,7 @@ public class cousinteleopWithLights extends LinearOpMode {
                     rout0 = 1;
                     orb = 0;
                     inside = 0;
+
                 } else if (rout0 == 1) {
                     robot.basketServo1.setPosition(0 + robot.FinalrangeBasket * robot.swingArmGrab);
                     robot.basketServo2.setPosition(robot.FinalrangeBasket - robot.FinalrangeBasket * robot.swingArmGrab);
@@ -311,6 +314,7 @@ public class cousinteleopWithLights extends LinearOpMode {
 
                 }
                 if (inside == 0) {
+                    blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.RAINBOW_LAVA_PALETTE);
                     robot.range1Servo.setPosition(0+ robot.Finalrange*0);
                     robot.range2Servo.setPosition(robot.Finalrange-robot.Finalrange*0);
                     moveServoToPosition(robot.subClawPitch, robot.subPitchHome, 1);

@@ -9,7 +9,7 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.MecanumDrive;
-@Autonomous(name = "Full Send",group = "Autonomous")
+@Autonomous(name = "3 spec STATE",group = "Autonomous")
 public class Full_Send extends FullSendFramework{
 
     @Override
@@ -49,6 +49,7 @@ public class Full_Send extends FullSendFramework{
                 .build();
         Action runToHighBar = new SequentialAction(
                 new ParallelAction(
+                        hangServo.hangServoUp(),
                         lift14.liftUpSpecialHeight(),
                         clawServoRotate13.rotateClawHome()
                 ),

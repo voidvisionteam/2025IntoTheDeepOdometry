@@ -9,7 +9,7 @@ import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.MecanumDrive;
-@Autonomous(name = "1 3 Spec COMP",group = "Autonomous")
+@Autonomous(name = "Spec qual 2 ",group = "Autonomous")
 public class Specimen_Base extends Auto_Framework{
 
     @Override
