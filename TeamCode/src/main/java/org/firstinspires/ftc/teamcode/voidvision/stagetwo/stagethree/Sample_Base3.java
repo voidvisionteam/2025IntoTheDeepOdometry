@@ -212,7 +212,7 @@ public class Sample_Base3 extends Auto_Framework2{
                 .build();
         Action postSample3a1 = drive.actionBuilde3(new Pose2d(5+1,40+2,(215/360d)*fullTurn))
                 //.strafeTo(new Vector2d (8,38))
-                .strafeTo(new Vector2d (8+7+3+2+1-1+1+1,34+9.4*(1)+1+.25 -1))
+                .strafeTo(new Vector2d (8+7+3+2+1-1+1+1,34+9.4*(1)+1))
                 .build();
         Action scoreSample4 = drive.actionBuilder(new Pose2d(8+7+3+2+1,34+9.4*(1)+1+.25,(215/360d)*fullTurn))
                 .strafeTo(new Vector2d (8,38))

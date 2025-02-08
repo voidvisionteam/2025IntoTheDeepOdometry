@@ -350,7 +350,7 @@ public  class Auto_Framework2 extends Auto_Util {
 
                 double pos = lift.getCurrentPosition();
                 packet.put("liftPos", pos);
-                if (pos > initialPosition) {
+                if (pos > initialPosition+10) {
                     return true;
                 } else {
                     lift.setPower(0);
@@ -497,7 +497,7 @@ public  class Auto_Framework2 extends Auto_Util {
 
         double subPitchGrab = .847;
         double subPitchHome = .32;
-        double subClawDrop=0.28;
+        double subClawDrop=0.25;
 
         public Intake2(HardwareMap hardwareMap){
             subClawServo = hardwareMap.get(Servo.class,"subclaw");
@@ -753,7 +753,7 @@ public  class Auto_Framework2 extends Auto_Util {
                         //drive.actionBuilder(pose2d).waitSeconds(.3).build(),
                         clock.NonBlockingWait(.3),
                         new ParallelAction(clawServoRotate13.rotateClawHome(),lift14.liftUpSpecialHeight()),
-                        clock.NonBlockingWait(.01),
+                        clock.NonBlockingWait(.1),
                         new ParallelAction(
                                 lift14.liftUp(),
                                 clawServoRotate13.rotateClawHighBasket()
