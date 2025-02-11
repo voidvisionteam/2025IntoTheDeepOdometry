@@ -167,7 +167,7 @@ public class cousinhwmapWithLights extends HardwareMapUtil {
         //armMotorTwo.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         blinkinLedDriver = hwMap.get(RevBlinkinLedDriver.class, "blinkin");
-        blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.CP1_2_END_TO_END_BLEND);
+        blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.GREEN);
     }
     public HardwareMap getHwmap(){return hwmap;}
 }

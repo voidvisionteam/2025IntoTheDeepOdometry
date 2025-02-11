@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.voidvision;
 
 
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -39,6 +40,7 @@ public class State_Code extends LinearOpMode {
     private boolean UpperRungRunning;
     private boolean LowerRungRunning;
     private boolean NoRungRunning;
+    public RevBlinkinLedDriver blinkinLedDriver = null;
 
 
 
@@ -172,8 +174,8 @@ public class State_Code extends LinearOpMode {
             }
 
 
-            robot.range1Servo.setPosition(0+ robot.Finalrange*(gamepad1.left_trigger*0.9));
-            robot.range2Servo.setPosition(robot.Finalrange-robot.Finalrange*(gamepad1.left_trigger*0.9));
+            robot.range1Servo.setPosition(0+ robot.Finalrange*(gamepad1.left_trigger*0.75));
+            robot.range2Servo.setPosition(robot.Finalrange-robot.Finalrange*(gamepad1.left_trigger*0.75));
 
 
             //------Organize the while statements------
@@ -236,7 +238,7 @@ public class State_Code extends LinearOpMode {
 
             }
             while(normal==1) {//normal
-                if((gamepad1.left_stick_x != 0)||(gamepad1.left_stick_y != 0)){
+                if((gamepad1.left_stick_x != 0)||(gamepad1.left_stick_y != 0)||(gamepad1.right_stick_x!=0)){
                     normal=0;
                     break;
                 }
@@ -311,6 +313,7 @@ public class State_Code extends LinearOpMode {
 
                 }
                 if (inside == 0) {
+                    //blinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.RAINBOW_LAVA_PALETTE);
                     robot.range1Servo.setPosition(0+ robot.Finalrange*0);
                     robot.range2Servo.setPosition(robot.Finalrange-robot.Finalrange*0);
                     moveServoToPosition(robot.subClawPitch, robot.subPitchHome, 1);

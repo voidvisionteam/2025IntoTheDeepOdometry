@@ -50,7 +50,7 @@ public  class FullSendFramework extends Auto_Util {
         private RevBlinkinLedDriver revBlinkinLedDriver=null;
         public LightStrip(HardwareMap hardwareMap ){
             revBlinkinLedDriver = hardwareMap.get(RevBlinkinLedDriver.class, "blinkin");
-            revBlinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.RED);
+            revBlinkinLedDriver.setPattern(RevBlinkinLedDriver.BlinkinPattern.GREEN);
         }
         public LightStrip(HardwareMap hardwareMap, RevBlinkinLedDriver.BlinkinPattern blinkinPattern ){
             revBlinkinLedDriver = hardwareMap.get(RevBlinkinLedDriver.class, "blinkin");
@@ -348,7 +348,7 @@ public  class FullSendFramework extends Auto_Util {
 
                 double pos = lift.getCurrentPosition();
                 packet.put("liftPos", pos);
-                if (pos > initialPosition) {
+                if (pos > initialPosition+2) {
                     return true;
                 } else {
                     lift.setPower(0);

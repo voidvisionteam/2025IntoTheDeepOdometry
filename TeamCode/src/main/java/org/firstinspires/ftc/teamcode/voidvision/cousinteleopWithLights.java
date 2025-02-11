@@ -174,8 +174,8 @@ public class cousinteleopWithLights extends LinearOpMode {
             }
 
 
-            robot.range1Servo.setPosition(0+ robot.Finalrange*(gamepad1.left_trigger*0.9));
-            robot.range2Servo.setPosition(robot.Finalrange-robot.Finalrange*(gamepad1.left_trigger*0.9));
+            robot.range1Servo.setPosition(0+ robot.Finalrange*(gamepad1.left_trigger*0.75));
+            robot.range2Servo.setPosition(robot.Finalrange-robot.Finalrange*(gamepad1.left_trigger*0.75));
 
 
             //------Organize the while statements------
